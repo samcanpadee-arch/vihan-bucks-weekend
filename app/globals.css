@@ -1002,6 +1002,10 @@ main.page-shell > .vote-section {
   margin: 0.2rem 0 0.6rem;
 }
 
+.essentials-card .section-label {
+  color: #f8efea;
+}
+
 .essentials-card ul {
   list-style: none;
   margin: 0;

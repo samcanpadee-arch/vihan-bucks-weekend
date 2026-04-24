@@ -62,7 +62,7 @@ export const votingSections = [
     key: 'saturdayMorning',
     day: 'Saturday',
     title: 'Saturday morning',
-    subtitle: "The main event. Vote carefully. You'll be there.",
+    subtitle: 'Probably the most physically demanding part of the weekend. Capitalise on being sober.',
     icon: 'wb_sunny',
     options: [
       {
@@ -416,7 +416,6 @@ export const essentialsChecklist = [
   'Warm layers -- Yarra Valley in June is not a vibe without them',
   'Phone charger and a portable one because you will forget',
   'Electrolytes. Trust.',
-  'Cash for the places that somehow still need it',
   'Something to contribute to the house -- snacks, drinks, whatever',
   'Low expectations for sleep, high expectations for everything else'
 ];

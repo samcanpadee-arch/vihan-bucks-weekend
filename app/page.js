@@ -122,7 +122,7 @@ export default function HomePage() {
             <p className="section-label">The planning website nobody asked for</p>
             <h2>Vihan&apos;s Yarra Valley Bucks Weekend</h2>
             <p>26–28 June 2026 · Yarra Glen · A very serious planning website for a deeply unserious weekend.</p>
-            <p>Vote on the rough plan. Once things are locked in, this becomes the trip hub -- itinerary, accommodation details, booking links, the works. Like a Wanderlog but built in a procrastination spiral.</p>
+            <p>Vote on the rough plan. Once things are confirmed, this becomes the one link for the whole weekend.</p>
             <p className="micro-copy">If you&apos;re reading this, Sam finished building it instead of touching grass. Respect the dedication.</p>
             <div className="hero-gallery">
               <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAOtbpPNDunp6x3CIsV00p0feXtMwD09UY3-DPx81Qdpj82fAx09o0q94XyDzk053sFMsJkAsY-C2hCuO8YZzwLz9fuFe1fWUta0a8d7TtLDcboKEcQwKX0GHvbB2IpONF1BIsB1RjSNYzLDaCUwq4ceyA4qb1WDAE7lkS-BG-oi_J1fhLI_ifpTFaNoBqEAaGqHIyLYSG20sm3b9j_BxKxj7vUDMc1XPUg5SKyUy0PJRfjP3Qjvk5GM2vacto0zez_k3FcCfEDf0" alt="Yarra valley estate" />

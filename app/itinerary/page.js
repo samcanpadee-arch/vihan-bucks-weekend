@@ -234,7 +234,7 @@ export default function ItineraryPage() {
       <TopNav activeHref="/itinerary" />
 
       <section className="hero-block muted-bg">
-        <p className="section-label">This is not final yet</p>
+        <p className="section-label">Work in progress</p>
         <h2>The weekend, in one place.</h2>
         <p>
           Once the votes are counted and things are confirmed, this is the link. Bookmark it now so you&apos;re not the one
@@ -245,7 +245,7 @@ export default function ItineraryPage() {
       <section className="itinerary-top-grid">
         <AccommodationCard accommodation={accommodation} />
         <aside className="essentials-card">
-          <p className="section-label">What to pack</p>
+          <p className="section-label">The packing list</p>
           <h3>Bring this stuff</h3>
           <ul>
             {essentialsChecklist.map((item) => (
@@ -255,7 +255,7 @@ export default function ItineraryPage() {
               </li>
             ))}
           </ul>
-          <p className="fine-print">If you forget electrolytes you&apos;ll be buying them at a petrol station for $8. Just pack them.</p>
+          <p className="fine-print">Future you will be grateful. Past you is already forgetting something.</p>
         </aside>
       </section>
 
@@ -360,7 +360,6 @@ export default function ItineraryPage() {
           ) : (
             <p>Add anyone who needs to be included in expenses, even if they didn&apos;t vote.</p>
           )}
-          <p className="group-members-caption">Tap a name to remove them.</p>
         </div>
 
         <hr className="expense-divider" />
