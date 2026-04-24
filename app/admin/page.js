@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { votingSections } from '../siteData';
 
 const categoryKeys = votingSections.map((section) => section.key);
 
-export default function AdminPage() {
+function AdminPageContent() {
   const searchParams = useSearchParams();
   const providedSecret = searchParams.get('secret');
   const expectedSecret = process.env.NEXT_PUBLIC_ADMIN_SECRET;
@@ -162,5 +162,13 @@ export default function AdminPage() {
         </button>
       </section>
     </main>
+  );
+}
+
+export default function AdminPage() {
+  return (
+    <Suspense fallback={<p>Not found.</p>}>
+      <AdminPageContent />
+    </Suspense>
   );
 }
