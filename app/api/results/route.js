@@ -13,14 +13,14 @@ const tallyCategories = [
 export async function GET() {
   try {
     const redis = await getRedis();
-    const voterKeys = await redis.sMembers('voters');
+    const keys = await redis.keys('vote:*');
 
-    if (!voterKeys?.length) {
+    if (!keys?.length) {
       return NextResponse.json({ voterCount: 0, voterNames: [], tally: {} });
     }
 
     const rawVotes = await Promise.all(
-      voterKeys.map(async (key) => {
+      keys.map(async (key) => {
         const raw = await redis.get(key);
         return raw ? JSON.parse(raw) : null;
       })

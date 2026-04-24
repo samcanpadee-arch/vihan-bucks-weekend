@@ -11,6 +11,8 @@ import Footer from '../components/Footer';
 export default function ItineraryPage() {
   const [results, setResults] = useState(null);
   const [expenses, setExpenses] = useState([]);
+  const [customNames, setCustomNames] = useState([]);
+  const [groupNameInput, setGroupNameInput] = useState('');
   const [expensesLoading, setExpensesLoading] = useState(true);
   const [expenseError, setExpenseError] = useState('');
   const [splitMode, setSplitMode] = useState('everyone');
@@ -24,10 +26,11 @@ export default function ItineraryPage() {
   });
 
   const participantNames = Array.from(
-    new Set([
-      ...(results?.voterNames || []),
-      ...expenses.flatMap((expense) => [expense.paidBy, ...(expense.splitAmong || [])].filter(Boolean))
-    ])
+    new Map(
+      [...(results?.voterNames || []), ...customNames, ...expenses.flatMap((expense) => [expense.paidBy, ...(expense.splitAmong || [])])]
+        .filter(Boolean)
+        .map((name) => [name.trim().toLowerCase(), name.trim()])
+    ).values()
   );
 
   const settlement = (() => {
@@ -73,6 +76,23 @@ export default function ItineraryPage() {
 
     return rows;
   })();
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('expense-names');
+      const parsed = saved ? JSON.parse(saved) : [];
+      if (Array.isArray(parsed)) {
+        const normalized = parsed
+          .filter((name) => typeof name === 'string')
+          .map((name) => name.trim())
+          .filter(Boolean);
+        setCustomNames(normalized);
+      }
+    } catch (error) {
+      console.error('Could not parse saved expense names:', error);
+      setCustomNames([]);
+    }
+  }, []);
 
   useEffect(() => {
     const loadResults = async () => {
@@ -134,11 +154,31 @@ export default function ItineraryPage() {
     }));
   };
 
+  const addCustomName = () => {
+    const trimmed = groupNameInput.trim();
+    if (!trimmed) return;
+
+    const next = Array.from(new Map([...customNames, trimmed].map((name) => [name.trim().toLowerCase(), name.trim()])).values());
+    setCustomNames(next);
+    localStorage.setItem('expense-names', JSON.stringify(next));
+    setGroupNameInput('');
+  };
+
+  const removeCustomName = (nameToRemove) => {
+    const next = customNames.filter((name) => name.trim().toLowerCase() !== nameToRemove.trim().toLowerCase());
+    setCustomNames(next);
+    localStorage.setItem('expense-names', JSON.stringify(next));
+  };
+
   const submitExpense = async (event) => {
     event.preventDefault();
     setExpenseError('');
 
     const splitAmong = splitMode === 'everyone' ? participantNames : expenseForm.splitAmong;
+    if (splitMode === 'everyone' && participantNames.length === 0) {
+      setExpenseError('Add at least one person to the group before splitting.');
+      return;
+    }
 
     try {
       const response = await fetch('/api/expenses', {
@@ -254,6 +294,37 @@ export default function ItineraryPage() {
           icon="receipt_long"
           subtitle="Track who paid and who owes what."
         />
+
+        <div className="split-members">
+          <p className="section-label">Manage group</p>
+          <div className="split-toggle">
+            <input
+              value={groupNameInput}
+              onChange={(event) => setGroupNameInput(event.target.value)}
+              placeholder="Add a name"
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  event.preventDefault();
+                  addCustomName();
+                }
+              }}
+            />
+            <button type="button" className="pill selected" onClick={addCustomName}>
+              Add
+            </button>
+          </div>
+          {customNames.length ? (
+            <div className="split-chip-grid">
+              {customNames.map((name) => (
+                <button type="button" key={name} className="pill" onClick={() => removeCustomName(name)} title="Remove from group">
+                  {name}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <p>Add names here if people won't vote but should be included in expenses.</p>
+          )}
+        </div>
 
         <form className="expense-form" onSubmit={submitExpense}>
           <div className="expense-grid">
