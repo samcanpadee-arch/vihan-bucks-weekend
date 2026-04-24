@@ -263,7 +263,7 @@ export default function ItineraryPage() {
         <SectionHeader title="Voting standings" label="Live" icon="leaderboard" subtitle="Quick snapshot of what's leading right now" />
         {results?.voterCount ? (
           <div className="standings-mini-grid">
-            {votingSections.slice(0, 3).map((section) => {
+            {votingSections.map((section) => {
               const entries = Object.entries(results.tally?.[section.key] || {});
               const [winner, count] = entries.sort((a, b) => b[1] - a[1])[0] || [];
               const winnerLabel = section.options.find((option) => option.id === winner)?.title || winner;
@@ -281,6 +281,19 @@ export default function ItineraryPage() {
           <p>No votes yet. Standings will show once submissions start rolling in.</p>
         )}
       </section>
+
+      {results?.groupNotes?.length ? (
+        <section className="vote-section standings-card">
+          <SectionHeader title="From the group" label="Notes" icon="forum" subtitle="Things people wanted everyone to know." />
+          <div className="group-notes-list">
+            {results.groupNotes.map((item, index) => (
+              <article key={`${item.name}-${index}`} className="group-note-item">
+                <strong>{item.name}:</strong> <span>{item.note}</span>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="vote-section">
         <SectionHeader title="Weekend timeline" label="Timeline" icon="schedule" />

@@ -18,8 +18,7 @@ const initialForm = {
   saturdayLunch: '',
   saturdayDrinks: '',
   saturdayNight: '',
-  sundayRecovery: '',
-  finalComments: ''
+  sundayRecovery: ''
 };
 
 export default function HomePage() {
@@ -161,33 +160,6 @@ export default function HomePage() {
 
           <AccommodationCard accommodation={accommodation} />
 
-          {status === 'success' ? (
-            <section className="success-card">
-              <h3>You&apos;re in, {form.name}.</h3>
-              <p>
-                Your votes have been recorded. Changed your mind on something? You can update anytime before the plan
-                gets locked in.
-              </p>
-              <button
-                type="button"
-                className="revote-link"
-                onClick={() => {
-                  setIsEditing(true);
-                  setStatus('idle');
-                  setSubmitAttempted(false);
-                }}
-              >
-                Edit your votes
-              </button>
-            </section>
-          ) : null}
-
-          {status === 'success' ? (
-            <section className="mobile-results-wrap">
-              <ResultsCard data={resultsData} loading={resultsLoading} optionLookup={optionLookup} />
-            </section>
-          ) : null}
-
           <form id="vote" onSubmit={handleSubmit} className="vote-form">
             <section className="name-section" id="section-name">
               <SectionHeader
@@ -205,13 +177,14 @@ export default function HomePage() {
                   />
                 </label>
                 <label>
-                  Anything we should actually know?
+                  Anything to share with the group?
                   <input
                     value={form.hardConstraints}
                     onChange={(e) => setForm((prev) => ({ ...prev, hardConstraints: e.target.value }))}
-                    placeholder="No mushrooms, terrified of heights, etc."
+                    placeholder="Activity suggestions, things to flag, whatever."
                     disabled={disableInputs}
                   />
+                  <small className="field-note">This will be visible to everyone on the itinerary page.</small>
                 </label>
               </div>
             </section>
@@ -248,30 +221,36 @@ export default function HomePage() {
               </div>
             ))}
 
-            <section className="vote-section" id="section-finalComments">
-              <SectionHeader title="Anything else?" label="✍️" subtitle="Last words before we lock this in." />
-              <textarea
-                rows={3}
-                value={form.finalComments}
-                onChange={(e) => setForm((prev) => ({ ...prev, finalComments: e.target.value }))}
-                placeholder="Strong opinions, bad ideas, dietary stuff, whatever."
-                disabled={disableInputs}
-              />
-            </section>
-
             {error ? <p className="error-message">{error}</p> : null}
 
             <button type="submit" className="submit-btn" disabled={status === 'loading' || disableInputs}>
-              {status === 'loading' ? 'Submitting...' : isEditing ? 'Update votes' : 'Submit votes'}
-              {status !== 'loading' ? <span className="material-symbols-outlined">arrow_forward</span> : null}
+              {status === 'loading' ? 'Submitting...' : status === 'success' ? 'Votes submitted' : isEditing ? 'Update votes' : 'Submit votes'}
+              {status === 'success' ? <span className="material-symbols-outlined">check_circle</span> : null}
+              {status === 'idle' || isEditing ? <span className="material-symbols-outlined">arrow_forward</span> : null}
             </button>
+
+            {status === 'success' ? (
+              <section className="success-card inline-success">
+                <p>You&apos;re in. Votes saved.</p>
+                <small>Changed your mind? Edit your votes above.</small>
+                <button
+                  type="button"
+                  className="revote-link"
+                  onClick={() => {
+                    setIsEditing(true);
+                    setStatus('idle');
+                    setSubmitAttempted(false);
+                  }}
+                >
+                  Edit
+                </button>
+              </section>
+            ) : null}
           </form>
 
-          {status !== 'success' ? (
-            <section className="mobile-results-wrap">
-              <ResultsCard data={resultsData} loading={resultsLoading} optionLookup={optionLookup} />
-            </section>
-          ) : null}
+          <section className="mobile-results-wrap">
+            <ResultsCard data={resultsData} loading={resultsLoading} optionLookup={optionLookup} />
+          </section>
         </div>
 
         <div className="sticky-col">

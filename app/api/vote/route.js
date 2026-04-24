@@ -29,7 +29,6 @@ export async function POST(request) {
       saturdayDrinks: body.saturdayDrinks,
       saturdayNight: body.saturdayNight,
       sundayRecovery: body.sundayRecovery,
-      finalComments: body.finalComments || '',
       submittedAt: new Date().toISOString()
     };
 

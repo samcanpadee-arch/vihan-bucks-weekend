@@ -16,7 +16,7 @@ export async function GET() {
     const keys = await redis.keys('vote:*');
 
     if (!keys?.length) {
-      return NextResponse.json({ voterCount: 0, voterNames: [], tally: {} });
+      return NextResponse.json({ voterCount: 0, voterNames: [], tally: {}, groupNotes: [] });
     }
 
     const rawVotes = await Promise.all(
@@ -28,6 +28,12 @@ export async function GET() {
     const votes = rawVotes.filter(Boolean);
 
     const tally = {};
+    const groupNotes = votes
+      .map((vote) => ({
+        name: vote?.name?.trim(),
+        note: vote?.hardConstraints?.trim()
+      }))
+      .filter((item) => item.name && item.note);
 
     for (const category of tallyCategories) {
       tally[category] = {};
@@ -42,7 +48,8 @@ export async function GET() {
     return NextResponse.json({
       voterCount: votes.length,
       voterNames: votes.map((vote) => vote.name).filter(Boolean),
-      tally
+      tally,
+      groupNotes
     });
   } catch (error) {
     console.error('Results fetch error:', error);
