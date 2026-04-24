@@ -230,7 +230,7 @@ export default function ItineraryPage() {
   };
 
   return (
-    <main className="page-shell itinerary-shell">
+    <main className="page-shell">
       <TopNav activeHref="/itinerary" />
 
       <section className="hero-block muted-bg">

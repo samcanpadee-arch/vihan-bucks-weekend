@@ -47,7 +47,7 @@ p {
 }
 
 .page-shell {
-  max-width: 1200px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 1.25rem 1.25rem 4rem;
 }
@@ -391,10 +391,6 @@ th {
   font-family: var(--font-serif), 'Noto Serif', serif;
 }
 
-.itinerary-shell {
-  max-width: 980px;
-}
-
 .muted-bg {
   background: var(--surface-soft);
 }
@@ -511,7 +507,7 @@ th {
 }
 
 .top-app-inner {
-  max-width: 1200px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 1rem 0;
   display: flex;
@@ -962,6 +958,12 @@ textarea:focus {
   color: #25643b;
 }
 
+main.page-shell > .hero-block,
+main.page-shell > .vote-section {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
 
 .itinerary-top-grid {
   display: grid;
@@ -1100,6 +1102,12 @@ textarea:focus {
 
   .field-hint {
     grid-column: auto;
+  }
+
+  main.page-shell > .hero-block,
+  main.page-shell > .vote-section {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 
