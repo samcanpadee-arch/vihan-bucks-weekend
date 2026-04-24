@@ -1,10 +1,11 @@
 export const accommodation = {
-  label: 'Base Camp',
+  label: 'Base camp',
   status: 'Booked',
   name: 'Yarra Glen Airbnb Estate',
   dates: 'June 26 – June 28, 2026',
-  address: 'TBC — sent via Signal',
-  note: "Check-in at 3:00 PM. Don't be the guy who shows up early and expects a tour.",
+  address: 'TBC once shared',
+  note: 'Address and check-in details will be added once confirmed, so nobody has to scroll through old messages like an archaeologist.',
+  description: 'Accommodation is already booked. This is where everyone eventually needs to end up.',
   linkLabel: 'Airbnb link',
   link: 'https://www.airbnb.com.au/rooms/1561866387856977252?source_impression_id=p3_1776992856_P3BRBi61hmW3JbmH',
   image:
@@ -17,23 +18,38 @@ export const votingSections = [
     key: 'fridayNight',
     title: 'Friday night',
     subtitle: 'The Arrival',
-    icon: '🍷',
+    icon: 'nightlife',
     options: [
       {
         id: 'friday-pizza-oven',
-        title: 'Woodfire Pizza Oven Night',
-        description: 'Artisanal bases, questionable toppings, and a high risk of someone burning fingerprints off.',
-        meta: ['7:00 PM', 'Low'],
+        title: 'Pizza oven night',
+        description:
+          'Sam brings the pizza oven, we make pizzas, everyone helps, and nobody gets to stand around doing fake supervision with a beer.',
+        meta: ['Friday evening', 'Flexible', 'Shared grocery cost'],
         vibe: 'High stakes',
         image:
           'https://lh3.googleusercontent.com/aida-public/AB6AXuCrH-m34CP_D9VNZKMhnBwjPcte38Qjx4EBE6jckRKWxfxuT6eMdNcgVz_YZV6Ifh2cbqkckhF2nVRmDf1Va0IUjjJs1C4_aYgb79KalscZHwnJG-l53cdeZPyPEtnM7V3B1xF27YtjRJAq8CrLqq3OAaaJrlyvclweDvIbMEYd-Mb1Zrv9LHdmSwNt6vIxX1DNhH6Ow3hcFPXER92f4AAq3kfeUuq82SRCs8E3N0YAVBHZdv7ZGbWTwaNsarDU9gdn2IpA9cfXJgw'
       },
       {
         id: 'friday-bbq',
-        title: 'Standard BBQ Blowout',
-        description: "Sausages, steaks, and Vihan complaining about how they're cooked. Reliable, classic, safe.",
-        meta: ['7:30 PM', 'Low'],
+        title: 'BBQ / burgers',
+        description: 'Sausages, steaks, reliable. Nobody has to learn anything new.',
+        meta: ['Friday evening', 'Shared grocery cost'],
         vibe: 'Safe bet'
+      },
+      {
+        id: 'friday-grazing',
+        title: 'Grazing table and snacks',
+        description: 'Low effort, high reward. Cheese, dips, cured meats, and zero cooking required.',
+        meta: ['Friday evening', 'Shared grocery cost'],
+        vibe: 'Minimal effort'
+      },
+      {
+        id: 'friday-takeaway',
+        title: 'Takeaway / frozen backup',
+        description: 'For when ambition dies on the drive up. No shame, just convenience.',
+        meta: ['Friday evening', 'Pay individually'],
+        vibe: 'Recovery mode'
       }
     ]
   },
@@ -41,30 +57,73 @@ export const votingSections = [
     key: 'saturdayMorning',
     title: 'Saturday morning',
     subtitle: 'Controlled Chaos',
-    icon: '☀️',
+    icon: 'wb_sunny',
     options: [
       {
-        id: 'sat-morning-clay',
-        title: 'Clay Shooting',
-        description: "Guns, countryside, and Vihan's slack of hand-eye coordination.",
-        meta: ['Est. $90 pp'],
-        vibe: 'Sophisticated sipping pre-game',
+        id: 'sat-morning-clay-public',
+        title: 'Clay shooting (public session)',
+        description:
+          'Melbourne Gun Club, Yering. Zero alcohol beforehand. Photo ID required. Closed shoes. No camo or singlets. Fun option, cursed start time.',
+        meta: ['Arrive 8:45am', '1-1.5 hrs', 'Approx. $80.50 pp'],
+        vibe: 'Early but worth it',
+        link: 'https://www.melbournegunclub.com/come-and-try/',
         image:
           'https://lh3.googleusercontent.com/aida-public/AB6AXuBN1zmxIa2-q4tW-XEuA-xtRA-31WJ_OdR00pgLEyQlNMD82gdI80E01MvXiq-Uhl3N2Zb7T6JiTxFrn9HxeFO6wdTO3xJFUeWmqcfD4W9CiflxixaRNu7c-KUe_Bgnmf5t6XQZMw6mHlRhVWjeanMk-Ji1CJHbgy_vt4-cTt798X495_60OVclDXqjxu1mOKkCvd7xAJP-zSVHwCo8MU0V8Q7efpFOUVsVOvqTd77hGqMbW4PiPJlSjKbjVz_JAq7cMHHfif4jvfQ'
+      },
+      {
+        id: 'sat-morning-clay-private',
+        title: 'Clay shooting (private session)',
+        description: 'Same venue, but booked just for us. Time is flexible, price is higher, ego damage is the same.',
+        meta: ['Time by enquiry', 'Approx. $165 pp'],
+        vibe: 'Premium chaos',
+        link: 'https://www.melbournegunclub.com/corporate-and-social-events-copy/'
       },
       {
         id: 'sat-morning-paintball',
         title: 'Paintball',
         description: 'Bruises and brotherhood. Mostly just bruises though.',
-        meta: ['Est. $60 pp'],
-        vibe: 'Likely to result in a fine'
+        meta: ['9:00am or 1:00pm', 'Approx. $55-$155 pp'],
+        vibe: 'Likely to result in a fine',
+        link: 'https://paintballgames.com.au/play-now/'
       },
       {
-        id: 'sat-morning-sleep',
-        title: 'Sleep & Chill',
-        description: 'For the weak. We leave you at the house with a packet of crisps.',
-        meta: ['Free (emotional cost only)'],
+        id: 'sat-morning-minigolf',
+        title: 'Mini golf / driving range',
+        description: 'Low intensity, high trash talk potential. Good for easing into the day.',
+        meta: ['Open 9am-10pm', 'Approx. $19-$29 mini golf', '$14-$19 range'],
+        vibe: 'Casual kings',
+        link: 'https://www.maroondahgolfpark.com.au/'
+      },
+      {
+        id: 'sat-morning-chill',
+        title: 'Chill morning at Airbnb',
+        description: 'Sleep in, coffee, do nothing productive. Protect the energy for later.',
+        meta: ['Flexible', 'Free-ish'],
         vibe: 'Recovery mode'
+      },
+      {
+        id: 'sat-morning-walk',
+        title: 'Short walk / nature reset',
+        description: '20 to 60 minutes of pretending to be outdoorsy before the drinking starts.',
+        meta: ['20-60 mins', 'Free'],
+        vibe: 'Wholesome detour',
+        link: 'https://www.visityarravalley.com.au/blog/walks-you-can-do-in-an-hour-in-the-yarra-valley'
+      },
+      {
+        id: 'sat-morning-donna-buang',
+        title: 'Mt Donna Buang / Rainforest Gallery',
+        description: 'Elevated walkway through ancient rainforest. Looks incredible in winter. Free and genuinely cool.',
+        meta: ['Flexible', 'Free'],
+        vibe: 'Nature break',
+        link: 'https://www.parks.vic.gov.au/places-to-see/parks/yarra-ranges-national-park'
+      },
+      {
+        id: 'sat-morning-archery',
+        title: 'Archery',
+        description: 'Channel your inner medieval energy. Group sessions available by enquiry.',
+        meta: ['Time by enquiry', 'From approx. $45 pp'],
+        vibe: 'Wildcard',
+        link: 'https://yvap.com.au/corporate/'
       }
     ]
   },
@@ -72,14 +131,15 @@ export const votingSections = [
     key: 'saturdayLunch',
     title: 'Saturday lunch / winery',
     subtitle: 'Long Lunch',
-    icon: '🍽️',
+    icon: 'restaurant',
     options: [
       {
         id: 'sat-lunch-yering',
         title: 'Yering Station',
         description: 'Big vineyard energy, polished long lunch, great Pinot options.',
-        meta: ['1:00 PM', '$35 pp tasting'],
+        meta: ['Approx. $15-$35 pp tastings'],
         vibe: 'Sophisticated sipping',
+        link: 'https://www.yering.com/visit-us/cellar-door/',
         image:
           'https://lh3.googleusercontent.com/aida-public/AB6AXuD6zVl9_IxBAVuPnEMbSeodLMBs-bnqy7DivYP9ssvdSwb944tFWxmbpbi27oe6NQDWtK2-3opyA5SjLETQ1KGXV0VVRkAFbBPh12OakncL62B_n51D1HsiJdY9f7bTdSlX4NpzeBmfjl4BqLxU2sDiKbyQGrjuX85xzr0F4rJJ9y3JdUhREMxR5TA1mYoYvnmfQ7Jo2GvC6bWSgr4Zye84JT6sSc2tOv5eCrdBgoOReoULEnZBQMVIweDjT_5OTPOcaCorxvLQYBw'
       },
@@ -87,15 +147,49 @@ export const votingSections = [
         id: 'sat-lunch-rochford',
         title: 'Rochford Wines',
         description: 'Set menu approach and fewer choices for chaos management.',
-        meta: ['12:30 PM', '$95 pp dinner menu'],
-        vibe: 'Premium lock-in'
+        meta: ['Approx. $15-$25 pp tastings'],
+        vibe: 'Premium lock-in',
+        link: 'https://rochfordwines.com.au/yarra-valley-cellar-door'
       },
       {
-        id: 'sat-lunch-pub',
+        id: 'sat-lunch-chandon',
+        title: 'Chandon',
+        description: 'Bubbles and views. Pure sophistication before the night descends into chaos.',
+        meta: ['Approx. $22 pp tasting'],
+        vibe: 'Bubbly energy',
+        link: 'https://www.chandon.com.au/Experiences'
+      },
+      {
+        id: 'sat-lunch-oakridge',
+        title: 'Oakridge Wines',
+        description: 'Award-winning food, serious cellar door. Good for a group that can behave for 90 minutes.',
+        meta: ['Enquire for group pricing'],
+        vibe: 'Refined choice',
+        link: 'https://oakridgewines.com.au/cellar-door/'
+      },
+      {
+        id: 'sat-lunch-debortoli',
+        title: 'De Bortoli Locale',
+        description: 'Restaurant with cheese room. The cheese room alone justifies the trip.',
+        meta: ['Restaurant pricing / group enquiry'],
+        vibe: 'Cheese believers',
+        link: 'https://www.debortoli.com.au/visit-us/restaurants/locale-restaurant-yarra-valley'
+      },
+      {
+        id: 'sat-lunch-hubert',
+        title: 'Hubert Estate / Quarters',
+        description: 'Modern and sleek. Good food, good wine, slightly more grown-up energy.',
+        meta: ['Restaurant pricing / group enquiry'],
+        vibe: 'Grown-up energy',
+        link: 'https://hubertestate.com.au/quarters-dining/'
+      },
+      {
+        id: 'sat-lunch-grand-hotel',
         title: 'Yarra Valley Grand Hotel',
-        description: 'Pub classics, less ceremony, easier for all tastes.',
-        meta: ['1:00 PM', 'Pay your own'],
-        vibe: 'Casual kings'
+        description: 'Pub classics, less ceremony, easier for all tastes. Pay individually.',
+        meta: ['Pay individually'],
+        vibe: 'Casual kings',
+        link: 'https://yarravalleygrand.com.au/'
       }
     ]
   },
@@ -103,14 +197,15 @@ export const votingSections = [
     key: 'saturdayDrinks',
     title: 'Saturday afternoon drinks',
     subtitle: 'Gin & Juice',
-    icon: '🍸',
+    icon: 'liquor',
     options: [
       {
         id: 'sat-drinks-four-pillars',
-        title: 'Four Pillars Distillery',
-        description: 'The legendary Bloody Shiraz gin awaits. We have a booking for 2:30 PM.',
-        meta: ['2:30 PM', '$35 pp'],
+        title: 'Four Pillars Gin',
+        description: 'The legendary Bloody Shiraz gin awaits. Approx 55 min session, hourly from 12pm weekends.',
+        meta: ['Approx. 55 mins', 'Approx. $50 pp'],
         vibe: 'Deep vibes only',
+        link: 'https://fourpillarsgin.com/pages/visit-our-distillery',
         image:
           'https://lh3.googleusercontent.com/aida-public/AB6AXuDLLpHdOLMWrQqUL_l-lL6jzKxBmolYD14UoCVc9phlOzNgSuUpjAa2meMacN46VZoS6rW2QCt-yRl31bh_EVoL8DyZ2rtQRn2OQcZyNa-Xp6t_KLroVSa_CpdQZ6CK0MruG-6O1ZiYjxwK_WsmyIe-KQ_oLmUy0GYrXMclewnNTNqPpNbrx57N86oZandc_pTvV5TfP-CeLHA_rdVvSFqm-qsJrxUqI-AnCDyj72DNdZq63FY_LBPozjFmfRr2qQ8ttLCnUB56OZQ'
       },
@@ -119,7 +214,30 @@ export const votingSections = [
         title: 'Watts River Brewing',
         description: 'Craft beers, outdoor tables, very acceptable afternoon pivot.',
         meta: ['Flexible', 'Pay as you go'],
-        vibe: 'Casual kings'
+        vibe: 'Casual kings',
+        link: 'https://wattsriverbrewing.com.au/'
+      },
+      {
+        id: 'sat-drinks-st-ronans',
+        title: "St Ronan's Cider",
+        description: 'Cider and perries for the beer-averse. Relaxed vibe, easy afternoon stop.',
+        meta: ['Flexible', 'Pay as you go'],
+        vibe: 'Chill option',
+        link: 'https://www.visitvictoria.com/regions/yarra-valley-and-dandenong-ranges/eat-and-drink/breweries-and-distilleries/cideries/st-ronans-cider'
+      },
+      {
+        id: 'sat-drinks-more-wineries',
+        title: 'More winery tastings',
+        description: 'Keep the wine train rolling. Hit another cellar door or two before dinner.',
+        meta: ['Flexible', 'Varies'],
+        vibe: 'Committed to the cause'
+      },
+      {
+        id: 'sat-drinks-airbnb',
+        title: 'Back to Airbnb earlier',
+        description: 'Regroup at base camp. Saves money, saves energy, saves face.',
+        meta: ['Flexible', 'Free'],
+        vibe: 'Recovery mode'
       }
     ]
   },
@@ -127,23 +245,47 @@ export const votingSections = [
     key: 'saturdayNight',
     title: 'Saturday night',
     subtitle: 'Main Character Dinner',
-    icon: '🌙',
+    icon: 'local_bar',
     options: [
       {
-        id: 'sat-night-rochford',
-        title: 'Dinner at Rochford',
-        description: 'Set menu, polished room, and an easy group booking.',
-        meta: ['7:30 PM', '$95 pp'],
-        vibe: 'Premium plan',
-        image:
-          'https://lh3.googleusercontent.com/aida-public/AB6AXuDELENszvK8vbg4vXPD_ei24zwcphcQXXc7skWuGTbxPRULixL9cyf3EFQIEQlUGeo5vEd_XlVbUNa6kvKTW9gVRi_xKV2cvt2MHxhqiotv8FHj_ekbFwG9GXfhTdGdO8dIiOxB3c19jbixMZSSCbF4mmXUtBvwCSAQLtxd1OnJKmAjeL6kuBXCyUzlCSoc8JNjGQB2qS6KeeIH3Z6x54w6mO9nqN001OB1GapQe82Cwuhq8hvAPqEW_lmpK6-Mre-ku3J6CvlYT-w'
+        id: 'sat-night-bbq',
+        title: 'BBQ dinner',
+        description: 'Back at base camp. Fire up the barbie, keep it simple, keep it loud.',
+        meta: ['Evening', 'Shared grocery cost'],
+        vibe: 'Classic'
       },
       {
-        id: 'sat-night-house',
-        title: 'House Dinner Round Two',
-        description: 'Back at base camp. More chaotic but cheaper and looser.',
-        meta: ['8:00 PM', '$45 pp'],
-        vibe: 'Mandatory fun'
+        id: 'sat-night-pizza',
+        title: 'Pizza oven round two',
+        description:
+          'Pizza oven round two only works if people help. This is a group weekend, not a one-man restaurant.',
+        meta: ['Evening', 'Shared grocery cost'],
+        vibe: 'High stakes (again)',
+        image:
+          'https://lh3.googleusercontent.com/aida-public/AB6AXuCrH-m34CP_D9VNZKMhnBwjPcte38Qjx4EBE6jckRKWxfxuT6eMdNcgVz_YZV6Ifh2cbqkckhF2nVRmDf1Va0IUjjJs1C4_aYgb79KalscZHwnJG-l53cdeZPyPEtnM7V3B1xF27YtjRJAq8CrLqq3OAaaJrlyvclweDvIbMEYd-Mb1Zrv9LHdmSwNt6vIxX1DNhH6Ow3hcFPXER92f4AAq3kfeUuq82SRCs8E3N0YAVBHZdv7ZGbWTwaNsarDU9gdn2IpA9cfXJgw'
+      },
+      {
+        id: 'sat-night-catered',
+        title: 'Catered / private chef',
+        description: 'Someone else cooks, we just eat. Premium option but zero effort required.',
+        meta: ['Evening', 'Enquire for pricing'],
+        vibe: 'Premium plan'
+      },
+      {
+        id: 'sat-night-takeaway',
+        title: 'Big takeaway order',
+        description: 'Order everything. Eat on the couch. No judgement zone.',
+        meta: ['Evening', 'Pay individually'],
+        vibe: 'Zero effort'
+      },
+      {
+        id: 'sat-night-pub',
+        title: 'Pub / restaurant dinner',
+        description: 'Head out to a venue. More structured, easier for fussy eaters.',
+        meta: ['Evening', 'Pay individually'],
+        vibe: 'Night out',
+        image:
+          'https://lh3.googleusercontent.com/aida-public/AB6AXuDELENszvK8vbg4vXPD_ei24zwcphcQXXc7skWuGTbxPRULixL9cyf3EFQIEQlUGeo5vEd_XlVbUNa6kvKTW9gVRi_xKV2cvt2MHxhqiotv8FHj_ekbFwG9GXfhTdGdO8dIiOxB3c19jbixMZSSCbF4mmXUtBvwCSAQLtxd1OnJKmAjeL6kuBXCyUzlCSoc8JNjGQB2qS6KeeIH3Z6x54w6mO9nqN001OB1GapQe82Cwuhq8hvAPqEW_lmpK6-Mre-ku3J6CvlYT-w'
       }
     ]
   },
@@ -151,28 +293,52 @@ export const votingSections = [
     key: 'sundayRecovery',
     title: 'Sunday recovery',
     subtitle: 'Soft Landing',
-    icon: '🥐',
+    icon: 'coffee',
     options: [
       {
-        id: 'sun-recovery-brunch',
-        title: 'Recovery Brunch',
-        description: 'Coffee, carbs and no loud decisions before noon.',
-        meta: ['11:00 AM', '$30 pp'],
-        vibe: 'Recovery mode',
+        id: 'sun-chocolaterie',
+        title: 'Yarra Valley Chocolaterie',
+        description: 'Free entry, optional tasting for $4. Sugar fixes everything.',
+        meta: ['Usually 9am-5pm', 'Free entry', 'Optional $4 tasting'],
+        vibe: 'Sugar hit',
+        link: 'https://www.yvci.com.au/'
+      },
+      {
+        id: 'sun-sanctuary',
+        title: 'Healesville Sanctuary',
+        description: 'Wholesome animal reset before heading home. Platypus viewing is genuinely great.',
+        meta: ['Usually 9am-5pm', 'From approx. $54.50 pp'],
+        vibe: 'Nature break',
+        link: 'https://www.zoo.org.au/healesville/',
         image:
           'https://lh3.googleusercontent.com/aida-public/AB6AXuD_c1XucOuTnd28YfwCe_ivREUyV5FNlTUVStCcNHhbx7lf6G3j9rUydUkEhRo2MOKhDG_G0ixvcdh0zW4q5Q7Qr9Q8XjrpaD-yIczUr2gOp5HR8BUqAnIJqtNH_ubmI_b-Ok-wDv4Lldiq2Ps-vWIXgs_RbwEEPtoIm-H-raaAMvXPuEcTZR3qwXnShTW8YuqsH8d1U_NeCVD3KBhlIIiwKlZYcC6IK0j7cN9WzY_ltjZUb4anlI2xuWbyl1zMuZBDAptsjdJoC5Y'
       },
       {
-        id: 'sun-recovery-sanctuary',
-        title: 'Healesville Sanctuary',
-        description: 'Wholesome animal reset before heading home.',
-        meta: ['10:00 AM', '$54 pp'],
-        vibe: 'Nature break'
+        id: 'sun-walk',
+        title: 'Short nature walk',
+        description: 'Fresh air, mild exertion, questionable motivation.',
+        meta: ['Flexible', 'Free'],
+        vibe: 'Wholesome detour'
       },
       {
-        id: 'sun-recovery-home',
-        title: 'Drive Home Early',
-        description: 'Skip the fanfare and reclaim Sunday afternoon.',
+        id: 'sun-pub-lunch',
+        title: 'Pub / winery lunch',
+        description: 'One more meal out before reality returns.',
+        meta: ['Flexible', 'Pay individually'],
+        vibe: 'Last hurrah'
+      },
+      {
+        id: 'sun-minigolf',
+        title: 'Mini golf / driving range',
+        description: 'Low stakes, high trash talk. Good Sunday energy.',
+        meta: ['Open 9am-10pm', 'Approx. $19-$29'],
+        vibe: 'Casual kings',
+        link: 'https://www.maroondahgolfpark.com.au/'
+      },
+      {
+        id: 'sun-leave-early',
+        title: 'Leave early',
+        description: 'Skip the fanfare and reclaim Sunday afternoon. No judgement.',
         meta: ['Anytime'],
         vibe: 'Quiet exit'
       }
@@ -181,109 +347,75 @@ export const votingSections = [
 ];
 
 export const budgetOptions = [
-  { id: 'budget-tight', label: 'Keep it lean ($150-ish)' },
-  { id: 'budget-mid', label: 'Comfortable ($250-ish)' },
-  { id: 'budget-premium', label: 'Premium weekend ($350+)' }
+  { id: 'budget-under-75', label: 'Under $75 for paid activities' },
+  { id: 'budget-75-150', label: '$75-$150 for paid activities' },
+  { id: 'budget-150-250', label: '$150-$250 for paid activities' },
+  { id: 'budget-dont-care', label: "Don't care if it's good" },
+  { id: 'budget-complain', label: 'I will complain regardless of price' }
 ];
 
 export const hardNoOptions = [
-  'No early starts before 9 AM',
-  'No paintball',
-  'No spirits',
-  'No shared rooms',
-  'No winery marathon'
+  '8:45am start',
+  'Clay shooting',
+  'Paintball',
+  'Nature walk',
+  'Fancy winery lunch',
+  'Gin tasting',
+  'Mini golf',
+  'Being responsible for cooking',
+  'Spending over $150 on activities',
+  'Leaving the Airbnb after dinner',
+  'Other'
 ];
 
 export const costGuide = [
-  { item: 'Pizza Oven Hire', when: 'Friday Night', cost: '$45pp', notes: 'Unlimited wood-fired glory.' },
-  { item: 'Clay Shooting', when: 'Saturday Morning', cost: '$120pp', notes: 'Includes safety briefing and 25 targets.' },
-  { item: 'Paintball', when: 'Saturday Morning', cost: '$85pp', notes: 'Starter pack of 200 paintballs.' },
-  { item: 'Winery Tastings', when: 'Saturday Lunch', cost: '$20–30 per venue', notes: 'Usually redeemable on bottle purchase.' },
-  { item: 'Four Pillars Gin Tasting', when: 'Saturday Afternoon', cost: '$35pp', notes: 'A flight of award-winning gin.' },
-  { item: 'Dinner at Rochford', when: 'Saturday Night', cost: '$95pp', notes: 'Set menu excluding drinks.' }
+  { item: 'Accommodation', when: 'Fri-Sun', cost: 'Included', notes: 'Already booked.' },
+  { item: 'Friday night food', when: 'Friday', cost: 'Shared grocery cost', notes: 'Depends on option chosen.' },
+  { item: 'Clay shooting (public)', when: 'Saturday morning', cost: 'Approx. $80.50 pp', notes: 'Come and try session.' },
+  { item: 'Clay shooting (private)', when: 'Saturday morning', cost: 'Approx. $165 pp', notes: 'Private group session.' },
+  { item: 'Paintball', when: 'Saturday morning', cost: 'Approx. $55-$155 pp', notes: 'Depends on package.' },
+  { item: 'Mini golf', when: 'Saturday or Sunday', cost: 'Approx. $19-$29 pp', notes: 'Driving range $14-$19.' },
+  { item: 'Archery', when: 'Saturday morning', cost: 'From approx. $45 pp', notes: 'Group sessions by enquiry.' },
+  { item: 'Winery tastings', when: 'Saturday lunch', cost: '$15-$35 per venue', notes: 'Usually redeemable on bottle purchase.' },
+  { item: 'Four Pillars Gin', when: 'Saturday afternoon', cost: 'Approx. $50 pp', notes: 'Approx. 55 min session.' },
+  { item: 'Healesville Sanctuary', when: 'Sunday', cost: 'From approx. $54.50 pp', notes: 'Full day if you want it.' },
+  { item: 'Yarra Valley Chocolaterie', when: 'Sunday', cost: 'Free entry / $4 tasting', notes: 'Free chocolate samples on arrival.' }
 ];
 
 export const itineraryTimeline = [
   {
     day: 'Friday — Settling In',
     entries: [
-      { time: '18:00', title: 'Arrival & Base Camp Check-in', note: 'Confirmed' },
-      { time: '20:30', title: 'Group Dinner (TBC)', note: 'Voting in progress' }
+      { time: '18:00', title: 'Arrival & Base Camp Check-in', note: 'Airbnb key handoff and room picks.', status: 'confirmed' },
+      { time: '20:30', title: 'Group Dinner (TBC)', note: 'Depends on the Friday vote winner.', status: 'tbc' }
     ]
   },
   {
     day: 'Saturday — The Main Event',
     entries: [
-      { time: '10:00', title: 'Breakfast & Prep', note: 'Confirmed' },
-      { time: '13:00', title: 'Winery Tour & Long Lunch', note: 'Pending vote' }
+      { time: '10:00', title: 'Morning activity block', note: 'Chosen option from voting.', status: 'confirmed' },
+      { time: '13:00', title: 'Long lunch / winery', note: 'Group booking after votes lock in.', status: 'confirmed' },
+      { time: '19:30', title: 'Saturday night dinner', note: 'Main character energy only.', status: 'tbc' }
     ]
   },
   {
     day: 'Sunday — Recovery',
-    entries: [{ time: '11:00', title: 'Recovery Brunch (TBC)', note: 'Likely if morale allows' }]
+    entries: [
+      { time: '10:30', title: 'Soft landing plan', note: 'Chocolaterie / sanctuary / leave early.', status: 'confirmed' }
+    ]
   }
 ];
 
 export const bookingStatus = [
-  { item: 'Airbnb Deposit', status: 'Booked' },
-  { item: 'Shuttle Bus', status: 'Not booked' },
-  { item: 'Lunch Reservation', status: 'Booked' },
-  { item: 'Activity Tickets', status: 'Not booked' }
+  { item: 'Airbnb', subtitle: 'Base camp secured', icon: 'house', status: 'Booked' },
+  { item: 'Saturday activity', subtitle: 'Pending vote outcome', icon: 'sports_score', status: 'Not booked' },
+  { item: 'Saturday lunch', subtitle: 'Winery booking window open', icon: 'restaurant', status: 'Not booked' },
+  { item: 'Saturday drinks', subtitle: 'Distillery/brewery slot', icon: 'liquor', status: 'Not booked' }
 ];
 
-export const shortlistPlaces = [
-  {
-    name: 'Luxury Airbnb Estate',
-    type: 'Accommodation',
-    description: "The command centre: fire pit, pool, and enough space to avoid each other's snoring.",
-    linkLabel: 'Airbnb link',
-    link: accommodation.link,
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBAOtbpPNDunp6x3CIsV00p0feXtMwD09UY3-DPx81Qdpj82fAx09o0q94XyDzk053sFMsJkAsY-C2hCuO8YZzwLz9fuFe1fWUta0a8d7TtLDcboKEcQwKX0GHvbB2IpONF1BIsB1RjSNYzLDaCUwq4ceyA4qb1WDAE7lkS-BG-oi_J1fhLI_ifpTFaNoBqEAaGqHIyLYSG20sm3b9j_BxKxj7vUDMc1XPUg5SKyUy0PJRfjP3Qjvk5GM2vacto0zez_k3FcCfEDf0'
-  },
-  {
-    name: 'Yering Station',
-    type: 'Winery',
-    description: "Victoria's first vineyard. Premium Pinot Noir and long-lunch energy.",
-    linkLabel: 'Visit website',
-    link: 'https://www.yering.com/',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuD6zVl9_IxBAVuPnEMbSeodLMBs-bnqy7DivYP9ssvdSwb944tFWxmbpbi27oe6NQDWtK2-3opyA5SjLETQ1KGXV0VVRkAFbBPh12OakncL62B_n51D1HsiJdY9f7bTdSlX4NpzeBmfjl4BqLxU2sDiKbyQGrjuX85xzr0F4rJJ9y3JdUhREMxR5TA1mYoYvnmfQ7Jo2GvC6bWSgr4Zye84JT6sSc2tOv5eCrdBgoOReoULEnZBQMVIweDjT_5OTPOcaCorxvLQYBw'
-  },
-  {
-    name: 'Four Pillars Distillery',
-    type: 'Spirits',
-    description: 'Mandatory stop for Bloody Shiraz Gin and elite post-lunch banter.',
-    linkLabel: 'Visit website',
-    link: 'https://www.fourpillarsgin.com/',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDLLpHdOLMWrQqUL_l-lL6jzKxBmolYD14UoCVc9phlOzNgSuUpjAa2meMacN46VZoS6rW2QCt-yRl31bh_EVoL8DyZ2rtQRn2OQcZyNa-Xp6t_KLroVSa_CpdQZ6CK0MruG-6O1ZiYjxwK_WsmyIe-KQ_oLmUy0GYrXMclewnNTNqPpNbrx57N86oZandc_pTvV5TfP-CeLHA_rdVvSFqm-qsJrxUqI-AnCDyj72DNdZq63FY_LBPozjFmfRr2qQ8ttLCnUB56OZQ'
-  },
-  {
-    name: 'Yarra Valley Clay Target Club',
-    type: 'Activity',
-    description: 'Classic bucks chaos candidate: shotguns, scorecards, and instant banter.',
-    linkLabel: 'View details',
-    link: 'https://www.claytarget.com.au/',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBN1zmxIa2-q4tW-XEuA-xtRA-31WJ_OdR00pgLEyQlNMD82gdI80E01MvXiq-Uhl3N2Zb7T6JiTxFrn9HxeFO6wdTO3xJFUeWmqcfD4W9CiflxixaRNu7c-KUe_Bgnmf5t6XQZMw6mHlRhVWjeanMk-Ji1CJHbgy_vt4-cTt798X495_60OVclDXqjxu1mOKkCvd7xAJP-zSVHwCo8MU0V8Q7efpFOUVsVOvqTd77hGqMbW4PiPJlSjKbjVz_JAq7cMHHfif4jvfQ'
-  },
-  {
-    name: 'Rochford Wines',
-    type: 'Dinner',
-    description: 'Strong candidate for Saturday dinner with easy group booking options.',
-    linkLabel: 'Visit website',
-    link: 'https://www.rochfordwines.com/',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDELENszvK8vbg4vXPD_ei24zwcphcQXXc7skWuGTbxPRULixL9cyf3EFQIEQlUGeo5vEd_XlVbUNa6kvKTW9gVRi_xKV2cvt2MHxhqiotv8FHj_ekbFwG9GXfhTdGdO8dIiOxB3c19jbixMZSSCbF4mmXUtBvwCSAQLtxd1OnJKmAjeL6kuBXCyUzlCSoc8JNjGQB2qS6KeeIH3Z6x54w6mO9nqN001OB1GapQe82Cwuhq8hvAPqEW_lmpK6-Mre-ku3J6CvlYT-w'
-  },
-  {
-    name: 'Yarra Valley Grand Hotel',
-    type: 'Pub',
-    description: 'Casual fallback with broad menu coverage and fewer logistical meltdowns.',
-    linkLabel: 'Visit website',
-    link: 'https://www.yarravalleygrand.com.au/',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuD_c1XucOuTnd28YfwCe_ivREUyV5FNlTUVStCcNHhbx7lf6G3j9rUydUkEhRo2MOKhDG_G0ixvcdh0zW4q5Q7Qr9Q8XjrpaD-yIczUr2gOp5HR8BUqAnIJqtNH_ubmI_b-Ok-wDv4Lldiq2Ps-vWIXgs_RbwEEPtoIm-H-raaAMvXPuEcTZR3qwXnShTW8YuqsH8d1U_NeCVD3KBhlIIiwKlZYcC6IK0j7cN9WzY_ltjZUb4anlI2xuWbyl1zMuZBDAptsjdJoC5Y'
-  }
+export const essentialsChecklist = [
+  'Warm clothes (Valley gets cold)',
+  'Phone chargers',
+  'Electrolytes',
+  'Good vibes only'
 ];

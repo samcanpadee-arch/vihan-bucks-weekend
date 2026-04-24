@@ -20,6 +20,18 @@ export default function OptionCard({ option, isSelected, onSelect }) {
         <p>{option.description}</p>
       </div>
 
+      {option.link ? (
+        <a
+          className="option-link"
+          href={option.link}
+          target="_blank"
+          rel="noreferrer"
+          onClick={(e) => e.stopPropagation()}
+        >
+          View details <span className="material-symbols-outlined">open_in_new</span>
+        </a>
+      ) : null}
+
       <div className="option-vibe">{option.vibe ? <Chip tone="accent">{option.vibe}</Chip> : null}</div>
     </button>
   );
