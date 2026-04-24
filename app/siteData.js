@@ -389,33 +389,27 @@ export const votingSections = [
 
 export const itineraryTimeline = [
   {
-    day: 'Friday — Settling In',
+    day: 'Friday',
     entries: [
-      { time: '18:00', title: 'Arrival & Base Camp Check-in', note: 'Airbnb key handoff and room picks.', status: 'confirmed' },
-      { time: '20:30', title: 'Group Dinner (TBC)', note: 'Depends on the Friday vote winner.', status: 'tbc' }
+      { time: 'From 3pm', title: 'Arrive + settle in', note: 'Airbnb check-in. Room picks, unpack, regroup.', status: 'set' },
+      { time: 'Evening', title: 'Friday dinner', note: 'Depends on the vote winner.', status: 'pending' }
     ]
   },
   {
-    day: 'Saturday — The Main Event',
+    day: 'Saturday',
     entries: [
-      { time: '10:00', title: 'Morning activity block', note: 'Chosen option from voting.', status: 'confirmed' },
-      { time: '13:00', title: 'Long lunch / winery', note: 'Group booking after votes lock in.', status: 'confirmed' },
-      { time: '19:30', title: 'Saturday night dinner', note: 'Main character energy only.', status: 'tbc' }
+      { time: 'Morning', title: 'Morning activity', note: 'Depends on the vote winner.', status: 'pending' },
+      { time: 'Lunch', title: 'Winery / lunch', note: 'Depends on the vote winner. Group booking TBC.', status: 'pending' },
+      { time: 'Afternoon', title: 'Afternoon drinks', note: 'Depends on the vote winner.', status: 'pending' },
+      { time: 'Evening', title: 'Saturday dinner', note: 'Depends on the vote winner.', status: 'pending' }
     ]
   },
   {
-    day: 'Sunday — Recovery',
+    day: 'Sunday',
     entries: [
-      { time: '10:30', title: 'Soft landing plan', note: 'Chocolaterie / sanctuary / leave early.', status: 'confirmed' }
+      { time: 'Morning', title: 'Recovery activity', note: 'Depends on the vote winner. Then head home.', status: 'pending' }
     ]
   }
-];
-
-export const bookingStatus = [
-  { item: 'Airbnb', subtitle: 'Base camp secured', icon: 'house', status: 'Booked' },
-  { item: 'Saturday activity', subtitle: 'Pending vote outcome', icon: 'sports_score', status: 'Not booked' },
-  { item: 'Saturday lunch', subtitle: 'Winery booking window open', icon: 'restaurant', status: 'Not booked' },
-  { item: 'Saturday drinks', subtitle: 'Distillery/brewery slot', icon: 'liquor', status: 'Not booked' }
 ];
 
 export const essentialsChecklist = [

@@ -163,10 +163,10 @@ export default function HomePage() {
 
           {status === 'success' ? (
             <section className="success-card">
-              <h3>Votes submitted.</h3>
+              <h3>You&apos;re in, {form.name}.</h3>
               <p>
-                Legend. Once everyone has voted, the plan will get locked in and this site becomes the final itinerary
-                hub.
+                Your votes have been recorded. Changed your mind on something? You can update anytime before the plan
+                gets locked in.
               </p>
               <button
                 type="button"

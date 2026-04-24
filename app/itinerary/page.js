@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { accommodation, bookingStatus, essentialsChecklist, itineraryTimeline, votingSections } from '../siteData';
+import { accommodation, essentialsChecklist, itineraryTimeline, votingSections } from '../siteData';
 import AccommodationCard from '../components/AccommodationCard';
 import ItineraryTimeline from '../components/ItineraryTimeline';
 import SectionHeader from '../components/SectionHeader';
@@ -13,6 +13,7 @@ export default function ItineraryPage() {
   const [expenses, setExpenses] = useState([]);
   const [expensesLoading, setExpensesLoading] = useState(true);
   const [expenseError, setExpenseError] = useState('');
+  const [splitMode, setSplitMode] = useState('everyone');
   const [expenseForm, setExpenseForm] = useState({
     id: '',
     description: '',
@@ -106,6 +107,15 @@ export default function ItineraryPage() {
 
   useEffect(() => {
     if (!participantNames.length) return;
+
+    if (splitMode === 'everyone') {
+      setExpenseForm((prev) => ({
+        ...prev,
+        splitAmong: participantNames
+      }));
+      return;
+    }
+
     setExpenseForm((prev) => {
       if (prev.splitAmong.length > 0) return prev;
       return {
@@ -113,7 +123,7 @@ export default function ItineraryPage() {
         splitAmong: participantNames
       };
     });
-  }, [participantNames]);
+  }, [participantNames, splitMode]);
 
   const toggleSplitMember = (name) => {
     setExpenseForm((prev) => ({
@@ -127,6 +137,9 @@ export default function ItineraryPage() {
   const submitExpense = async (event) => {
     event.preventDefault();
     setExpenseError('');
+
+    const splitAmong = splitMode === 'everyone' ? participantNames : expenseForm.splitAmong;
+
     try {
       const response = await fetch('/api/expenses', {
         method: 'POST',
@@ -137,7 +150,7 @@ export default function ItineraryPage() {
           amount: Number(expenseForm.amount),
           paidBy: expenseForm.paidBy,
           splitType: 'equal',
-          splitAmong: expenseForm.splitAmong
+          splitAmong
         })
       });
 
@@ -148,6 +161,7 @@ export default function ItineraryPage() {
         const withoutCurrent = prev.filter((item) => item.id !== data.expense.id);
         return [data.expense, ...withoutCurrent];
       });
+      setSplitMode('everyone');
       setExpenseForm({
         id: '',
         description: '',
@@ -159,6 +173,19 @@ export default function ItineraryPage() {
     } catch (error) {
       console.error(error);
       setExpenseError('Could not save expense right now.');
+    }
+  };
+
+  const deleteExpense = async (id) => {
+    if (!window.confirm('Delete this expense?')) return;
+
+    try {
+      const response = await fetch(`/api/expenses?id=${id}`, { method: 'DELETE' });
+      if (!response.ok) throw new Error('Delete failed');
+      setExpenses((prev) => prev.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error(error);
+      setExpenseError('Could not delete expense.');
     }
   };
 
@@ -220,24 +247,6 @@ export default function ItineraryPage() {
         <ItineraryTimeline timeline={itineraryTimeline} />
       </section>
 
-      <section className="vote-section">
-        <SectionHeader title="Bookings & status" label="Admin-ish" icon="event_available" />
-        <div className="booking-grid">
-          {bookingStatus.map((booking) => (
-            <article key={booking.item} className="booking-card">
-              <div className="booking-copy">
-                <span className="booking-icon material-symbols-outlined">{booking.icon}</span>
-                <div>
-                  <p>{booking.item}</p>
-                  <small>{booking.subtitle}</small>
-                </div>
-              </div>
-              <span className={booking.status === 'Booked' ? 'ok' : 'pending'}>{booking.status}</span>
-            </article>
-          ))}
-        </div>
-      </section>
-
       <section className="vote-section expenses-card">
         <SectionHeader
           title="Shared expenses"
@@ -288,22 +297,41 @@ export default function ItineraryPage() {
 
           <div className="split-members">
             <p className="section-label">Split among</p>
-            {participantNames.length ? (
-              <div className="split-chip-grid">
-                {participantNames.map((name) => (
-                  <button
-                    type="button"
-                    key={name}
-                    className={`pill ${expenseForm.splitAmong.includes(name) ? 'selected' : ''}`}
-                    onClick={() => toggleSplitMember(name)}
-                  >
-                    {name}
-                  </button>
-                ))}
-              </div>
-            ) : (
-              <p>Add votes first so participant names are available for equal split.</p>
-            )}
+            <div className="split-toggle">
+              <button
+                type="button"
+                className={`pill ${splitMode === 'everyone' ? 'selected' : ''}`}
+                onClick={() => setSplitMode('everyone')}
+              >
+                Everyone
+              </button>
+              <button
+                type="button"
+                className={`pill ${splitMode === 'select' ? 'selected' : ''}`}
+                onClick={() => setSplitMode('select')}
+              >
+                Select people
+              </button>
+            </div>
+
+            {splitMode === 'select' ? (
+              participantNames.length ? (
+                <div className="split-chip-grid">
+                  {participantNames.map((name) => (
+                    <button
+                      type="button"
+                      key={name}
+                      className={`pill ${expenseForm.splitAmong.includes(name) ? 'selected' : ''}`}
+                      onClick={() => toggleSplitMember(name)}
+                    >
+                      {name}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <p>Add votes first so participant names are available for equal split.</p>
+              )
+            ) : null}
           </div>
 
           {expenseError ? <p className="error-message">{expenseError}</p> : null}
@@ -320,32 +348,55 @@ export default function ItineraryPage() {
               <p>Loading expenses...</p>
             ) : expenses.length ? (
               <ul className="expense-list">
-                {expenses.map((expense) => (
-                  <li key={expense.id}>
-                    <div>
-                      <p>{expense.description}</p>
-                      <small>
-                        {expense.paidBy} paid ${expense.amount.toFixed(2)} · split {expense.splitAmong.join(', ')}
-                      </small>
-                    </div>
-                    <button
-                      type="button"
-                      className="option-link"
-                      onClick={() =>
-                        setExpenseForm({
-                          id: expense.id,
-                          description: expense.description,
-                          amount: String(expense.amount),
-                          paidBy: expense.paidBy,
-                          splitAmong: expense.splitAmong,
-                          splitType: 'equal'
-                        })
-                      }
-                    >
-                      Edit
-                    </button>
-                  </li>
-                ))}
+                {expenses.map((expense) => {
+                  const isEveryone = expense.splitAmong.length === participantNames.length;
+                  const splitSummary = isEveryone ? 'Everyone' : `Split ${expense.splitAmong.length} ways`;
+
+                  return (
+                    <li key={expense.id}>
+                      <div>
+                        <p>{expense.description}</p>
+                        <small>
+                          {expense.paidBy} paid ${expense.amount.toFixed(2)} · {splitSummary}
+                        </small>
+                      </div>
+                      <div className="expense-actions">
+                        <button
+                          type="button"
+                          className="expense-action-btn"
+                          title="Edit"
+                          onClick={() => {
+                            const selected = new Set(expense.splitAmong || []);
+                            const allSelected =
+                              participantNames.length > 0 &&
+                              participantNames.every((name) => selected.has(name)) &&
+                              selected.size === participantNames.length;
+
+                            setSplitMode(allSelected ? 'everyone' : 'select');
+                            setExpenseForm({
+                              id: expense.id,
+                              description: expense.description,
+                              amount: String(expense.amount),
+                              paidBy: expense.paidBy,
+                              splitAmong: expense.splitAmong,
+                              splitType: 'equal'
+                            });
+                          }}
+                        >
+                          <span className="material-symbols-outlined">edit</span>
+                        </button>
+                        <button
+                          type="button"
+                          className="expense-action-btn danger"
+                          title="Delete"
+                          onClick={() => deleteExpense(expense.id)}
+                        >
+                          <span className="material-symbols-outlined">delete</span>
+                        </button>
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
             ) : (
               <p>No expenses yet. Add the first one above.</p>
