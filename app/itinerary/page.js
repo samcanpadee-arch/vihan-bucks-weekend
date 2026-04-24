@@ -296,7 +296,7 @@ export default function ItineraryPage() {
                     })}
                   </div>
                 ) : (
-                  <p className="result-empty">No picks yet</p>
+                  <p className="result-empty">Suspiciously quiet. Nobody has voted yet.</p>
                 )}
               </article>
             );

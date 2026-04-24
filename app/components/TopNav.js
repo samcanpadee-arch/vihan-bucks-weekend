@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 const tabs = [
   { href: '/', isVote: true, activeHref: '/', label: 'Vote', icon: 'how_to_vote' },
@@ -6,11 +7,26 @@ const tabs = [
 ];
 
 export default function TopNav({ activeHref }) {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 12);
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <>
-      <header className="top-app-bar">
+      <header className={`top-app-bar ${isScrolled ? 'is-scrolled' : ''}`}>
         <div className="top-app-inner">
-          <h1>Bucks '26</h1>
+          <h1>
+            <span className="material-symbols-outlined">eco</span>
+            Bucks &apos;26
+          </h1>
           <nav className="primary-nav desktop-nav" aria-label="Primary">
             {tabs.map((tab) => (
               tab.isVote ? (
