@@ -29,7 +29,6 @@ export async function POST(request) {
       saturdayDrinks: body.saturdayDrinks,
       saturdayNight: body.saturdayNight,
       sundayRecovery: body.sundayRecovery,
-      finalComments: body.finalComments || '',
       submittedAt: new Date().toISOString()
     };
 
@@ -37,6 +36,11 @@ export async function POST(request) {
     const key = `vote:${normalizedName}`;
 
     const redis = await getRedis();
+    const votingLocked = (await redis.get('config:votingLocked')) === 'true';
+    if (votingLocked) {
+      return NextResponse.json({ error: 'Voting is locked' }, { status: 403 });
+    }
+
     await redis.set(key, JSON.stringify(vote));
     await redis.sAdd('voters', key);
 

@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
 const tabs = [
-  { href: '/', label: 'Vote', icon: 'how_to_vote' },
-  { href: '/itinerary', label: 'Itinerary', icon: 'event_note' }
+  { href: '/#vote-form', activeHref: '/', label: 'Vote', icon: 'how_to_vote' },
+  { href: '/itinerary', activeHref: '/itinerary', label: 'Itinerary', icon: 'event_note' }
 ];
 
 export default function TopNav({ activeHref }) {
@@ -13,7 +13,7 @@ export default function TopNav({ activeHref }) {
           <h1>Bucks '26</h1>
           <nav>
             {tabs.map((tab) => (
-              <Link key={tab.href} href={tab.href} className={activeHref === tab.href ? 'active' : ''}>
+              <Link key={tab.href} href={tab.href} className={activeHref === tab.activeHref ? 'active' : ''}>
                 {tab.label}
               </Link>
             ))}
@@ -23,7 +23,7 @@ export default function TopNav({ activeHref }) {
 
       <nav className="mobile-bottom-nav" aria-label="Primary">
         {tabs.map((tab) => (
-          <Link key={tab.href} href={tab.href} className={activeHref === tab.href ? 'active' : ''}>
+          <Link key={tab.href} href={tab.href} className={activeHref === tab.activeHref ? 'active' : ''}>
             <span className="material-symbols-outlined">{tab.icon}</span>
             <span>{tab.label}</span>
           </Link>

@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { accommodation, votingSections } from './siteData';
 import AccommodationCard from './components/AccommodationCard';
@@ -18,8 +19,7 @@ const initialForm = {
   saturdayLunch: '',
   saturdayDrinks: '',
   saturdayNight: '',
-  sundayRecovery: '',
-  finalComments: ''
+  sundayRecovery: ''
 };
 
 export default function HomePage() {
@@ -30,6 +30,7 @@ export default function HomePage() {
   const [submitAttempted, setSubmitAttempted] = useState(false);
   const [resultsData, setResultsData] = useState(null);
   const [resultsLoading, setResultsLoading] = useState(true);
+  const [votingLocked, setVotingLocked] = useState(false);
 
   const requiredKeys = useMemo(
     () => ['name', 'fridayNight', 'saturdayMorning', 'saturdayLunch', 'saturdayDrinks', 'saturdayNight', 'sundayRecovery'],
@@ -56,7 +57,8 @@ export default function HomePage() {
   };
 
   const jumpToSection = (key) => {
-    const el = document.getElementById(`section-${key}`);
+    const sectionId = key === 'name' ? 'vote-form' : `section-${key}`;
+    const el = document.getElementById(sectionId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -78,6 +80,17 @@ export default function HomePage() {
     }
   };
 
+  const fetchConfig = async () => {
+    try {
+      const response = await fetch('/api/admin/config', { cache: 'no-store' });
+      if (!response.ok) return;
+      const data = await response.json();
+      setVotingLocked(Boolean(data?.votingLocked));
+    } catch (configError) {
+      console.error(configError);
+    }
+  };
+
   useEffect(() => {
     const votedName = localStorage.getItem('bucks-voted');
     if (votedName) {
@@ -94,6 +107,7 @@ export default function HomePage() {
     }
 
     fetchResults();
+    fetchConfig();
     const interval = setInterval(fetchResults, 30000);
 
     return () => clearInterval(interval);
@@ -161,35 +175,14 @@ export default function HomePage() {
 
           <AccommodationCard accommodation={accommodation} />
 
-          {status === 'success' ? (
-            <section className="success-card">
-              <h3>You&apos;re in, {form.name}.</h3>
-              <p>
-                Your votes have been recorded. Changed your mind on something? You can update anytime before the plan
-                gets locked in.
-              </p>
-              <button
-                type="button"
-                className="revote-link"
-                onClick={() => {
-                  setIsEditing(true);
-                  setStatus('idle');
-                  setSubmitAttempted(false);
-                }}
-              >
-                Edit your votes
-              </button>
+          {votingLocked ? (
+            <section className="vote-form">
+              <p>Voting is closed. Check the itinerary for the final plan.</p>
+              <Link href="/itinerary">Go to itinerary</Link>
             </section>
-          ) : null}
-
-          {status === 'success' ? (
-            <section className="mobile-results-wrap">
-              <ResultsCard data={resultsData} loading={resultsLoading} optionLookup={optionLookup} />
-            </section>
-          ) : null}
-
-          <form id="vote" onSubmit={handleSubmit} className="vote-form">
-            <section className="name-section" id="section-name">
+          ) : (
+            <form id="vote" onSubmit={handleSubmit} className="vote-form">
+            <section className="name-section" id="vote-form">
               <SectionHeader
                 title="Who are you?"
                 subtitle="So we know whose questionable opinions these are."
@@ -205,13 +198,14 @@ export default function HomePage() {
                   />
                 </label>
                 <label>
-                  Anything we should actually know?
+                  Anything to share with the group?
                   <input
                     value={form.hardConstraints}
                     onChange={(e) => setForm((prev) => ({ ...prev, hardConstraints: e.target.value }))}
-                    placeholder="No mushrooms, terrified of heights, etc."
+                    placeholder="Activity suggestions, things to flag, whatever."
                     disabled={disableInputs}
                   />
+                  <small className="field-note">This will be visible to everyone on the itinerary page.</small>
                 </label>
               </div>
             </section>
@@ -248,34 +242,41 @@ export default function HomePage() {
               </div>
             ))}
 
-            <section className="vote-section" id="section-finalComments">
-              <SectionHeader title="Anything else?" label="✍️" subtitle="Last words before we lock this in." />
-              <textarea
-                rows={3}
-                value={form.finalComments}
-                onChange={(e) => setForm((prev) => ({ ...prev, finalComments: e.target.value }))}
-                placeholder="Strong opinions, bad ideas, dietary stuff, whatever."
-                disabled={disableInputs}
-              />
-            </section>
-
             {error ? <p className="error-message">{error}</p> : null}
 
             <button type="submit" className="submit-btn" disabled={status === 'loading' || disableInputs}>
-              {status === 'loading' ? 'Submitting...' : isEditing ? 'Update votes' : 'Submit votes'}
-              {status !== 'loading' ? <span className="material-symbols-outlined">arrow_forward</span> : null}
+              {status === 'loading' ? 'Submitting...' : status === 'success' ? 'Votes submitted' : isEditing ? 'Update votes' : 'Submit votes'}
+              {status === 'success' ? <span className="material-symbols-outlined">check_circle</span> : null}
+              {status === 'idle' || isEditing ? <span className="material-symbols-outlined">arrow_forward</span> : null}
             </button>
-          </form>
 
-          {status !== 'success' ? (
-            <section className="mobile-results-wrap">
-              <ResultsCard data={resultsData} loading={resultsLoading} optionLookup={optionLookup} />
-            </section>
-          ) : null}
+            {status === 'success' ? (
+              <section className="success-card inline-success">
+                <p>You&apos;re in. Votes saved.</p>
+                <small>Changed your mind? Edit your votes above.</small>
+                <button
+                  type="button"
+                  className="revote-link"
+                  onClick={() => {
+                    setIsEditing(true);
+                    setStatus('idle');
+                    setSubmitAttempted(false);
+                  }}
+                >
+                  Edit
+                </button>
+              </section>
+            ) : null}
+            </form>
+          )}
+
+          <section className="mobile-results-wrap">
+            <ResultsCard data={resultsData} loading={resultsLoading} optionLookup={optionLookup} />
+          </section>
         </div>
 
         <div className="sticky-col">
-          {status === 'success' || (resultsData?.voterCount ?? 0) > 0 ? (
+          {votingLocked || status === 'success' || (resultsData?.voterCount ?? 0) > 0 ? (
             <ResultsCard data={resultsData} loading={resultsLoading} optionLookup={optionLookup} />
           ) : (
             <ProgressCard

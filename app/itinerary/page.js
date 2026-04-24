@@ -11,6 +11,8 @@ import Footer from '../components/Footer';
 export default function ItineraryPage() {
   const [results, setResults] = useState(null);
   const [expenses, setExpenses] = useState([]);
+  const [customNames, setCustomNames] = useState([]);
+  const [groupNameInput, setGroupNameInput] = useState('');
   const [expensesLoading, setExpensesLoading] = useState(true);
   const [expenseError, setExpenseError] = useState('');
   const [splitMode, setSplitMode] = useState('everyone');
@@ -24,10 +26,11 @@ export default function ItineraryPage() {
   });
 
   const participantNames = Array.from(
-    new Set([
-      ...(results?.voterNames || []),
-      ...expenses.flatMap((expense) => [expense.paidBy, ...(expense.splitAmong || [])].filter(Boolean))
-    ])
+    new Map(
+      [...(results?.voterNames || []), ...customNames, ...expenses.flatMap((expense) => [expense.paidBy, ...(expense.splitAmong || [])])]
+        .filter(Boolean)
+        .map((name) => [name.trim().toLowerCase(), name.trim()])
+    ).values()
   );
 
   const settlement = (() => {
@@ -73,6 +76,23 @@ export default function ItineraryPage() {
 
     return rows;
   })();
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('expense-names');
+      const parsed = saved ? JSON.parse(saved) : [];
+      if (Array.isArray(parsed)) {
+        const normalized = parsed
+          .filter((name) => typeof name === 'string')
+          .map((name) => name.trim())
+          .filter(Boolean);
+        setCustomNames(normalized);
+      }
+    } catch (error) {
+      console.error('Could not parse saved expense names:', error);
+      setCustomNames([]);
+    }
+  }, []);
 
   useEffect(() => {
     const loadResults = async () => {
@@ -134,11 +154,31 @@ export default function ItineraryPage() {
     }));
   };
 
+  const addCustomName = () => {
+    const trimmed = groupNameInput.trim();
+    if (!trimmed) return;
+
+    const next = Array.from(new Map([...customNames, trimmed].map((name) => [name.trim().toLowerCase(), name.trim()])).values());
+    setCustomNames(next);
+    localStorage.setItem('expense-names', JSON.stringify(next));
+    setGroupNameInput('');
+  };
+
+  const removeCustomName = (nameToRemove) => {
+    const next = customNames.filter((name) => name.trim().toLowerCase() !== nameToRemove.trim().toLowerCase());
+    setCustomNames(next);
+    localStorage.setItem('expense-names', JSON.stringify(next));
+  };
+
   const submitExpense = async (event) => {
     event.preventDefault();
     setExpenseError('');
 
     const splitAmong = splitMode === 'everyone' ? participantNames : expenseForm.splitAmong;
+    if (splitMode === 'everyone' && participantNames.length === 0) {
+      setExpenseError('Add at least one person to the group before splitting.');
+      return;
+    }
 
     try {
       const response = await fetch('/api/expenses', {
@@ -220,27 +260,62 @@ export default function ItineraryPage() {
       </section>
 
       <section className="vote-section standings-card">
-        <SectionHeader title="Voting standings" label="Live" icon="leaderboard" subtitle="Quick snapshot of what's leading right now" />
-        {results?.voterCount ? (
-          <div className="standings-mini-grid">
-            {votingSections.slice(0, 3).map((section) => {
-              const entries = Object.entries(results.tally?.[section.key] || {});
-              const [winner, count] = entries.sort((a, b) => b[1] - a[1])[0] || [];
-              const winnerLabel = section.options.find((option) => option.id === winner)?.title || winner;
+        <SectionHeader title="Voting leaderboard" label="Live" icon="leaderboard" subtitle="How each category is stacking up." />
+        <div className="leaderboard-list">
+          {votingSections.map((section) => {
+            const sortedEntries = Object.entries(results?.tally?.[section.key] || {}).sort((a, b) => b[1] - a[1]);
+            const totalVotes = sortedEntries.reduce((sum, [, count]) => sum + count, 0);
 
-              return (
-                <article key={section.key} className="standings-mini-item">
-                  <p>{section.title}</p>
-                  <strong>{winnerLabel || 'No picks yet'}</strong>
-                  <small>{count ? `${count} votes` : '0 votes'}</small>
-                </article>
-              );
-            })}
-          </div>
-        ) : (
-          <p>No votes yet. Standings will show once submissions start rolling in.</p>
-        )}
+            return (
+              <article key={section.key} className="leaderboard-category">
+                <p className="section-label">{section.title}</p>
+                {totalVotes ? (
+                  <div className="leaderboard-options">
+                    {sortedEntries.map(([optionId, count], index) => {
+                      const optionLabel = section.options.find((option) => option.id === optionId)?.title || optionId;
+                      const percentage = Math.round((count / totalVotes) * 100);
+                      const isLeader = index === 0;
+
+                      return (
+                        <div key={optionId} className="leaderboard-option">
+                          <div className="leaderboard-row">
+                            <span>
+                              {optionLabel}
+                              {results?.finalResults?.[section.key] === optionId ? <span className="final-chip">Final</span> : null}
+                            </span>
+                            <small>
+                              {count} {count === 1 ? 'vote' : 'votes'}
+                            </small>
+                          </div>
+                          <div className="leaderboard-bar-track">
+                            <div className={`leaderboard-bar ${isLeader ? 'leader' : ''}`} style={{ width: `${percentage}%` }} />
+                          </div>
+                          {isLeader ? <span className="leaderboard-rank">🏆</span> : null}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <p className="result-empty">No picks yet</p>
+                )}
+              </article>
+            );
+          })}
+        </div>
       </section>
+
+      {results?.groupNotes?.length ? (
+        <section className="vote-section standings-card">
+          <SectionHeader title="From the group" label="Notes" icon="forum" subtitle="Things people wanted everyone to know." />
+          <div className="group-notes-list">
+            {results.groupNotes.map((item, index) => (
+              <article key={`${item.name}-${index}`} className="group-note-item">
+                <strong>{item.name}:</strong> <span>{item.note}</span>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="vote-section">
         <SectionHeader title="Weekend timeline" label="Timeline" icon="schedule" />
@@ -254,6 +329,39 @@ export default function ItineraryPage() {
           icon="receipt_long"
           subtitle="Track who paid and who owes what."
         />
+
+        <div className="split-members">
+          <p className="section-label">Manage group</p>
+          <p className="group-members-label">Group members</p>
+          <div className="split-toggle">
+            <input
+              value={groupNameInput}
+              onChange={(event) => setGroupNameInput(event.target.value)}
+              placeholder="Type a name and hit Add"
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  event.preventDefault();
+                  addCustomName();
+                }
+              }}
+            />
+            <button type="button" className="manage-add-btn" onClick={addCustomName}>
+              Add
+            </button>
+          </div>
+          {customNames.length ? (
+            <div className="split-chip-grid">
+              {customNames.map((name) => (
+                <button type="button" key={name} className="pill removable-pill" onClick={() => removeCustomName(name)} title="Remove">
+                  {name} ×
+                </button>
+              ))}
+            </div>
+          ) : (
+            <p>Add names here if people won't vote but should be included in expenses.</p>
+          )}
+          <p className="group-members-caption">Click a name to remove them from the group.</p>
+        </div>
 
         <form className="expense-form" onSubmit={submitExpense}>
           <div className="expense-grid">
