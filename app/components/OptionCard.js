@@ -1,5 +1,3 @@
-import Chip from './Chip';
-
 export default function OptionCard({ option, isSelected, onSelect, disabled }) {
   const handleKeyDown = (event) => {
     if (disabled) return;
@@ -18,22 +16,18 @@ export default function OptionCard({ option, isSelected, onSelect, disabled }) {
       tabIndex={disabled ? -1 : 0}
       aria-pressed={isSelected}
     >
-      {option.image ? (
-        <div className="option-image-wrap">
-          <img src={option.image} alt={option.title} className="option-image" />
+      {isSelected ? (
+        <div className="option-selected-check" aria-hidden="true">
+          <span className="material-symbols-outlined">check_circle</span>
         </div>
       ) : null}
-
-      <div className="option-meta">
-        {option.meta?.map((item) => (
-          <Chip key={item}>{item}</Chip>
-        ))}
-      </div>
 
       <div className="option-copy">
         <h3>{option.title}</h3>
         <p>{option.description}</p>
       </div>
+
+      {option.cost ? <p className="option-cost-chip">{option.cost}</p> : null}
 
       {option.link ? (
         <a
@@ -47,7 +41,6 @@ export default function OptionCard({ option, isSelected, onSelect, disabled }) {
         </a>
       ) : null}
 
-      <div className="option-vibe">{option.vibe ? <Chip tone="accent">{option.vibe}</Chip> : null}</div>
     </div>
   );
 }

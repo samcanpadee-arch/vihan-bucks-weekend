@@ -16,12 +16,14 @@ export const accommodation = {
 export const votingSections = [
   {
     key: 'fridayNight',
+    day: 'Friday',
     title: 'Friday night',
     subtitle: 'The Arrival',
     icon: 'nightlife',
     options: [
       {
         id: 'friday-pizza-oven',
+        cost: 'Shared grocery cost',
         title: 'Pizza oven night',
         description:
           'Sam brings the pizza oven, we make pizzas, everyone helps, and nobody gets to stand around doing fake supervision with a beer.',
@@ -32,6 +34,7 @@ export const votingSections = [
       },
       {
         id: 'friday-bbq',
+        cost: 'Shared grocery cost',
         title: 'BBQ / burgers',
         description: 'Sausages, steaks, reliable. Nobody has to learn anything new.',
         meta: ['Friday evening', 'Shared grocery cost'],
@@ -39,6 +42,7 @@ export const votingSections = [
       },
       {
         id: 'friday-grazing',
+        cost: 'Shared grocery cost',
         title: 'Grazing table and snacks',
         description: 'Low effort, high reward. Cheese, dips, cured meats, and zero cooking required.',
         meta: ['Friday evening', 'Shared grocery cost'],
@@ -46,6 +50,7 @@ export const votingSections = [
       },
       {
         id: 'friday-takeaway',
+        cost: 'Pay individually',
         title: 'Takeaway / frozen backup',
         description: 'For when ambition dies on the drive up. No shame, just convenience.',
         meta: ['Friday evening', 'Pay individually'],
@@ -55,12 +60,14 @@ export const votingSections = [
   },
   {
     key: 'saturdayMorning',
+    day: 'Saturday',
     title: 'Saturday morning',
     subtitle: 'Controlled Chaos',
     icon: 'wb_sunny',
     options: [
       {
         id: 'sat-morning-clay-public',
+        cost: '~$80.50 pp',
         title: 'Clay shooting (public session)',
         description:
           'Melbourne Gun Club, Yering. Zero alcohol beforehand. Photo ID required. Closed shoes. No camo or singlets. Fun option, cursed start time.',
@@ -72,6 +79,7 @@ export const votingSections = [
       },
       {
         id: 'sat-morning-clay-private',
+        cost: '~$165 pp',
         title: 'Clay shooting (private session)',
         description: 'Same venue, but booked just for us. Time is flexible, price is higher, ego damage is the same.',
         meta: ['Time by enquiry', 'Approx. $165 pp'],
@@ -80,6 +88,7 @@ export const votingSections = [
       },
       {
         id: 'sat-morning-paintball',
+        cost: '~$55-$155 pp',
         title: 'Paintball',
         description: 'Bruises and brotherhood. Mostly just bruises though.',
         meta: ['9:00am or 1:00pm', 'Approx. $55-$155 pp'],
@@ -88,6 +97,7 @@ export const votingSections = [
       },
       {
         id: 'sat-morning-minigolf',
+        cost: '~$19-$29 pp',
         title: 'Mini golf / driving range',
         description: 'Low intensity, high trash talk potential. Good for easing into the day.',
         meta: ['Open 9am-10pm', 'Approx. $19-$29 mini golf', '$14-$19 range'],
@@ -96,6 +106,7 @@ export const votingSections = [
       },
       {
         id: 'sat-morning-chill',
+        cost: 'Free-ish',
         title: 'Chill morning at Airbnb',
         description: 'Sleep in, coffee, do nothing productive. Protect the energy for later.',
         meta: ['Flexible', 'Free-ish'],
@@ -103,6 +114,7 @@ export const votingSections = [
       },
       {
         id: 'sat-morning-walk',
+        cost: 'Free',
         title: 'Short walk / nature reset',
         description: '20 to 60 minutes of pretending to be outdoorsy before the drinking starts.',
         meta: ['20-60 mins', 'Free'],
@@ -111,6 +123,7 @@ export const votingSections = [
       },
       {
         id: 'sat-morning-donna-buang',
+        cost: 'Free',
         title: 'Mt Donna Buang / Rainforest Gallery',
         description: 'Elevated walkway through ancient rainforest. Looks incredible in winter. Free and genuinely cool.',
         meta: ['Flexible', 'Free'],
@@ -119,6 +132,7 @@ export const votingSections = [
       },
       {
         id: 'sat-morning-archery',
+        cost: '~$45 pp',
         title: 'Archery',
         description: 'Channel your inner medieval energy. Group sessions available by enquiry.',
         meta: ['Time by enquiry', 'From approx. $45 pp'],
@@ -129,12 +143,14 @@ export const votingSections = [
   },
   {
     key: 'saturdayLunch',
+    day: 'Saturday',
     title: 'Saturday lunch / winery',
     subtitle: 'Long Lunch',
     icon: 'restaurant',
     options: [
       {
         id: 'sat-lunch-yering',
+        cost: '~$15-$35 pp tastings',
         title: 'Yering Station',
         description: 'Big vineyard energy, polished long lunch, great Pinot options.',
         meta: ['Approx. $15-$35 pp tastings'],
@@ -145,6 +161,7 @@ export const votingSections = [
       },
       {
         id: 'sat-lunch-rochford',
+        cost: '~$15-$25 pp tastings',
         title: 'Rochford Wines',
         description: 'Set menu approach and fewer choices for chaos management.',
         meta: ['Approx. $15-$25 pp tastings'],
@@ -153,6 +170,7 @@ export const votingSections = [
       },
       {
         id: 'sat-lunch-chandon',
+        cost: '~$22 pp tasting',
         title: 'Chandon',
         description: 'Bubbles and views. Pure sophistication before the night descends into chaos.',
         meta: ['Approx. $22 pp tasting'],
@@ -161,6 +179,7 @@ export const votingSections = [
       },
       {
         id: 'sat-lunch-oakridge',
+        cost: 'Group pricing on enquiry',
         title: 'Oakridge Wines',
         description: 'Award-winning food, serious cellar door. Good for a group that can behave for 90 minutes.',
         meta: ['Enquire for group pricing'],
@@ -169,6 +188,7 @@ export const votingSections = [
       },
       {
         id: 'sat-lunch-debortoli',
+        cost: 'Restaurant pricing',
         title: 'De Bortoli Locale',
         description: 'Restaurant with cheese room. The cheese room alone justifies the trip.',
         meta: ['Restaurant pricing / group enquiry'],
@@ -177,6 +197,7 @@ export const votingSections = [
       },
       {
         id: 'sat-lunch-hubert',
+        cost: 'Restaurant pricing',
         title: 'Hubert Estate / Quarters',
         description: 'Modern and sleek. Good food, good wine, slightly more grown-up energy.',
         meta: ['Restaurant pricing / group enquiry'],
@@ -185,6 +206,7 @@ export const votingSections = [
       },
       {
         id: 'sat-lunch-grand-hotel',
+        cost: 'Pay individually',
         title: 'Yarra Valley Grand Hotel',
         description: 'Pub classics, less ceremony, easier for all tastes. Pay individually.',
         meta: ['Pay individually'],
@@ -195,12 +217,14 @@ export const votingSections = [
   },
   {
     key: 'saturdayDrinks',
+    day: 'Saturday',
     title: 'Saturday afternoon drinks',
     subtitle: 'Gin & Juice',
     icon: 'liquor',
     options: [
       {
         id: 'sat-drinks-four-pillars',
+        cost: '~$50 pp',
         title: 'Four Pillars Gin',
         description: 'The legendary Bloody Shiraz gin awaits. Approx 55 min session, hourly from 12pm weekends.',
         meta: ['Approx. 55 mins', 'Approx. $50 pp'],
@@ -211,6 +235,7 @@ export const votingSections = [
       },
       {
         id: 'sat-drinks-watts',
+        cost: 'Pay as you go',
         title: 'Watts River Brewing',
         description: 'Craft beers, outdoor tables, very acceptable afternoon pivot.',
         meta: ['Flexible', 'Pay as you go'],
@@ -219,6 +244,7 @@ export const votingSections = [
       },
       {
         id: 'sat-drinks-st-ronans',
+        cost: 'Pay as you go',
         title: "St Ronan's Cider",
         description: 'Cider and perries for the beer-averse. Relaxed vibe, easy afternoon stop.',
         meta: ['Flexible', 'Pay as you go'],
@@ -227,6 +253,7 @@ export const votingSections = [
       },
       {
         id: 'sat-drinks-more-wineries',
+        cost: 'Varies',
         title: 'More winery tastings',
         description: 'Keep the wine train rolling. Hit another cellar door or two before dinner.',
         meta: ['Flexible', 'Varies'],
@@ -234,6 +261,7 @@ export const votingSections = [
       },
       {
         id: 'sat-drinks-airbnb',
+        cost: 'Free',
         title: 'Back to Airbnb earlier',
         description: 'Regroup at base camp. Saves money, saves energy, saves face.',
         meta: ['Flexible', 'Free'],
@@ -243,12 +271,14 @@ export const votingSections = [
   },
   {
     key: 'saturdayNight',
+    day: 'Saturday',
     title: 'Saturday night',
     subtitle: 'Main Character Dinner',
     icon: 'local_bar',
     options: [
       {
         id: 'sat-night-bbq',
+        cost: 'Shared grocery cost',
         title: 'BBQ dinner',
         description: 'Back at base camp. Fire up the barbie, keep it simple, keep it loud.',
         meta: ['Evening', 'Shared grocery cost'],
@@ -256,6 +286,7 @@ export const votingSections = [
       },
       {
         id: 'sat-night-pizza',
+        cost: 'Shared grocery cost',
         title: 'Pizza oven round two',
         description:
           'Pizza oven round two only works if people help. This is a group weekend, not a one-man restaurant.',
@@ -266,6 +297,7 @@ export const votingSections = [
       },
       {
         id: 'sat-night-catered',
+        cost: 'Pricing on enquiry',
         title: 'Catered / private chef',
         description: 'Someone else cooks, we just eat. Premium option but zero effort required.',
         meta: ['Evening', 'Enquire for pricing'],
@@ -273,6 +305,7 @@ export const votingSections = [
       },
       {
         id: 'sat-night-takeaway',
+        cost: 'Pay individually',
         title: 'Big takeaway order',
         description: 'Order everything. Eat on the couch. No judgement zone.',
         meta: ['Evening', 'Pay individually'],
@@ -280,6 +313,7 @@ export const votingSections = [
       },
       {
         id: 'sat-night-pub',
+        cost: 'Pay individually',
         title: 'Pub / restaurant dinner',
         description: 'Head out to a venue. More structured, easier for fussy eaters.',
         meta: ['Evening', 'Pay individually'],
@@ -291,12 +325,14 @@ export const votingSections = [
   },
   {
     key: 'sundayRecovery',
+    day: 'Sunday',
     title: 'Sunday recovery',
     subtitle: 'Soft Landing',
     icon: 'coffee',
     options: [
       {
         id: 'sun-chocolaterie',
+        cost: 'Free / ~$4 tasting',
         title: 'Yarra Valley Chocolaterie',
         description: 'Free entry, optional tasting for $4. Sugar fixes everything.',
         meta: ['Usually 9am-5pm', 'Free entry', 'Optional $4 tasting'],
@@ -305,6 +341,7 @@ export const votingSections = [
       },
       {
         id: 'sun-sanctuary',
+        cost: '~$54.50 pp',
         title: 'Healesville Sanctuary',
         description: 'Wholesome animal reset before heading home. Platypus viewing is genuinely great.',
         meta: ['Usually 9am-5pm', 'From approx. $54.50 pp'],
@@ -315,6 +352,7 @@ export const votingSections = [
       },
       {
         id: 'sun-walk',
+        cost: 'Free',
         title: 'Short nature walk',
         description: 'Fresh air, mild exertion, questionable motivation.',
         meta: ['Flexible', 'Free'],
@@ -322,6 +360,7 @@ export const votingSections = [
       },
       {
         id: 'sun-pub-lunch',
+        cost: 'Pay individually',
         title: 'Pub / winery lunch',
         description: 'One more meal out before reality returns.',
         meta: ['Flexible', 'Pay individually'],
@@ -329,6 +368,7 @@ export const votingSections = [
       },
       {
         id: 'sun-minigolf',
+        cost: '~$19-$29 pp',
         title: 'Mini golf / driving range',
         description: 'Low stakes, high trash talk. Good Sunday energy.',
         meta: ['Open 9am-10pm', 'Approx. $19-$29'],
@@ -337,6 +377,7 @@ export const votingSections = [
       },
       {
         id: 'sun-leave-early',
+        cost: '',
         title: 'Leave early',
         description: 'Skip the fanfare and reclaim Sunday afternoon. No judgement.',
         meta: ['Anytime'],
@@ -344,42 +385,6 @@ export const votingSections = [
       }
     ]
   }
-];
-
-export const budgetOptions = [
-  { id: 'budget-under-75', label: 'Under $75 for paid activities' },
-  { id: 'budget-75-150', label: '$75-$150 for paid activities' },
-  { id: 'budget-150-250', label: '$150-$250 for paid activities' },
-  { id: 'budget-dont-care', label: "Don't care if it's good" },
-  { id: 'budget-complain', label: 'I will complain regardless of price' }
-];
-
-export const hardNoOptions = [
-  '8:45am start',
-  'Clay shooting',
-  'Paintball',
-  'Nature walk',
-  'Fancy winery lunch',
-  'Gin tasting',
-  'Mini golf',
-  'Being responsible for cooking',
-  'Spending over $150 on activities',
-  'Leaving the Airbnb after dinner',
-  'Other'
-];
-
-export const costGuide = [
-  { item: 'Accommodation', when: 'Fri-Sun', cost: 'Included', notes: 'Already booked.' },
-  { item: 'Friday night food', when: 'Friday', cost: 'Shared grocery cost', notes: 'Depends on option chosen.' },
-  { item: 'Clay shooting (public)', when: 'Saturday morning', cost: 'Approx. $80.50 pp', notes: 'Come and try session.' },
-  { item: 'Clay shooting (private)', when: 'Saturday morning', cost: 'Approx. $165 pp', notes: 'Private group session.' },
-  { item: 'Paintball', when: 'Saturday morning', cost: 'Approx. $55-$155 pp', notes: 'Depends on package.' },
-  { item: 'Mini golf', when: 'Saturday or Sunday', cost: 'Approx. $19-$29 pp', notes: 'Driving range $14-$19.' },
-  { item: 'Archery', when: 'Saturday morning', cost: 'From approx. $45 pp', notes: 'Group sessions by enquiry.' },
-  { item: 'Winery tastings', when: 'Saturday lunch', cost: '$15-$35 per venue', notes: 'Usually redeemable on bottle purchase.' },
-  { item: 'Four Pillars Gin', when: 'Saturday afternoon', cost: 'Approx. $50 pp', notes: 'Approx. 55 min session.' },
-  { item: 'Healesville Sanctuary', when: 'Sunday', cost: 'From approx. $54.50 pp', notes: 'Full day if you want it.' },
-  { item: 'Yarra Valley Chocolaterie', when: 'Sunday', cost: 'Free entry / $4 tasting', notes: 'Free chocolate samples on arrival.' }
 ];
 
 export const itineraryTimeline = [

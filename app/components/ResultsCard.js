@@ -4,8 +4,7 @@ const categoryRows = [
   { key: 'saturdayLunch', label: 'Saturday lunch' },
   { key: 'saturdayDrinks', label: 'Saturday drinks' },
   { key: 'saturdayNight', label: 'Saturday night' },
-  { key: 'sundayRecovery', label: 'Sunday recovery' },
-  { key: 'budgetComfort', label: 'Budget comfort' }
+  { key: 'sundayRecovery', label: 'Sunday recovery' }
 ];
 
 function getTopChoices(categoryTally = {}) {

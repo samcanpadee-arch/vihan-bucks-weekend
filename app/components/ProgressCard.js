@@ -5,8 +5,7 @@ const sectionOrder = [
   ['saturdayLunch', 'Saturday lunch', 'restaurant'],
   ['saturdayDrinks', 'Saturday drinks', 'liquor'],
   ['saturdayNight', 'Saturday night', 'local_bar'],
-  ['sundayRecovery', 'Sunday', 'coffee'],
-  ['budgetComfort', 'Budget', 'payments']
+  ['sundayRecovery', 'Sunday', 'coffee']
 ];
 
 const avatar =

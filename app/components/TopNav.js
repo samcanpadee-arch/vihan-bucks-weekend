@@ -10,7 +10,7 @@ export default function TopNav({ activeHref }) {
     <>
       <header className="top-app-bar">
         <div className="top-app-inner">
-          <h1>Vihan’s Yarra Valley Bucks</h1>
+          <h1>Bucks '26</h1>
           <nav>
             {tabs.map((tab) => (
               <Link key={tab.href} href={tab.href} className={activeHref === tab.href ? 'active' : ''}>

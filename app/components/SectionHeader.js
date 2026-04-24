@@ -1,4 +1,4 @@
-export default function SectionHeader({ label, title, subtitle, icon }) {
+export default function SectionHeader({ label, title, subtitle, icon, hint }) {
   return (
     <div className="section-header">
       <div className="section-header-row">
@@ -7,6 +7,7 @@ export default function SectionHeader({ label, title, subtitle, icon }) {
           {label ? <p className="section-label">{label}</p> : null}
           <h2>{title}</h2>
           {subtitle ? <p className="section-subtitle">{subtitle}</p> : null}
+          {hint ? <p className="section-hint">{hint}</p> : null}
         </div>
       </div>
     </div>

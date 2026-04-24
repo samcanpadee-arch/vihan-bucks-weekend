@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { kv } from '@vercel/kv';
 
 const requiredFields = [
   'name',
@@ -7,19 +8,8 @@ const requiredFields = [
   'saturdayLunch',
   'saturdayDrinks',
   'saturdayNight',
-  'sundayRecovery',
-  'budgetComfort'
+  'sundayRecovery'
 ];
-
-async function getKvClient() {
-  try {
-    const loadKv = new Function('return import("@vercel/kv")');
-    const { kv } = await loadKv();
-    return kv;
-  } catch {
-    return null;
-  }
-}
 
 export async function POST(request) {
   try {
@@ -32,7 +22,6 @@ export async function POST(request) {
 
     const vote = {
       name: body.name,
-      travelNotes: body.travelNotes || '',
       hardConstraints: body.hardConstraints || '',
       fridayNight: body.fridayNight,
       saturdayMorning: body.saturdayMorning,
@@ -40,21 +29,12 @@ export async function POST(request) {
       saturdayDrinks: body.saturdayDrinks,
       saturdayNight: body.saturdayNight,
       sundayRecovery: body.sundayRecovery,
-      budgetComfort: body.budgetComfort,
-      hardNos: Array.isArray(body.hardNos) ? body.hardNos : [],
       finalComments: body.finalComments || '',
       submittedAt: new Date().toISOString()
     };
 
     const normalizedName = body.name.trim().toLowerCase();
     const key = `vote:${normalizedName}`;
-
-    const kv = await getKvClient();
-
-    if (!kv) {
-      console.log('KV unavailable. Mock submit payload:', vote);
-      return NextResponse.json({ success: true, mock: true });
-    }
 
     await kv.set(key, vote);
     await kv.sadd('voters', key);

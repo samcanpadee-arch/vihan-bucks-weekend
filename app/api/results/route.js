@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { kv } from '@vercel/kv';
 
 const tallyCategories = [
   'fridayNight',
@@ -6,28 +7,11 @@ const tallyCategories = [
   'saturdayLunch',
   'saturdayDrinks',
   'saturdayNight',
-  'sundayRecovery',
-  'budgetComfort'
+  'sundayRecovery'
 ];
-
-async function getKvClient() {
-  try {
-    const loadKv = new Function('return import("@vercel/kv")');
-    const { kv } = await loadKv();
-    return kv;
-  } catch {
-    return null;
-  }
-}
 
 export async function GET() {
   try {
-    const kv = await getKvClient();
-
-    if (!kv) {
-      return NextResponse.json({ voterCount: 0, voterNames: [], tally: {}, mock: true });
-    }
-
     const voterKeys = await kv.smembers('voters');
 
     if (!voterKeys?.length) {
@@ -45,15 +29,6 @@ export async function GET() {
         const choice = vote?.[category];
         if (choice) {
           tally[category][choice] = (tally[category][choice] || 0) + 1;
-        }
-      }
-    }
-
-    tally.hardNos = {};
-    for (const vote of votes) {
-      if (Array.isArray(vote.hardNos)) {
-        for (const item of vote.hardNos) {
-          tally.hardNos[item] = (tally.hardNos[item] || 0) + 1;
         }
       }
     }

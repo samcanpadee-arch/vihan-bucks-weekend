@@ -1,15 +1,8 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import {
-  accommodation,
-  budgetOptions,
-  costGuide,
-  hardNoOptions,
-  votingSections
-} from './siteData';
+import { accommodation, votingSections } from './siteData';
 import AccommodationCard from './components/AccommodationCard';
-import CostGuideTable from './components/CostGuideTable';
 import OptionCard from './components/OptionCard';
 import ProgressCard from './components/ProgressCard';
 import ResultsCard from './components/ResultsCard';
@@ -19,7 +12,6 @@ import Footer from './components/Footer';
 
 const initialForm = {
   name: '',
-  travelNotes: '',
   hardConstraints: '',
   fridayNight: '',
   saturdayMorning: '',
@@ -27,21 +19,20 @@ const initialForm = {
   saturdayDrinks: '',
   saturdayNight: '',
   sundayRecovery: '',
-  budgetComfort: '',
-  hardNos: [],
   finalComments: ''
 };
 
 export default function HomePage() {
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState('idle');
+  const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState('');
   const [submitAttempted, setSubmitAttempted] = useState(false);
   const [resultsData, setResultsData] = useState(null);
   const [resultsLoading, setResultsLoading] = useState(true);
 
   const requiredKeys = useMemo(
-    () => ['name', 'fridayNight', 'saturdayMorning', 'saturdayLunch', 'saturdayDrinks', 'saturdayNight', 'sundayRecovery', 'budgetComfort'],
+    () => ['name', 'fridayNight', 'saturdayMorning', 'saturdayLunch', 'saturdayDrinks', 'saturdayNight', 'sundayRecovery'],
     []
   );
 
@@ -54,27 +45,14 @@ export default function HomePage() {
       }
     }
 
-    for (const option of budgetOptions) {
-      lookup[option.id] = option.label;
-    }
-
     return lookup;
   }, []);
 
-  const disableInputs = status === 'success';
+  const disableInputs = status === 'success' && !isEditing;
 
   const selectOption = (key, value) => {
     if (disableInputs) return;
     setForm((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const toggleHardNo = (value) => {
-    if (disableInputs) return;
-
-    setForm((prev) => ({
-      ...prev,
-      hardNos: prev.hardNos.includes(value) ? prev.hardNos.filter((item) => item !== value) : [...prev.hardNos, value]
-    }));
   };
 
   const jumpToSection = (key) => {
@@ -104,6 +82,7 @@ export default function HomePage() {
     const votedName = localStorage.getItem('bucks-voted');
     if (votedName) {
       setStatus('success');
+      setIsEditing(false);
       const savedVote = localStorage.getItem('bucks-vote-data');
       if (savedVote) {
         try {
@@ -150,6 +129,7 @@ export default function HomePage() {
       }
 
       setStatus('success');
+      setIsEditing(false);
       localStorage.setItem('bucks-voted', form.name.trim().toLowerCase());
       localStorage.setItem('bucks-vote-data', JSON.stringify(form));
       fetchResults();
@@ -192,14 +172,12 @@ export default function HomePage() {
                 type="button"
                 className="revote-link"
                 onClick={() => {
+                  setIsEditing(true);
                   setStatus('idle');
                   setSubmitAttempted(false);
-                  localStorage.removeItem('bucks-voted');
-                  localStorage.removeItem('bucks-vote-data');
-                  setForm(initialForm);
                 }}
               >
-                Changed your mind? Vote again
+                Edit your votes
               </button>
             </section>
           ) : null}
@@ -211,94 +189,72 @@ export default function HomePage() {
           ) : null}
 
           <form id="vote" onSubmit={handleSubmit} className="vote-form">
-            <section className="field-grid" id="section-name">
-              <label>
-                Name (identity for public shaming)
-                <input
-                  value={form.name}
-                  onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
-                  placeholder="e.g. Dave"
-                  disabled={disableInputs}
-                />
-              </label>
-              <label>
-                Travel notes (who are you carpooling with?)
-                <input
-                  value={form.travelNotes}
-                  onChange={(e) => setForm((prev) => ({ ...prev, travelNotes: e.target.value }))}
-                  placeholder="Driving from Northcote..."
-                  disabled={disableInputs}
-                />
-              </label>
-              <label>
-                Hard constraints (allergies/anxieties)
-                <input
-                  value={form.hardConstraints}
-                  onChange={(e) => setForm((prev) => ({ ...prev, hardConstraints: e.target.value }))}
-                  placeholder="No mushrooms, terrified of goats"
-                  disabled={disableInputs}
-                />
-              </label>
+            <section className="name-section" id="section-name">
+              <SectionHeader
+                title="Who are you?"
+                subtitle="So we know whose questionable opinions these are."
+              />
+              <div className="field-grid">
+                <label>
+                  Name
+                  <input
+                    value={form.name}
+                    onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
+                    placeholder="e.g. Dave"
+                    disabled={disableInputs}
+                  />
+                </label>
+                <label>
+                  Anything we should actually know?
+                  <input
+                    value={form.hardConstraints}
+                    onChange={(e) => setForm((prev) => ({ ...prev, hardConstraints: e.target.value }))}
+                    placeholder="No mushrooms, terrified of heights, etc."
+                    disabled={disableInputs}
+                  />
+                </label>
+              </div>
             </section>
 
-            {votingSections.map((section) => (
-              <section key={section.key} className="vote-section" id={`section-${section.key}`}>
-                <SectionHeader icon={section.icon} title={section.title} subtitle={section.subtitle} />
-                <div className="options-grid">
-                  {section.options.map((option) => (
-                    <OptionCard
-                      key={option.id}
-                      option={option}
-                      isSelected={form[section.key] === option.id}
-                      onSelect={() => selectOption(section.key, option.id)}
-                      disabled={disableInputs}
-                    />
-                  ))}
-                </div>
-              </section>
+            {votingSections.map((section, index) => (
+              <div key={section.key}>
+                {index === 0 || votingSections[index - 1].day !== section.day ? (
+                  <div className="day-divider" aria-hidden="true">
+                    <h3>{section.day}</h3>
+                    <p>
+                      {section.day === 'Friday'
+                        ? 'The arrival. People will trickle in after work.'
+                        : section.day === 'Saturday'
+                          ? "The main event. This is why we're here."
+                          : 'The soft landing. Optional but recommended.'}
+                    </p>
+                  </div>
+                ) : null}
+
+                <section className="vote-section" id={`section-${section.key}`}>
+                  <SectionHeader icon={section.icon} title={section.title} subtitle={section.subtitle} hint="Pick one" />
+                  <div className="options-grid">
+                    {section.options.map((option) => (
+                      <OptionCard
+                        key={option.id}
+                        option={option}
+                        isSelected={form[section.key] === option.id}
+                        onSelect={() => selectOption(section.key, option.id)}
+                        disabled={disableInputs}
+                      />
+                    ))}
+                  </div>
+                </section>
+              </div>
             ))}
 
-            <section className="vote-section" id="section-budgetComfort">
-              <SectionHeader title="Budget comfort" label="💸" subtitle="Pick your comfort zone" />
-              <div className="pill-grid">
-                {budgetOptions.map((option) => (
-                  <button
-                    type="button"
-                    key={option.id}
-                    className={`pill ${form.budgetComfort === option.id ? 'selected' : ''}`}
-                    onClick={() => selectOption('budgetComfort', option.id)}
-                    disabled={disableInputs}
-                  >
-                    {option.label}
-                  </button>
-                ))}
-              </div>
-            </section>
-
-            <section className="vote-section" id="section-hardNos">
-              <SectionHeader title="Hard no list" label="🚫" subtitle="Checkbox the things that are absolutely off limits" />
-              <div className="pill-grid">
-                {hardNoOptions.map((option) => (
-                  <button
-                    type="button"
-                    key={option}
-                    className={`pill ${form.hardNos.includes(option) ? 'selected danger' : ''}`}
-                    onClick={() => toggleHardNo(option)}
-                    disabled={disableInputs}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
-            </section>
-
             <section className="vote-section" id="section-finalComments">
-              <SectionHeader title="Final comments" label="✍️" subtitle="Last notes before lock-in" />
+              <SectionHeader title="Anything else?" label="✍️" subtitle="Last words before we lock this in." />
               <textarea
-                rows={4}
+                rows={3}
                 value={form.finalComments}
                 onChange={(e) => setForm((prev) => ({ ...prev, finalComments: e.target.value }))}
-                placeholder="Anything else the group should know..."
+                placeholder="Strong opinions, bad ideas, dietary stuff, whatever."
                 disabled={disableInputs}
               />
             </section>
@@ -306,15 +262,10 @@ export default function HomePage() {
             {error ? <p className="error-message">{error}</p> : null}
 
             <button type="submit" className="submit-btn" disabled={status === 'loading' || disableInputs}>
-              {status === 'loading' ? 'Submitting...' : 'Submit votes'}
+              {status === 'loading' ? 'Submitting...' : isEditing ? 'Update votes' : 'Submit votes'}
               {status !== 'loading' ? <span className="material-symbols-outlined">arrow_forward</span> : null}
             </button>
           </form>
-
-          <section className="vote-section">
-            <SectionHeader label="Cost" title="Cost guide" subtitle="Indicative only. Not a checkout... Please do not invoice Sam." />
-            <CostGuideTable rows={costGuide} />
-          </section>
 
           {status !== 'success' ? (
             <section className="mobile-results-wrap">
