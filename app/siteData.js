@@ -1,10 +1,11 @@
 export const accommodation = {
-  label: 'Base Camp',
+  label: 'Base camp',
   status: 'Booked',
   name: 'Yarra Glen Airbnb Estate',
   dates: 'June 26 – June 28, 2026',
-  address: 'TBC — sent via Signal',
-  note: "Check-in at 3:00 PM. Don't be the guy who shows up early and expects a tour.",
+  address: 'TBC once shared',
+  note: 'Address and check-in details will be added once confirmed, so nobody has to scroll through old messages like an archaeologist.',
+  description: 'Accommodation is already booked. This is where everyone eventually needs to end up.',
   linkLabel: 'Airbnb link',
   link: 'https://www.airbnb.com.au/rooms/1561866387856977252?source_impression_id=p3_1776992856_P3BRBi61hmW3JbmH',
   image:
@@ -368,38 +369,53 @@ export const hardNoOptions = [
 ];
 
 export const costGuide = [
-  { item: 'Pizza Oven Hire', when: 'Friday Night', cost: '$45pp', notes: 'Unlimited wood-fired glory.' },
-  { item: 'Clay Shooting', when: 'Saturday Morning', cost: '$120pp', notes: 'Includes safety briefing and 25 targets.' },
-  { item: 'Paintball', when: 'Saturday Morning', cost: '$85pp', notes: 'Starter pack of 200 paintballs.' },
-  { item: 'Winery Tastings', when: 'Saturday Lunch', cost: '$20–30 per venue', notes: 'Usually redeemable on bottle purchase.' },
-  { item: 'Four Pillars Gin Tasting', when: 'Saturday Afternoon', cost: '$35pp', notes: 'A flight of award-winning gin.' },
-  { item: 'Dinner at Rochford', when: 'Saturday Night', cost: '$95pp', notes: 'Set menu excluding drinks.' }
+  { item: 'Accommodation', when: 'Fri-Sun', cost: 'Included', notes: 'Already booked.' },
+  { item: 'Friday night food', when: 'Friday', cost: 'Shared grocery cost', notes: 'Depends on option chosen.' },
+  { item: 'Clay shooting (public)', when: 'Saturday morning', cost: 'Approx. $80.50 pp', notes: 'Come and try session.' },
+  { item: 'Clay shooting (private)', when: 'Saturday morning', cost: 'Approx. $165 pp', notes: 'Private group session.' },
+  { item: 'Paintball', when: 'Saturday morning', cost: 'Approx. $55-$155 pp', notes: 'Depends on package.' },
+  { item: 'Mini golf', when: 'Saturday or Sunday', cost: 'Approx. $19-$29 pp', notes: 'Driving range $14-$19.' },
+  { item: 'Archery', when: 'Saturday morning', cost: 'From approx. $45 pp', notes: 'Group sessions by enquiry.' },
+  { item: 'Winery tastings', when: 'Saturday lunch', cost: '$15-$35 per venue', notes: 'Usually redeemable on bottle purchase.' },
+  { item: 'Four Pillars Gin', when: 'Saturday afternoon', cost: 'Approx. $50 pp', notes: 'Approx. 55 min session.' },
+  { item: 'Healesville Sanctuary', when: 'Sunday', cost: 'From approx. $54.50 pp', notes: 'Full day if you want it.' },
+  { item: 'Yarra Valley Chocolaterie', when: 'Sunday', cost: 'Free entry / $4 tasting', notes: 'Free chocolate samples on arrival.' }
 ];
 
 export const itineraryTimeline = [
   {
     day: 'Friday — Settling In',
     entries: [
-      { time: '18:00', title: 'Arrival & Base Camp Check-in', note: 'Confirmed' },
-      { time: '20:30', title: 'Group Dinner (TBC)', note: 'Voting in progress' }
+      { time: '18:00', title: 'Arrival & Base Camp Check-in', note: 'Airbnb key handoff and room picks.', status: 'confirmed' },
+      { time: '20:30', title: 'Group Dinner (TBC)', note: 'Depends on the Friday vote winner.', status: 'tbc' }
     ]
   },
   {
     day: 'Saturday — The Main Event',
     entries: [
-      { time: '10:00', title: 'Breakfast & Prep', note: 'Confirmed' },
-      { time: '13:00', title: 'Winery Tour & Long Lunch', note: 'Pending vote' }
+      { time: '10:00', title: 'Morning activity block', note: 'Chosen option from voting.', status: 'confirmed' },
+      { time: '13:00', title: 'Long lunch / winery', note: 'Group booking after votes lock in.', status: 'confirmed' },
+      { time: '19:30', title: 'Saturday night dinner', note: 'Main character energy only.', status: 'tbc' }
     ]
   },
   {
     day: 'Sunday — Recovery',
-    entries: [{ time: '11:00', title: 'Recovery Brunch (TBC)', note: 'Likely if morale allows' }]
+    entries: [
+      { time: '10:30', title: 'Soft landing plan', note: 'Chocolaterie / sanctuary / leave early.', status: 'confirmed' }
+    ]
   }
 ];
 
 export const bookingStatus = [
-  { item: 'Airbnb Deposit', status: 'Booked' },
-  { item: 'Shuttle Bus', status: 'Not booked' },
-  { item: 'Lunch Reservation', status: 'Booked' },
-  { item: 'Activity Tickets', status: 'Not booked' }
+  { item: 'Airbnb', subtitle: 'Base camp secured', icon: 'house', status: 'Booked' },
+  { item: 'Saturday activity', subtitle: 'Pending vote outcome', icon: 'sports_score', status: 'Not booked' },
+  { item: 'Saturday lunch', subtitle: 'Winery booking window open', icon: 'restaurant', status: 'Not booked' },
+  { item: 'Saturday drinks', subtitle: 'Distillery/brewery slot', icon: 'liquor', status: 'Not booked' }
+];
+
+export const essentialsChecklist = [
+  'Warm clothes (Valley gets cold)',
+  'Phone chargers',
+  'Electrolytes',
+  'Good vibes only'
 ];

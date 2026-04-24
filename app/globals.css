@@ -771,3 +771,356 @@ th {
   border-color: #5b4313;
   color: #fff8e7;
 }
+
+:root {
+  --nav-bg: #fdfcf0;
+  --border: #e5e0d5;
+  --gold-label: #8b6e32;
+  --green-confirmed: #d0e9d4;
+}
+
+.top-app-bar {
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 10px rgba(27, 48, 34, 0.05);
+}
+
+.top-app-inner h1 {
+  font-family: var(--font-serif), 'Noto Serif', Georgia, serif;
+  font-weight: 700;
+}
+
+.mobile-bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: none;
+  justify-content: space-around;
+  background: var(--nav-bg);
+  border-top: 1px solid var(--border);
+  border-radius: 1rem 1rem 0 0;
+  box-shadow: 0 -4px 12px rgba(27, 48, 34, 0.08);
+  padding: 0.5rem 0.75rem calc(1.5rem + env(safe-area-inset-bottom));
+}
+
+.mobile-bottom-nav a {
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+  text-decoration: none;
+  color: var(--text-soft);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 0.65rem;
+  padding: 0.35rem 0.6rem;
+}
+
+.mobile-bottom-nav a.active {
+  background: rgba(27, 48, 34, 0.1);
+  color: var(--primary);
+}
+
+.section-header-row {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+
+.section-header-icon {
+  color: var(--gold-label);
+  margin-top: 0.1rem;
+}
+
+.accommodation-description {
+  color: var(--text-soft);
+  margin: 0.4rem 0 0.8rem;
+}
+
+.option-card {
+  height: 100%;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 20px rgba(27, 48, 34, 0.07);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.option-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(27, 48, 34, 0.13);
+}
+
+.option-card.selected {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(6, 27, 14, 0.2), 0 16px 34px rgba(27, 48, 34, 0.16);
+}
+
+.option-card p {
+  font-style: italic;
+}
+
+.option-image-wrap {
+  height: 140px;
+}
+
+.option-link {
+  margin-top: auto;
+  display: inline-flex;
+  gap: 0.2rem;
+  align-items: center;
+  width: fit-content;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 0.66rem;
+  color: var(--primary);
+}
+
+.option-link .material-symbols-outlined {
+  font-size: 0.9rem;
+}
+
+.progress-card {
+  top: 1.5rem;
+}
+
+.progress-card li {
+  align-items: center;
+  border-radius: 0.65rem;
+  padding: 0.5rem 0.6rem;
+  border-top: 0;
+}
+
+.progress-card li.is-done {
+  background: #1b3022;
+}
+
+.progress-label {
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.progress-submit-btn {
+  margin-top: 0.9rem;
+  border: 0;
+  width: 100%;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 0.7rem;
+  padding: 0.75rem 0.85rem;
+  font-weight: 700;
+}
+
+.cheeky-tooltip {
+  margin-top: 0.85rem;
+  padding: 0.9rem;
+  border-radius: 0.8rem;
+  border: 1px solid #d7c08f;
+  background: #f4e1b8;
+  color: #5f4416;
+  font-style: italic;
+}
+
+input {
+  border: none;
+  border-bottom: 2px solid var(--primary);
+  background: transparent;
+  border-radius: 0;
+  padding: 0.7rem 0;
+}
+
+textarea {
+  border: 1px solid #bfb4ad;
+  background: #fff;
+  border-radius: 0.35rem;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--secondary);
+}
+
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 100%;
+  margin-top: 1.4rem;
+  background: var(--primary);
+  border-radius: 0.75rem;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 15px 30px rgba(6, 27, 14, 0.26);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: var(--secondary);
+  transform: scale(1.02);
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+}
+
+.micro-copy {
+  font-size: 0.86rem;
+  color: var(--text-soft);
+}
+
+.timeline-wrap {
+  border-left: 2px solid var(--border);
+  padding-left: 1rem;
+}
+
+.timeline-day h3 {
+  position: relative;
+  color: var(--gold-label);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+}
+
+.timeline-day h3::before {
+  content: '';
+  position: absolute;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 999px;
+  background: #1b3022;
+  box-shadow: 0 0 0 4px rgba(27, 48, 34, 0.1);
+  left: -1.35rem;
+  top: 0.2rem;
+}
+
+.timeline-entry {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+.timeline-entry.is-tbc {
+  border-style: dashed;
+  opacity: 0.75;
+}
+
+.timeline-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.timeline-entry.is-confirmed .timeline-status {
+  color: #25643b;
+}
+
+.booking-card {
+  background: #fff;
+  border: 1px solid var(--border);
+}
+
+.booking-copy {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.booking-copy small {
+  color: var(--text-soft);
+}
+
+.booking-icon {
+  background: #f3ece6;
+  border-radius: 0.55rem;
+  padding: 0.35rem;
+  color: var(--primary);
+}
+
+.ok {
+  background: #d0e9d4;
+  color: #1f5f37;
+}
+
+.pending {
+  background: #f1eee9;
+  color: #6f675f;
+}
+
+.itinerary-top-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 1rem;
+}
+
+.essentials-card {
+  background: #1b3022;
+  border-radius: 0.75rem;
+  border: 1px solid #314e3b;
+  color: #f8efea;
+  padding: 1rem;
+  height: fit-content;
+}
+
+.essentials-card h3 {
+  margin: 0.2rem 0 0.6rem;
+}
+
+.essentials-card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.essentials-card li {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.essentials-card .material-symbols-outlined {
+  color: #e4bc6a;
+}
+
+.site-footer {
+  margin-top: 2rem;
+  padding: 1.1rem;
+  background: #ede8df;
+  border-top: 1px solid var(--border);
+  border-radius: 0.75rem;
+  text-align: center;
+}
+
+.site-footer p {
+  display: inline-flex;
+  gap: 0.3rem;
+  align-items: center;
+  color: var(--text-soft);
+}
+
+@media (max-width: 980px) {
+  .itinerary-top-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .mobile-bottom-nav {
+    display: flex;
+  }
+
+  .page-shell {
+    padding-bottom: 6rem;
+  }
+}

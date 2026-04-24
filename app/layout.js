@@ -17,7 +17,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 export const metadata = {
   title: "Vihan's Yarra Valley Bucks Weekend",
-  description: "Trip hub and itinerary for Vihan's Yarra Valley bucks weekend."
+  description: 'Vote on the plan. 26-28 June 2026, Yarra Glen.'
 };
 
 export default function RootLayout({ children }) {

@@ -14,6 +14,7 @@ export default function AccommodationCard({ accommodation }) {
         </a>
       </div>
       <p className="status">Status: {accommodation.status}</p>
+      {accommodation.description ? <p className="accommodation-description">{accommodation.description}</p> : null}
       <div className="meta-grid">
         <div>
           <p>Dates</p>

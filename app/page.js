@@ -14,6 +14,7 @@ import OptionCard from './components/OptionCard';
 import ProgressCard from './components/ProgressCard';
 import SectionHeader from './components/SectionHeader';
 import TopNav from './components/TopNav';
+import Footer from './components/Footer';
 
 const initialForm = {
   name: '',
@@ -110,11 +111,10 @@ export default function HomePage() {
         <div className="content-col">
                     <section className="hero-block">
             <p className="section-label">Trip hub + voting</p>
-            <h2>26–28 June 2026 · Yarra Glen</h2>
-            <p>A very serious planning website for a deeply unserious weekend.</p>
-            <blockquote>
-              “Vote on the rough plan now… Built because planning manually is painful and procrastination is a powerful drug.”
-            </blockquote>
+            <h2>Vihan&apos;s Yarra Valley Bucks Weekend</h2>
+            <p>26-28 June 2026 · Yarra Glen · A very serious planning website for a deeply unserious weekend.</p>
+            <p>Vote on the rough plan now. Once things are locked in, this becomes the trip hub with the final itinerary, accommodation details, booking links, times and notes.</p>
+            <p className="micro-copy">Built because planning manually is painful and procrastination is a powerful drug.</p>
             <div className="hero-gallery">
               <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAOtbpPNDunp6x3CIsV00p0feXtMwD09UY3-DPx81Qdpj82fAx09o0q94XyDzk053sFMsJkAsY-C2hCuO8YZzwLz9fuFe1fWUta0a8d7TtLDcboKEcQwKX0GHvbB2IpONF1BIsB1RjSNYzLDaCUwq4ceyA4qb1WDAE7lkS-BG-oi_J1fhLI_ifpTFaNoBqEAaGqHIyLYSG20sm3b9j_BxKxj7vUDMc1XPUg5SKyUy0PJRfjP3Qjvk5GM2vacto0zez_k3FcCfEDf0" alt="Yarra valley estate" />
               <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6zVl9_IxBAVuPnEMbSeodLMBs-bnqy7DivYP9ssvdSwb944tFWxmbpbi27oe6NQDWtK2-3opyA5SjLETQ1KGXV0VVRkAFbBPh12OakncL62B_n51D1HsiJdY9f7bTdSlX4NpzeBmfjl4BqLxU2sDiKbyQGrjuX85xzr0F4rJJ9y3JdUhREMxR5TA1mYoYvnmfQ7Jo2GvC6bWSgr4Zye84JT6sSc2tOv5eCrdBgoOReoULEnZBQMVIweDjT_5OTPOcaCorxvLQYBw" alt="Vineyards" />
@@ -160,7 +160,7 @@ export default function HomePage() {
 
             {votingSections.map((section) => (
               <section key={section.key} className="vote-section">
-                <SectionHeader label={<span className="material-symbols-outlined section-icon">{section.icon}</span>} title={`${section.title}: ${section.subtitle}`} />
+                <SectionHeader icon={section.icon} title={section.title} subtitle={section.subtitle} />
                 <div className="options-grid">
                   {section.options.map((option) => (
                     <OptionCard
@@ -220,6 +220,7 @@ export default function HomePage() {
 
             <button type="submit" className="submit-btn" disabled={status === 'loading'}>
               {status === 'loading' ? 'Submitting...' : 'Submit votes'}
+              {status !== 'loading' ? <span className="material-symbols-outlined">arrow_forward</span> : null}
             </button>
           </form>
 
@@ -233,6 +234,8 @@ export default function HomePage() {
           <ProgressCard form={form} />
         </div>
       </div>
+
+      <Footer />
     </main>
   );
 }
