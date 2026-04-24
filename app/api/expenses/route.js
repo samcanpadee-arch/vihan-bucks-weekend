@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { kv } from '@vercel/kv';
+import { getRedis } from '../../lib/redis';
 
 const EXPENSE_SET_KEY = 'expense-ids';
 
@@ -15,12 +15,18 @@ function parseAmount(value) {
 
 export async function GET() {
   try {
-    const expenseIds = await kv.smembers(EXPENSE_SET_KEY);
+    const redis = await getRedis();
+    const expenseIds = await redis.sMembers(EXPENSE_SET_KEY);
     if (!expenseIds?.length) {
       return NextResponse.json({ expenses: [] });
     }
 
-    const rawExpenses = await Promise.all(expenseIds.map((id) => kv.get(`expense:${id}`)));
+    const rawExpenses = await Promise.all(
+      expenseIds.map(async (id) => {
+        const raw = await redis.get(`expense:${id}`);
+        return raw ? JSON.parse(raw) : null;
+      })
+    );
     const expenses = rawExpenses
       .filter(Boolean)
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -59,12 +65,33 @@ export async function POST(request) {
       createdAt: body.createdAt || new Date().toISOString()
     };
 
-    await kv.set(`expense:${id}`, expense);
-    await kv.sadd(EXPENSE_SET_KEY, id);
+    const redis = await getRedis();
+    await redis.set(`expense:${id}`, JSON.stringify(expense));
+    await redis.sAdd(EXPENSE_SET_KEY, id);
 
     return NextResponse.json({ success: true, expense });
   } catch (error) {
     console.error('Expense save error:', error);
     return NextResponse.json({ error: 'Failed to save expense' }, { status: 500 });
+  }
+}
+
+export async function DELETE(request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json({ error: 'Missing expense id' }, { status: 400 });
+    }
+
+    const redis = await getRedis();
+    await redis.del(`expense:${id}`);
+    await redis.sRem(EXPENSE_SET_KEY, id);
+
+    return NextResponse.json({ success: true, deleted: id });
+  } catch (error) {
+    console.error('Expense delete error:', error);
+    return NextResponse.json({ error: 'Failed to delete expense' }, { status: 500 });
   }
 }

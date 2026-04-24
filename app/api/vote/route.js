@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { kv } from '@vercel/kv';
+import { getRedis } from '../../lib/redis';
 
 const requiredFields = [
   'name',
@@ -36,8 +36,9 @@ export async function POST(request) {
     const normalizedName = body.name.trim().toLowerCase();
     const key = `vote:${normalizedName}`;
 
-    await kv.set(key, vote);
-    await kv.sadd('voters', key);
+    const redis = await getRedis();
+    await redis.set(key, JSON.stringify(vote));
+    await redis.sAdd('voters', key);
 
     return NextResponse.json({ success: true });
   } catch (error) {

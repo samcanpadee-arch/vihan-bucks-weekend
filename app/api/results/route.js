@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { kv } from '@vercel/kv';
+import { getRedis } from '../../lib/redis';
 
 const tallyCategories = [
   'fridayNight',
@@ -12,13 +12,19 @@ const tallyCategories = [
 
 export async function GET() {
   try {
-    const voterKeys = await kv.smembers('voters');
+    const redis = await getRedis();
+    const voterKeys = await redis.sMembers('voters');
 
     if (!voterKeys?.length) {
       return NextResponse.json({ voterCount: 0, voterNames: [], tally: {} });
     }
 
-    const rawVotes = await Promise.all(voterKeys.map((key) => kv.get(key)));
+    const rawVotes = await Promise.all(
+      voterKeys.map(async (key) => {
+        const raw = await redis.get(key);
+        return raw ? JSON.parse(raw) : null;
+      })
+    );
     const votes = rawVotes.filter(Boolean);
 
     const tally = {};

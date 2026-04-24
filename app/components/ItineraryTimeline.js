@@ -5,22 +5,25 @@ export default function ItineraryTimeline({ timeline }) {
         <section key={day.day} className="timeline-day">
           <h3>{day.day}</h3>
           {day.entries.map((entry) => (
-            <article key={`${day.day}-${entry.time}`} className={`timeline-entry ${entry.status === 'tbc' ? 'is-tbc' : 'is-confirmed'}`}>
+            <article
+              key={`${day.day}-${entry.time}`}
+              className={`timeline-entry ${entry.status === 'pending' ? 'is-tbc' : 'is-set'}`}
+            >
               <div>
                 <p className="time">{entry.time}</p>
                 <p className="title">{entry.title}</p>
                 <p className="note">{entry.note}</p>
               </div>
               <span className="timeline-status">
-                {entry.status === 'tbc' ? (
+                {entry.status === 'set' ? (
                   <>
-                    <span className="material-symbols-outlined">hourglass_top</span>
-                    TBC
+                    <span className="material-symbols-outlined">check_circle</span>
+                    Booked
                   </>
                 ) : (
                   <>
-                    <span className="material-symbols-outlined">check_circle</span>
-                    CONFIRMED
+                    <span className="material-symbols-outlined">schedule</span>
+                    Pending votes
                   </>
                 )}
               </span>
