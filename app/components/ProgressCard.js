@@ -28,8 +28,7 @@ export default function ProgressCard({ form, submitAttempted, requiredKeys = [],
         <div className="profile-row">
           <img src={avatar} alt="Vihan" className="profile-avatar" />
           <div>
-            <h3>Voting progress</h3>
-            <p>Finalize the scheme</p>
+            <h3>The scheme so far</h3>
           </div>
         </div>
 
@@ -60,9 +59,8 @@ export default function ProgressCard({ form, submitAttempted, requiredKeys = [],
         </ul>
 
         <button type="button" className="progress-submit-btn" onClick={() => onJumpToSection?.('name')}>
-          Jump to vote form
+          Lock it in
         </button>
-        <p className="fine-print">Costs are indicative only. This is not a checkout.</p>
       </aside>
 
       <aside className="cheeky-tooltip">

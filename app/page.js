@@ -6,7 +6,6 @@ import { accommodation, votingSections } from './siteData';
 import AccommodationCard from './components/AccommodationCard';
 import OptionCard from './components/OptionCard';
 import ProgressCard from './components/ProgressCard';
-import ResultsCard from './components/ResultsCard';
 import SectionHeader from './components/SectionHeader';
 import TopNav from './components/TopNav';
 import Footer from './components/Footer';
@@ -28,26 +27,12 @@ export default function HomePage() {
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState('');
   const [submitAttempted, setSubmitAttempted] = useState(false);
-  const [resultsData, setResultsData] = useState(null);
-  const [resultsLoading, setResultsLoading] = useState(true);
   const [votingLocked, setVotingLocked] = useState(false);
 
   const requiredKeys = useMemo(
     () => ['name', 'fridayNight', 'saturdayMorning', 'saturdayLunch', 'saturdayDrinks', 'saturdayNight', 'sundayRecovery'],
     []
   );
-
-  const optionLookup = useMemo(() => {
-    const lookup = {};
-
-    for (const section of votingSections) {
-      for (const option of section.options) {
-        lookup[option.id] = option.title;
-      }
-    }
-
-    return lookup;
-  }, []);
 
   const disableInputs = status === 'success' && !isEditing;
 
@@ -64,22 +49,6 @@ export default function HomePage() {
     }
   };
 
-  const fetchResults = async () => {
-    try {
-      const response = await fetch('/api/results', { cache: 'no-store' });
-      if (!response.ok) {
-        throw new Error('Failed to load results');
-      }
-
-      const data = await response.json();
-      setResultsData(data);
-    } catch (resultsError) {
-      console.error(resultsError);
-    } finally {
-      setResultsLoading(false);
-    }
-  };
-
   const fetchConfig = async () => {
     try {
       const response = await fetch('/api/admin/config', { cache: 'no-store' });
@@ -92,25 +61,16 @@ export default function HomePage() {
   };
 
   useEffect(() => {
-    const votedName = localStorage.getItem('bucks-voted');
-    if (votedName) {
-      setStatus('success');
-      setIsEditing(false);
-      const savedVote = localStorage.getItem('bucks-vote-data');
-      if (savedVote) {
-        try {
-          setForm(JSON.parse(savedVote));
-        } catch {
-          // ignore parse errors
-        }
+    const savedVote = localStorage.getItem('bucks-vote-data');
+    if (savedVote) {
+      try {
+        setForm(JSON.parse(savedVote));
+      } catch {
+        // ignore parse errors
       }
     }
 
-    fetchResults();
     fetchConfig();
-    const interval = setInterval(fetchResults, 30000);
-
-    return () => clearInterval(interval);
   }, []);
 
   const handleSubmit = async (event) => {
@@ -120,7 +80,7 @@ export default function HomePage() {
 
     const missing = requiredKeys.filter((key) => !form[key]);
     if (missing.length > 0) {
-      setError('Add your name and vote across each core section before submitting.');
+      setError("You've left some sections blank. We need all of them, even the ones you feel strongly about.");
       jumpToSection(missing[0]);
       return;
     }
@@ -144,13 +104,11 @@ export default function HomePage() {
 
       setStatus('success');
       setIsEditing(false);
-      localStorage.setItem('bucks-voted', form.name.trim().toLowerCase());
       localStorage.setItem('bucks-vote-data', JSON.stringify(form));
-      fetchResults();
     } catch (submitError) {
       console.error(submitError);
       setStatus('idle');
-      setError('Could not submit right now. Try again in a minute.');
+      setError('Something broke. Refresh and try again. Sorry.');
     }
   };
 
@@ -161,11 +119,11 @@ export default function HomePage() {
       <div className="layout-grid">
         <div className="content-col">
           <section className="hero-block">
-            <p className="section-label">Trip hub + voting</p>
+            <p className="section-label">The planning website nobody asked for</p>
             <h2>Vihan&apos;s Yarra Valley Bucks Weekend</h2>
-            <p>26-28 June 2026 · Yarra Glen · A very serious planning website for a deeply unserious weekend.</p>
-            <p>Vote on the rough plan now. Once things are locked in, this becomes the trip hub with the final itinerary, accommodation details, booking links, times and notes.</p>
-            <p className="micro-copy">Built because planning manually is painful and procrastination is a powerful drug.</p>
+            <p>26–28 June 2026 · Yarra Glen · A very serious planning website for a deeply unserious weekend.</p>
+            <p>Vote on the rough plan. Once things are confirmed, this becomes the one link for the whole weekend.</p>
+            <p className="micro-copy">If you&apos;re reading this, Sam finished building it instead of touching grass. Respect the dedication.</p>
             <div className="hero-gallery">
               <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAOtbpPNDunp6x3CIsV00p0feXtMwD09UY3-DPx81Qdpj82fAx09o0q94XyDzk053sFMsJkAsY-C2hCuO8YZzwLz9fuFe1fWUta0a8d7TtLDcboKEcQwKX0GHvbB2IpONF1BIsB1RjSNYzLDaCUwq4ceyA4qb1WDAE7lkS-BG-oi_J1fhLI_ifpTFaNoBqEAaGqHIyLYSG20sm3b9j_BxKxj7vUDMc1XPUg5SKyUy0PJRfjP3Qjvk5GM2vacto0zez_k3FcCfEDf0" alt="Yarra valley estate" />
               <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6zVl9_IxBAVuPnEMbSeodLMBs-bnqy7DivYP9ssvdSwb944tFWxmbpbi27oe6NQDWtK2-3opyA5SjLETQ1KGXV0VVRkAFbBPh12OakncL62B_n51D1HsiJdY9f7bTdSlX4NpzeBmfjl4BqLxU2sDiKbyQGrjuX85xzr0F4rJJ9y3JdUhREMxR5TA1mYoYvnmfQ7Jo2GvC6bWSgr4Zye84JT6sSc2tOv5eCrdBgoOReoULEnZBQMVIweDjT_5OTPOcaCorxvLQYBw" alt="Vineyards" />
@@ -182,110 +140,103 @@ export default function HomePage() {
             </section>
           ) : (
             <form id="vote" onSubmit={handleSubmit} className="vote-form">
-            <section className="name-section" id="vote-form">
-              <SectionHeader
-                title="Who are you?"
-                subtitle="So we know whose questionable opinions these are."
-              />
-              <div className="field-grid">
-                <label>
-                  Name
-                  <input
-                    value={form.name}
-                    onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
-                    placeholder="e.g. Dave"
-                    disabled={disableInputs}
+              <div className={`vote-form-content ${disableInputs ? 'is-locked' : ''}`}>
+                <section className="name-section" id="vote-form">
+                  <SectionHeader
+                    title="Who are you?"
+                    subtitle="Your name. Your one job."
                   />
-                </label>
-                <label>
-                  Anything to share with the group?
-                  <input
-                    value={form.hardConstraints}
-                    onChange={(e) => setForm((prev) => ({ ...prev, hardConstraints: e.target.value }))}
-                    placeholder="Activity suggestions, things to flag, whatever."
-                    disabled={disableInputs}
-                  />
-                  <small className="field-note">This will be visible to everyone on the itinerary page.</small>
-                </label>
-              </div>
-            </section>
-
-            {votingSections.map((section, index) => (
-              <div key={section.key}>
-                {index === 0 || votingSections[index - 1].day !== section.day ? (
-                  <div className="day-divider" aria-hidden="true">
-                    <h3>{section.day}</h3>
-                    <p>
-                      {section.day === 'Friday'
-                        ? 'The arrival. People will trickle in after work.'
-                        : section.day === 'Saturday'
-                          ? "The main event. This is why we're here."
-                          : 'The soft landing. Optional but recommended.'}
-                    </p>
-                  </div>
-                ) : null}
-
-                <section className="vote-section" id={`section-${section.key}`}>
-                  <SectionHeader icon={section.icon} title={section.title} subtitle={section.subtitle} hint="Pick one" />
-                  <div className="options-grid">
-                    {section.options.map((option) => (
-                      <OptionCard
-                        key={option.id}
-                        option={option}
-                        isSelected={form[section.key] === option.id}
-                        onSelect={() => selectOption(section.key, option.id)}
+                  <div className="field-grid">
+                    <label>
+                      Name
+                      <input
+                        value={form.name}
+                        onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
+                        placeholder="First name is fine, Dave"
                         disabled={disableInputs}
                       />
-                    ))}
+                    </label>
+                    <label>
+                      Anything to share with the group?
+                      <input
+                        value={form.hardConstraints}
+                        onChange={(e) => setForm((prev) => ({ ...prev, hardConstraints: e.target.value }))}
+                        placeholder="Allergies, bad ideas, activity suggestions, standing grievances"
+                        disabled={disableInputs}
+                      />
+                    </label>
+                    <p className="field-hint">Visible to everyone on the itinerary page. Choose your words accordingly.</p>
                   </div>
                 </section>
+
+                {votingSections.map((section, index) => (
+                  <div key={section.key}>
+                    {index === 0 || votingSections[index - 1].day !== section.day ? (
+                      <div className="day-divider" aria-hidden="true">
+                        <h3>{section.day}</h3>
+                        <p>
+                          {section.day === 'Friday'
+                            ? 'People are coming from work. Manage expectations. Bring snacks.'
+                            : section.day === 'Saturday'
+                              ? 'This is the one. The whole trip is basically this day.'
+                              : 'Soft landing. Leave with your dignity mostly intact.'}
+                        </p>
+                      </div>
+                    ) : null}
+
+                    <section className="vote-section" id={`section-${section.key}`}>
+                      <SectionHeader icon={section.icon} title={section.title} subtitle={section.subtitle} hint="Pick one. You can change it later if you have a better idea." />
+                      <div className="options-grid">
+                        {section.options.map((option) => (
+                          <OptionCard
+                            key={option.id}
+                            option={option}
+                            isSelected={form[section.key] === option.id}
+                            onSelect={() => selectOption(section.key, option.id)}
+                            disabled={disableInputs}
+                          />
+                        ))}
+                      </div>
+                    </section>
+                  </div>
+                ))}
+
+                {error ? <p className="error-message">{error}</p> : null}
               </div>
-            ))}
 
-            {error ? <p className="error-message">{error}</p> : null}
+              <button type="submit" className="submit-btn" disabled={status === 'loading' || disableInputs}>
+                {status === 'loading' ? 'Submitting...' : isEditing ? 'Update votes' : 'Lock in my votes'}
+                <span className="material-symbols-outlined">arrow_forward</span>
+              </button>
 
-            <button type="submit" className="submit-btn" disabled={status === 'loading' || disableInputs}>
-              {status === 'loading' ? 'Submitting...' : status === 'success' ? 'Votes submitted' : isEditing ? 'Update votes' : 'Submit votes'}
-              {status === 'success' ? <span className="material-symbols-outlined">check_circle</span> : null}
-              {status === 'idle' || isEditing ? <span className="material-symbols-outlined">arrow_forward</span> : null}
-            </button>
-
-            {status === 'success' ? (
-              <section className="success-card inline-success">
-                <p>You&apos;re in. Votes saved.</p>
-                <small>Changed your mind? Edit your votes above.</small>
-                <button
-                  type="button"
-                  className="revote-link"
-                  onClick={() => {
-                    setIsEditing(true);
-                    setStatus('idle');
-                    setSubmitAttempted(false);
-                  }}
-                >
-                  Edit
-                </button>
-              </section>
-            ) : null}
+              {status === 'success' && !isEditing ? (
+                <section className="inline-success">
+                  <h3>You&apos;re in, {form.name || 'legend'}.</h3>
+                  <p>Votes saved. The group thanks you for your participation in this extremely democratic process.</p>
+                  <button
+                    type="button"
+                    className="revote-link"
+                    onClick={() => {
+                      setIsEditing(true);
+                      setStatus('idle');
+                      setSubmitAttempted(false);
+                    }}
+                  >
+                    Actually, change something
+                  </button>
+                </section>
+              ) : null}
             </form>
           )}
-
-          <section className="mobile-results-wrap">
-            <ResultsCard data={resultsData} loading={resultsLoading} optionLookup={optionLookup} />
-          </section>
         </div>
 
         <div className="sticky-col">
-          {votingLocked || status === 'success' || (resultsData?.voterCount ?? 0) > 0 ? (
-            <ResultsCard data={resultsData} loading={resultsLoading} optionLookup={optionLookup} />
-          ) : (
-            <ProgressCard
-              form={form}
-              submitAttempted={submitAttempted}
-              requiredKeys={requiredKeys}
-              onJumpToSection={jumpToSection}
-            />
-          )}
+          <ProgressCard
+            form={form}
+            submitAttempted={submitAttempted}
+            requiredKeys={requiredKeys}
+            onJumpToSection={jumpToSection}
+          />
         </div>
       </div>
 

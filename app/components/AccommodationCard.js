@@ -13,7 +13,7 @@ export default function AccommodationCard({ accommodation }) {
           {accommodation.linkLabel}
         </a>
       </div>
-      <p className="status">Status: {accommodation.status}</p>
+      <p className="status">{accommodation.status}</p>
       {accommodation.description ? <p className="accommodation-description">{accommodation.description}</p> : null}
       <div className="meta-grid">
         <div>

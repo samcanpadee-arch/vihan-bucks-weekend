@@ -1,32 +1,63 @@
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 const tabs = [
-  { href: '/#vote-form', activeHref: '/', label: 'Vote', icon: 'how_to_vote' },
+  { href: '/', isVote: true, activeHref: '/', label: 'Vote', icon: 'how_to_vote' },
   { href: '/itinerary', activeHref: '/itinerary', label: 'Itinerary', icon: 'event_note' }
 ];
 
 export default function TopNav({ activeHref }) {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 12);
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <>
-      <header className="top-app-bar">
+      <header className={`top-app-bar ${isScrolled ? 'is-scrolled' : ''}`}>
         <div className="top-app-inner">
-          <h1>Bucks '26</h1>
-          <nav>
+          <h1>
+            <span className="material-symbols-outlined">eco</span>
+            Operation Yarra
+          </h1>
+          <nav className="primary-nav desktop-nav" aria-label="Primary">
             {tabs.map((tab) => (
-              <Link key={tab.href} href={tab.href} className={activeHref === tab.activeHref ? 'active' : ''}>
-                {tab.label}
-              </Link>
+              tab.isVote ? (
+                <a key={tab.href} href={tab.href} className={activeHref === tab.activeHref ? 'active' : ''}>
+                  <span className="material-symbols-outlined">{tab.icon}</span>
+                  <span>{tab.label}</span>
+                </a>
+              ) : (
+                <Link key={tab.href} href={tab.href} className={activeHref === tab.activeHref ? 'active' : ''}>
+                  <span className="material-symbols-outlined">{tab.icon}</span>
+                  <span>{tab.label}</span>
+                </Link>
+              )
             ))}
           </nav>
         </div>
       </header>
 
-      <nav className="mobile-bottom-nav" aria-label="Primary">
+      <nav className="mobile-bottom-nav primary-nav" aria-label="Primary">
         {tabs.map((tab) => (
-          <Link key={tab.href} href={tab.href} className={activeHref === tab.activeHref ? 'active' : ''}>
-            <span className="material-symbols-outlined">{tab.icon}</span>
-            <span>{tab.label}</span>
-          </Link>
+          tab.isVote ? (
+            <a key={tab.href} href={tab.href} className={activeHref === tab.activeHref ? 'active' : ''}>
+              <span className="material-symbols-outlined">{tab.icon}</span>
+              <span>{tab.label}</span>
+            </a>
+          ) : (
+            <Link key={tab.href} href={tab.href} className={activeHref === tab.activeHref ? 'active' : ''}>
+              <span className="material-symbols-outlined">{tab.icon}</span>
+              <span>{tab.label}</span>
+            </Link>
+          )
         ))}
       </nav>
     </>

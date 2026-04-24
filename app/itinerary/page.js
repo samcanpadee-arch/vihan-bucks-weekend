@@ -115,7 +115,7 @@ export default function ItineraryPage() {
         setExpenses(data.expenses || []);
       } catch (error) {
         console.error(error);
-        setExpenseError('Could not load expenses right now.');
+        setExpenseError("Couldn't save that. Try again.");
       } finally {
         setExpensesLoading(false);
       }
@@ -176,7 +176,7 @@ export default function ItineraryPage() {
 
     const splitAmong = splitMode === 'everyone' ? participantNames : expenseForm.splitAmong;
     if (splitMode === 'everyone' && participantNames.length === 0) {
-      setExpenseError('Add at least one person to the group before splitting.');
+      setExpenseError("Couldn't save that. Try again.");
       return;
     }
 
@@ -212,7 +212,7 @@ export default function ItineraryPage() {
       });
     } catch (error) {
       console.error(error);
-      setExpenseError('Could not save expense right now.');
+      setExpenseError("Couldn't save that. Try again.");
     }
   };
 
@@ -225,28 +225,28 @@ export default function ItineraryPage() {
       setExpenses((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
       console.error(error);
-      setExpenseError('Could not delete expense.');
+      setExpenseError("Couldn't save that. Try again.");
     }
   };
 
   return (
-    <main className="page-shell itinerary-shell">
+    <main className="page-shell">
       <TopNav activeHref="/itinerary" />
 
       <section className="hero-block muted-bg">
-        <p className="section-label">Draft - not final yet</p>
-        <h2>Final itinerary</h2>
+        <p className="section-label">Work in progress</p>
+        <h2>The weekend, in one place.</h2>
         <p>
-          Once the votes are in, this becomes the one link for the weekend. Keep it bookmarked, don&apos;t say I didn&apos;t
-          tell you.
+          Once the votes are counted and things are confirmed, this is the link. Bookmark it now so you&apos;re not the one
+          asking where the house is at 4pm on a Friday.
         </p>
       </section>
 
       <section className="itinerary-top-grid">
         <AccommodationCard accommodation={accommodation} />
         <aside className="essentials-card">
-          <p className="section-label">Things to bring</p>
-          <h3>Weekend essentials</h3>
+          <p className="section-label">The packing list</p>
+          <h3>Bring this stuff</h3>
           <ul>
             {essentialsChecklist.map((item) => (
               <li key={item}>
@@ -255,12 +255,12 @@ export default function ItineraryPage() {
               </li>
             ))}
           </ul>
-          <p className="fine-print">Pack smart now so Sunday-you doesn&apos;t spiral later.</p>
+          <p className="fine-print">Future you will be grateful. Past you is already forgetting something.</p>
         </aside>
       </section>
 
       <section className="vote-section standings-card">
-        <SectionHeader title="Voting leaderboard" label="Live" icon="leaderboard" subtitle="How each category is stacking up." />
+        <SectionHeader title="How the votes are looking" label="Live" icon="leaderboard" subtitle="Updated every time someone submits. Refresh for latest." />
         <div className="leaderboard-list">
           {votingSections.map((section) => {
             const sortedEntries = Object.entries(results?.tally?.[section.key] || {}).sort((a, b) => b[1] - a[1]);
@@ -296,7 +296,7 @@ export default function ItineraryPage() {
                     })}
                   </div>
                 ) : (
-                  <p className="result-empty">No picks yet</p>
+                  <p className="result-empty">Nobody has voted yet. Suspiciously quiet.</p>
                 )}
               </article>
             );
@@ -306,7 +306,7 @@ export default function ItineraryPage() {
 
       {results?.groupNotes?.length ? (
         <section className="vote-section standings-card">
-          <SectionHeader title="From the group" label="Notes" icon="forum" subtitle="Things people wanted everyone to know." />
+          <SectionHeader title="Notes from the group" label="Notes" icon="forum" subtitle="Things people flagged when they voted. Useful. Probably." />
           <div className="group-notes-list">
             {results.groupNotes.map((item, index) => (
               <article key={`${item.name}-${index}`} className="group-note-item">
@@ -324,20 +324,20 @@ export default function ItineraryPage() {
 
       <section className="vote-section expenses-card">
         <SectionHeader
-          title="Shared expenses"
-          label="Splitwise-ish"
+          title="Group expenses"
+          label="Splitwise but worse"
           icon="receipt_long"
-          subtitle="Track who paid and who owes what."
+          subtitle="Add costs as they happen. The maths is automatic. The complaints are manual."
         />
 
         <div className="split-members">
-          <p className="section-label">Manage group</p>
+          <p className="section-label">Who&apos;s in the group?</p>
           <p className="group-members-label">Group members</p>
           <div className="split-toggle">
             <input
               value={groupNameInput}
               onChange={(event) => setGroupNameInput(event.target.value)}
-              placeholder="Type a name and hit Add"
+              placeholder="Add anyone who needs to be included in expenses, even if they didn&apos;t vote."
               onKeyDown={(event) => {
                 if (event.key === 'Enter') {
                   event.preventDefault();
@@ -358,19 +358,21 @@ export default function ItineraryPage() {
               ))}
             </div>
           ) : (
-            <p>Add names here if people won't vote but should be included in expenses.</p>
+            <p>Add anyone who needs to be included in expenses, even if they didn&apos;t vote.</p>
           )}
-          <p className="group-members-caption">Click a name to remove them from the group.</p>
         </div>
 
+        <hr className="expense-divider" />
+
         <form className="expense-form" onSubmit={submitExpense}>
-          <div className="expense-grid">
+          <p className="section-label expense-form-label">New expense</p>
+          <div className="expense-grid stacked-fields">
             <label>
               Description
               <input
                 value={expenseForm.description}
                 onChange={(event) => setExpenseForm((prev) => ({ ...prev, description: event.target.value }))}
-                placeholder="Grocery run"
+                placeholder="Grocery run, cellar door, that round nobody agreed to"
                 required
               />
             </label>
@@ -392,7 +394,7 @@ export default function ItineraryPage() {
                 list="participants"
                 value={expenseForm.paidBy}
                 onChange={(event) => setExpenseForm((prev) => ({ ...prev, paidBy: event.target.value }))}
-                placeholder="Sam"
+                placeholder="Name of whoever paid"
                 required
               />
               <datalist id="participants">
@@ -403,8 +405,8 @@ export default function ItineraryPage() {
             </label>
           </div>
 
-          <div className="split-members">
-            <p className="section-label">Split among</p>
+          <div className="split-members split-among-block">
+            <p className="section-label">Split between</p>
             <div className="split-toggle">
               <button
                 type="button"
@@ -418,7 +420,7 @@ export default function ItineraryPage() {
                 className={`pill ${splitMode === 'select' ? 'selected' : ''}`}
                 onClick={() => setSplitMode('select')}
               >
-                Select people
+                Specific people
               </button>
             </div>
 
@@ -437,7 +439,7 @@ export default function ItineraryPage() {
                   ))}
                 </div>
               ) : (
-                <p>Add votes first so participant names are available for equal split.</p>
+                <p>Add anyone who needs to be included in expenses, even if they didn&apos;t vote.</p>
               )
             ) : null}
           </div>
@@ -453,7 +455,7 @@ export default function ItineraryPage() {
           <article className="expense-list-card">
             <h3>Recent expenses</h3>
             {expensesLoading ? (
-              <p>Loading expenses...</p>
+              <p>Loading...</p>
             ) : expenses.length ? (
               <ul className="expense-list">
                 {expenses.map((expense) => {
@@ -507,7 +509,7 @@ export default function ItineraryPage() {
                 })}
               </ul>
             ) : (
-              <p>No expenses yet. Add the first one above.</p>
+              <p>No expenses yet. Enjoy it while it lasts.</p>
             )}
           </article>
 
@@ -521,8 +523,10 @@ export default function ItineraryPage() {
                   </li>
                 ))}
               </ul>
+            ) : expenses.length ? (
+              <p>All settled up. Suspicious.</p>
             ) : (
-              <p>Settlements will appear once expenses are added.</p>
+              <p>Everyone&apos;s square. Either nothing&apos;s been spent or someone did the maths wrong.</p>
             )}
           </article>
         </div>

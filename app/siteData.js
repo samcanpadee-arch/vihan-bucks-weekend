@@ -1,12 +1,12 @@
 export const accommodation = {
   label: 'Base camp',
-  status: 'Booked',
+  status: 'Locked in ✓',
   name: 'Yarra Glen Airbnb Estate',
   dates: 'June 26 – June 28, 2026',
   address: 'TBC once shared',
-  note: 'Address and check-in details will be added once confirmed, so nobody has to scroll through old messages like an archaeologist.',
-  description: 'Accommodation is already booked. This is where everyone eventually needs to end up.',
-  linkLabel: 'Airbnb link',
+  note: "Address drops once it's confirmed. Until then, just trust the process and pack warm.",
+  description: 'The house is booked. This is where the weekend actually happens. Everything else is negotiable.',
+  linkLabel: 'See the place',
   link: 'https://www.airbnb.com.au/rooms/1561866387856977252?source_impression_id=p3_1776992856_P3BRBi61hmW3JbmH',
   image:
     'https://lh3.googleusercontent.com/aida-public/AB6AXuAWOjNCqmZTNLeJ1zl8g2cfwyETsA6rEuKHYT5V2QxA8iX7lmvfZqPNFKMN47SIq9akWxiYWs00tt7C_aWSZxIc3rzgDOP3d8eeJDozHxu5d7MRplHkwSp1Y2QYRmouj3g6BCWjsLjRPmOrqnQ1KCo9awWFQ1cX2IvhN5zzAxYIoT502d-AQH4jrcy9uoGiPjC1Tkh5XiQQ5nMO2osRohSDpZmw8rf8foV410LqiQCg2h2cg3PZh3Cq57G1gO5m9P3N1QPk41oDnoM',
@@ -18,7 +18,7 @@ export const votingSections = [
     key: 'fridayNight',
     day: 'Friday',
     title: 'Friday night',
-    subtitle: 'The Arrival',
+    subtitle: 'Arrive. Decompress. Eat something before anyone makes bad decisions.',
     icon: 'nightlife',
     options: [
       {
@@ -62,7 +62,7 @@ export const votingSections = [
     key: 'saturdayMorning',
     day: 'Saturday',
     title: 'Saturday morning',
-    subtitle: 'Controlled Chaos',
+    subtitle: 'Probably the most physically demanding part of the weekend. Capitalise on being sober.',
     icon: 'wb_sunny',
     options: [
       {
@@ -145,7 +145,7 @@ export const votingSections = [
     key: 'saturdayLunch',
     day: 'Saturday',
     title: 'Saturday lunch / winery',
-    subtitle: 'Long Lunch',
+    subtitle: 'This is the Yarra Valley. There will be wine regardless.',
     icon: 'restaurant',
     options: [
       {
@@ -219,7 +219,7 @@ export const votingSections = [
     key: 'saturdayDrinks',
     day: 'Saturday',
     title: 'Saturday afternoon drinks',
-    subtitle: 'Gin & Juice',
+    subtitle: 'Afternoon drinks. Not optional. Scope TBD.',
     icon: 'liquor',
     options: [
       {
@@ -273,7 +273,7 @@ export const votingSections = [
     key: 'saturdayNight',
     day: 'Saturday',
     title: 'Saturday night',
-    subtitle: 'Main Character Dinner',
+    subtitle: 'The back nine. Dinner. Chaos. Some regrets.',
     icon: 'local_bar',
     options: [
       {
@@ -327,7 +327,7 @@ export const votingSections = [
     key: 'sundayRecovery',
     day: 'Sunday',
     title: 'Sunday recovery',
-    subtitle: 'Soft Landing',
+    subtitle: 'Sunday is the vibe check. How bad is everyone actually feeling?',
     icon: 'coffee',
     options: [
       {
@@ -391,30 +391,31 @@ export const itineraryTimeline = [
   {
     day: 'Friday',
     entries: [
-      { time: 'From 3pm', title: 'Arrive + settle in', note: 'Airbnb check-in. Room picks, unpack, regroup.', status: 'set' },
-      { time: 'Evening', title: 'Friday dinner', note: 'Depends on the vote winner.', status: 'pending' }
+      { time: 'From 3pm', title: 'Arrive + settle in', note: 'Airbnb opens. Find your room. First drink happens. Timeline from here is flexible.', status: 'set' },
+      { time: 'Evening', title: 'Friday dinner', note: 'TBC based on votes. Either way, someone will be late.', status: 'pending' }
     ]
   },
   {
     day: 'Saturday',
     entries: [
-      { time: 'Morning', title: 'Morning activity', note: 'Depends on the vote winner.', status: 'pending' },
-      { time: 'Lunch', title: 'Winery / lunch', note: 'Depends on the vote winner. Group booking TBC.', status: 'pending' },
-      { time: 'Afternoon', title: 'Afternoon drinks', note: 'Depends on the vote winner.', status: 'pending' },
-      { time: 'Evening', title: 'Saturday dinner', note: 'Depends on the vote winner.', status: 'pending' }
+      { time: 'Morning', title: 'Morning activity', note: 'Activity TBC. Dress accordingly. Show up on time.', status: 'pending' },
+      { time: 'Lunch', title: 'Winery / lunch', note: 'Winery lunch TBC. Group booking needed once confirmed.', status: 'pending' },
+      { time: 'Afternoon', title: 'Afternoon drinks', note: 'Afternoon drinks TBC. Bring your liver.', status: 'pending' },
+      { time: 'Evening', title: 'Saturday dinner', note: 'Dinner TBC. Hopefully someone else is cooking.', status: 'pending' }
     ]
   },
   {
     day: 'Sunday',
     entries: [
-      { time: 'Morning', title: 'Recovery activity', note: 'Depends on the vote winner. Then head home.', status: 'pending' }
+      { time: 'Morning', title: 'Recovery activity', note: 'Recovery activity TBC. Then everyone slowly disappears home.', status: 'pending' }
     ]
   }
 ];
 
 export const essentialsChecklist = [
-  'Warm clothes (Valley gets cold)',
-  'Phone chargers',
-  'Electrolytes',
-  'Good vibes only'
+  'Warm layers -- Yarra Valley in June is not a vibe without them',
+  'Phone charger and a portable one because you will forget',
+  'Electrolytes. Trust.',
+  'Something to contribute to the house -- snacks, drinks, whatever',
+  'Low expectations for sleep, high expectations for everything else'
 ];
