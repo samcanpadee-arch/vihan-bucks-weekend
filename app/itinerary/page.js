@@ -279,7 +279,10 @@ export default function ItineraryPage() {
                       return (
                         <div key={optionId} className="leaderboard-option">
                           <div className="leaderboard-row">
-                            <span>{optionLabel}</span>
+                            <span>
+                              {optionLabel}
+                              {results?.finalResults?.[section.key] === optionId ? <span className="final-chip">Final</span> : null}
+                            </span>
                             <small>
                               {count} {count === 1 ? 'vote' : 'votes'}
                             </small>

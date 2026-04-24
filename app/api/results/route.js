@@ -14,9 +14,11 @@ export async function GET() {
   try {
     const redis = await getRedis();
     const keys = await redis.keys('vote:*');
+    const finalResultsRaw = await redis.get('config:finalResults');
+    const finalResults = finalResultsRaw ? JSON.parse(finalResultsRaw) : null;
 
     if (!keys?.length) {
-      return NextResponse.json({ voterCount: 0, voterNames: [], tally: {}, groupNotes: [] });
+      return NextResponse.json({ voterCount: 0, voterNames: [], tally: {}, groupNotes: [], votes: [], finalResults });
     }
 
     const rawVotes = await Promise.all(
@@ -28,6 +30,16 @@ export async function GET() {
     const votes = rawVotes.filter(Boolean);
 
     const tally = {};
+    const votesForTable = votes.map((vote) => ({
+      name: vote?.name || '',
+      fridayNight: vote?.fridayNight || '',
+      saturdayMorning: vote?.saturdayMorning || '',
+      saturdayLunch: vote?.saturdayLunch || '',
+      saturdayDrinks: vote?.saturdayDrinks || '',
+      saturdayNight: vote?.saturdayNight || '',
+      sundayRecovery: vote?.sundayRecovery || '',
+      hardConstraints: vote?.hardConstraints || ''
+    }));
     const groupNotes = votes
       .map((vote) => ({
         name: vote?.name?.trim(),
@@ -49,7 +61,9 @@ export async function GET() {
       voterCount: votes.length,
       voterNames: votes.map((vote) => vote.name).filter(Boolean),
       tally,
-      groupNotes
+      groupNotes,
+      votes: votesForTable,
+      finalResults
     });
   } catch (error) {
     console.error('Results fetch error:', error);

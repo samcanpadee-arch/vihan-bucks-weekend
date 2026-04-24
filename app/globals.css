@@ -188,6 +188,7 @@ label {
 }
 
 input,
+select,
 textarea {
   border: 1px solid #bfb4ad;
   background: #fff;
@@ -1351,6 +1352,17 @@ textarea:disabled,
 
 .leaderboard-row small {
   color: var(--text-soft);
+}
+
+.final-chip {
+  margin-left: 0.45rem;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: var(--primary);
+  border-radius: 999px;
+  padding: 0.1rem 0.45rem;
 }
 
 .leaderboard-bar-track {

@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { accommodation, votingSections } from './siteData';
 import AccommodationCard from './components/AccommodationCard';
@@ -29,6 +30,7 @@ export default function HomePage() {
   const [submitAttempted, setSubmitAttempted] = useState(false);
   const [resultsData, setResultsData] = useState(null);
   const [resultsLoading, setResultsLoading] = useState(true);
+  const [votingLocked, setVotingLocked] = useState(false);
 
   const requiredKeys = useMemo(
     () => ['name', 'fridayNight', 'saturdayMorning', 'saturdayLunch', 'saturdayDrinks', 'saturdayNight', 'sundayRecovery'],
@@ -78,6 +80,17 @@ export default function HomePage() {
     }
   };
 
+  const fetchConfig = async () => {
+    try {
+      const response = await fetch('/api/admin/config', { cache: 'no-store' });
+      if (!response.ok) return;
+      const data = await response.json();
+      setVotingLocked(Boolean(data?.votingLocked));
+    } catch (configError) {
+      console.error(configError);
+    }
+  };
+
   useEffect(() => {
     const votedName = localStorage.getItem('bucks-voted');
     if (votedName) {
@@ -94,6 +107,7 @@ export default function HomePage() {
     }
 
     fetchResults();
+    fetchConfig();
     const interval = setInterval(fetchResults, 30000);
 
     return () => clearInterval(interval);
@@ -161,7 +175,13 @@ export default function HomePage() {
 
           <AccommodationCard accommodation={accommodation} />
 
-          <form id="vote" onSubmit={handleSubmit} className="vote-form">
+          {votingLocked ? (
+            <section className="vote-form">
+              <p>Voting is closed. Check the itinerary for the final plan.</p>
+              <Link href="/itinerary">Go to itinerary</Link>
+            </section>
+          ) : (
+            <form id="vote" onSubmit={handleSubmit} className="vote-form">
             <section className="name-section" id="vote-form">
               <SectionHeader
                 title="Who are you?"
@@ -247,7 +267,8 @@ export default function HomePage() {
                 </button>
               </section>
             ) : null}
-          </form>
+            </form>
+          )}
 
           <section className="mobile-results-wrap">
             <ResultsCard data={resultsData} loading={resultsLoading} optionLookup={optionLookup} />
@@ -255,7 +276,7 @@ export default function HomePage() {
         </div>
 
         <div className="sticky-col">
-          {status === 'success' || (resultsData?.voterCount ?? 0) > 0 ? (
+          {votingLocked || status === 'success' || (resultsData?.voterCount ?? 0) > 0 ? (
             <ResultsCard data={resultsData} loading={resultsLoading} optionLookup={optionLookup} />
           ) : (
             <ProgressCard
