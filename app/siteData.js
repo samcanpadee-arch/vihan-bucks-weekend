@@ -4,10 +4,10 @@ const thumb = (url) =>
 export const accommodation = {
   label: 'Base camp',
   status: 'Locked in ✓',
-  name: 'The Meadow -- Yarra Valley Large Entertainer with Spa & Sauna',
+  name: 'The Meadow, Yarra Glen',
   dates: 'June 26 – June 28, 2026',
   address: '13 Symonds Street, Yarra Glen 3775',
-  description: 'Base camp for the weekend. Address is confirmed and details are coming. Just get there.',
+  description: 'Spa, sauna, big kitchen, good lawn. This is going to be a good one. 13 Symonds Street, Yarra Glen. Save it. Show up.',
   linkLabel: 'Booking.com listing',
   link: 'https://www.booking.com/hotel/au/the-meadow-yarra-valley-large-entertainer-with-spa-sauna.en-gb.html',
   image:
@@ -389,33 +389,33 @@ export const votingSections = [
 
 export const itineraryTimeline = [
   {
-    day: 'Friday',
+    day: 'Friday. Get there.',
     entries: [
-      { time: 'From 3pm', title: 'Arrive + settle in', note: 'Airbnb is open. First drink is imminent. Everything else figures itself out.', status: 'set' },
-      { time: 'Evening', title: 'Friday dinner', note: 'TBC based on votes. Either way, someone will be late and that\'s on them.', status: 'pending' }
+      { time: 'From 3:00 PM', title: 'Arrive. Find a room. First drink happens.', note: "Check-in at 3:00 PM. Don't be the guy who shows up early and expects a tour.", status: 'set' },
+      { time: 'Evening', title: 'Group dinner (TBC)', note: "TBC based on votes. Either way, someone will be late and that's on them.", status: 'pending' }
     ]
   },
   {
-    day: 'Saturday',
+    day: 'Saturday. The main event.',
     entries: [
-      { time: 'Morning', title: 'Morning activity', note: 'TBC. Dress for it. Show up.', status: 'pending' },
-      { time: 'Lunch', title: 'Winery lunch', note: 'TBC. Somewhere with good wine and enough food to absorb Saturday morning.', status: 'pending' },
+      { time: 'Morning', title: 'Breakfast at the house.', note: 'Start with food and a strong coffee before anything ambitious.', status: 'pending' },
+      { time: 'Lunch', title: 'Winery tour & long lunch', note: 'TBC. Somewhere with good wine and enough food to absorb Saturday morning.', status: 'pending' },
       { time: 'Afternoon', title: 'Afternoon plans', note: 'TBC. See the vote page. Try to keep it together.', status: 'pending' },
       { time: 'Evening', title: 'Saturday dinner', note: 'TBC. The house is good. We\'re staying in it.', status: 'pending' }
     ]
   },
   {
-    day: 'Sunday',
+    day: 'Sunday. Recovery.',
     entries: [
-      { time: 'Morning', title: 'Recovery activity', note: 'Recovery activity TBC. Then everyone slowly disappears home.', status: 'pending' }
+      { time: 'Morning', title: 'Recovery brunch (TBC)', note: 'Likely if morale allows.', status: 'pending' }
     ]
   }
 ];
 
 export const essentialsChecklist = [
   'Warm layers. Yarra Valley in June will humble you.',
-  'Phone charger and a portable one because you will forget',
-  "Sleeping bag if you want your own warmth situation. The alternative is a group cuddle and that's your call.",
+  'Phone charger and a portable one because you will forget.',
+  'Sleeping bag if you want your own warmth situation. The alternative is a group cuddle and that is entirely on you.',
   'Electrolytes. Trust.',
   'Something to contribute to the house. Snacks, drinks, whatever.',
   'Low expectations for sleep, high expectations for everything else.',

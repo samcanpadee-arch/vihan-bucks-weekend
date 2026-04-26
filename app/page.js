@@ -128,7 +128,7 @@ export default function HomePage() {
             <p className="section-label">The planning website nobody asked for</p>
             <h2>Vihan&apos;s Yarra Valley Bucks Weekend</h2>
             <p>26–28 June 2026 · Yarra Glen · A very serious planning website for a deeply unserious weekend.</p>
-            <p>Vote on the rough plan. Once things are confirmed, this becomes the one link for the whole weekend.</p>
+            <p>Vote on the rough plan now. Once things are locked in, this becomes the one link for the whole trip. Itinerary, address, timings, all of it.</p>
             <p className="micro-copy">Sam built this instead of using a group chat like a normal person.</p>
             <div className="hero-gallery">
               <img
@@ -187,7 +187,7 @@ export default function HomePage() {
                     ) : null}
 
                     <section className="vote-section" id={`section-${section.key}`}>
-                      <SectionHeader icon={section.icon} title={section.title} subtitle={section.subtitle} hint="Pick one. You can change it later if you have a better idea." />
+                      <SectionHeader icon={section.icon} title={section.title} subtitle={section.subtitle} hint="Pick one." />
                       <div className="options-grid">
                         {section.options.map((option) => (
                           <div key={option.id} className="option-choice">

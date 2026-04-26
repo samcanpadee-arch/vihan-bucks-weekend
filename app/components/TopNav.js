@@ -25,7 +25,7 @@ export default function TopNav({ activeHref }) {
         <div className="top-app-inner">
           <h1>
             <span className="material-symbols-outlined">eco</span>
-            Operation Yarra
+            Vihan Bucks Weekend
           </h1>
           <nav className="primary-nav desktop-nav" aria-label="Primary">
             {tabs.map((tab) => (

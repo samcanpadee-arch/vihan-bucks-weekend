@@ -18,7 +18,7 @@ export default function ItineraryTimeline({ timeline }) {
                 {entry.status === 'set' ? (
                   <>
                     <span className="material-symbols-outlined">check_circle</span>
-                    Booked
+                    Confirmed
                   </>
                 ) : (
                   <>
