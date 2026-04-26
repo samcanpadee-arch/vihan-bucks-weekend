@@ -353,65 +353,6 @@ export default function ItineraryPage() {
         <ItineraryTimeline timeline={itineraryTimeline} />
       </section>
 
-      <section className="vote-section">
-        <SectionHeader
-          title="Admin-ish"
-          label="Status"
-          icon="checklist"
-          subtitle="Only real things. No fake logistics theatre."
-        />
-        <div className="group-notes-list">
-          <article className="group-note-item">
-            <strong>House booking:</strong> <span>Confirmed: The Meadow, Yarra Glen.</span>
-          </article>
-          <article className="group-note-item">
-            <strong>Saturday lunch/winery booking:</strong> <span>Pending votes.</span>
-          </article>
-          <article className="group-note-item">
-            <strong>Sunday recovery plan:</strong> <span>Likely if morale allows.</span>
-          </article>
-        </div>
-      </section>
-
-      <section className="vote-section">
-        <SectionHeader
-          title="Important notes"
-          label="TBC"
-          icon="priority_high"
-          subtitle="Final details go here once votes lock."
-        />
-        <p className="fine-print">
-          Driver plans, arrival windows, house logistics, and any final confirmations will be posted here once voting closes.
-        </p>
-      </section>
-
-      <section className="vote-section">
-        <SectionHeader
-          title="Friday full timeline"
-          label="TBC"
-          icon="calendar_month"
-          subtitle="Detailed run sheet lands after voting."
-        />
-      </section>
-
-      <section className="vote-section">
-        <SectionHeader
-          title="Saturday full timeline"
-          label="TBC"
-          icon="calendar_month"
-          subtitle="Detailed run sheet lands after voting."
-        />
-      </section>
-
-      <section className="vote-section">
-        <SectionHeader
-          title="Sunday full timeline"
-          label="TBC"
-          icon="calendar_month"
-          subtitle="Detailed run sheet lands after voting."
-        />
-      </section>
-
       <section className="vote-section expenses-card">
         <SectionHeader
           title="Group expenses"
