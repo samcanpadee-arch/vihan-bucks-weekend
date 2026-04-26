@@ -17,6 +17,11 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   background: var(--surface);
@@ -661,6 +666,10 @@ th {
   .hero-gallery img {
     height: auto;
   }
+
+  .accommodation-image-wrap {
+    margin: -1rem -1rem 1rem;
+  }
 }
 
 /* Consistent chip/bubble alignment */
@@ -984,6 +993,11 @@ main.page-shell > .vote-section {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;
   gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.itinerary-top-grid .accommodation-card {
+  margin-top: 0;
 }
 
 .essentials-card {
