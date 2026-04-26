@@ -73,7 +73,7 @@ export default function ProgressCard({ form, votingSections = [], submitAttempte
       </aside>
 
       <aside className="cheeky-tooltip">
-        <p>“Choosing nothing? That&apos;s how we end up eating lukewarm Maccas in the car park.”</p>
+        <p>&ldquo;No vote means no complaints rights. Those are the terms.&rdquo;</p>
       </aside>
     </>
   );

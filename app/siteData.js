@@ -7,7 +7,7 @@ export const accommodation = {
   name: 'The Meadow -- Yarra Valley Large Entertainer with Spa & Sauna',
   dates: 'June 26 – June 28, 2026',
   address: '13 Symonds Street, Yarra Glen 3775',
-  description: "Booked. Everyone ends up here. That's all you need to know for now.",
+  description: 'Base camp for the weekend. Address is confirmed and details are coming. Just get there.',
   linkLabel: 'Booking.com listing',
   link: 'https://www.booking.com/hotel/au/the-meadow-yarra-valley-large-entertainer-with-spa-sauna.en-gb.html',
   image:
@@ -20,13 +20,13 @@ export const votingSections = [
     key: 'fridayNight',
     day: 'Friday',
     title: 'Friday night',
-    subtitle: 'Arrive. Decompress. Eat something before anyone makes bad decisions.',
+    subtitle: 'Make the most of the house. Games, music, sauna, beer pong, eat something decent. The goal is to actually use the place, not just sit in the kitchen.',
     icon: 'nightlife',
     options: [
       {
         id: 'fri-pizza',
         title: 'Pizza oven night',
-        description: 'Sam brings the pizza oven. Everyone actually helps.',
+        description: "Sam's bringing his portable pizza oven. He'll make the dough, do the whole thing, and turn out genuinely decent pizzas without making it a whole personality. Help is welcome if you want in. Participation is not mandatory and this is not a team-building exercise.",
         cost: 'Shared grocery cost',
         timeConstraint: null,
         link: null,
@@ -65,13 +65,13 @@ export const votingSections = [
     key: 'saturdayMorning',
     day: 'Saturday',
     title: 'Saturday morning',
-    subtitle: 'Probably the most physically demanding part of the weekend. Capitalise on being sober.',
+    subtitle: 'The odds of everyone being fully functional are somewhere between low and zero. Pick something that still works with a mild headache and questionable hydration.',
     icon: 'wb_sunny',
     options: [
       {
         id: 'sat-am-clay-public',
         title: 'Clay shooting (public session)',
-        description: 'Melbourne Gun Club in Yering. Walk-up session. Zero alcohol beforehand, closed shoes, no camo.',
+        description: "You get a gun, clay targets, and one chance to pretend you've done this before. Zero alcohol beforehand is non-negotiable, which is quite the commitment given the night before. Closed shoes, no camo, no singlets. It's also cursed early.",
         cost: '~$80.50 pp',
         timeConstraint: 'Arrive 8:45am sharp -- no exceptions',
         link: 'https://www.melbournegunclub.com/come-and-try/',
@@ -80,7 +80,7 @@ export const votingSections = [
       {
         id: 'sat-am-minigolf',
         title: 'Mini golf and driving range',
-        description: 'Maroondah Golf Park. Open from 9am. Mix and match -- mini golf, range bays, or both.',
+        description: 'Low stakes, suspiciously fun, medium competitive. Someone in the group will take this way too seriously. That person is never who you expect.',
         cost: '$14-$29 pp depending on activity',
         timeConstraint: null,
         link: 'https://www.maroondahgolfpark.com.au/',
@@ -116,8 +116,8 @@ export const votingSections = [
       {
         id: 'sat-am-tennis',
         title: 'Yarra Glen Tennis Club',
-        description: 'There are courts nearby. You need to bring your own racquets and balls -- this does not appear by magic.',
-        cost: 'Free or minimal court fee',
+        description: "Bring racquets, balls, and court shoes. Classic. Respectable. Deeply unglamorous for a bucks weekend but we don't judge.",
+        cost: '$20/hour',
         timeConstraint: 'BYO gear -- racquets and balls',
         link: 'https://play.tennis.com.au/yarraglentennisclub',
         thumbnail: 'https://play.tennis.com.au/Library/yarraglentennisclub?command=Proxy&type=Images&currentFolder=%2f&fileName=Court+Hire+Photo.jpg&thumbnail=Court+Hire+Photo__427x320.jpg&cache=31536000',
@@ -144,7 +144,7 @@ export const votingSections = [
         id: 'sat-lunch-yering',
         title: 'Yering Station',
         description: 'Iconic Yarra Valley estate. Cellar door tastings and restaurant on site.',
-        cost: '~$15-$35 pp tastings',
+        cost: null,
         timeConstraint: null,
         link: 'https://www.yering.com/visit-us/cellar-door/',
         thumbnail: 'https://www.yering.com/wp-content/uploads/960x800-50-50-Content-Tasting-Bar.jpg.webp',
@@ -153,7 +153,7 @@ export const votingSections = [
         id: 'sat-lunch-rochford',
         title: 'Rochford Wines',
         description: 'Large cellar door with outdoor seating. Good food, live music on weekends.',
-        cost: '~$15-$25 pp tastings',
+        cost: null,
         timeConstraint: null,
         link: 'https://rochfordwines.com.au/yarra-valley-cellar-door',
         thumbnail: 'https://rochfordwines.com.au/img/cellar-door-1.jpg',
@@ -162,8 +162,8 @@ export const votingSections = [
         id: 'sat-lunch-chandon',
         title: 'Chandon',
         description: 'The sparkling wine place. Structured tasting experience. Worth it if you like bubbles.',
-        cost: '~$22 pp tasting',
-        timeConstraint: 'Bookings recommended',
+        cost: null,
+        timeConstraint: null,
         link: 'https://www.chandon.com.au/Experiences',
         thumbnail: 'https://www.chandon.com.au/assets/images/contentblock/photos/750x500TastingBar.png',
       },
@@ -171,7 +171,7 @@ export const votingSections = [
         id: 'sat-lunch-oakridge',
         title: 'Oakridge Wines',
         description: 'More refined end of the spectrum. Good if the group wants a sit-down experience.',
-        cost: 'Enquire for group pricing',
+        cost: null,
         timeConstraint: null,
         link: 'https://oakridgewines.com.au/cellar-door/',
         thumbnail: thumb('https://oakridgewines.com.au/cellar-door/'),
@@ -180,8 +180,8 @@ export const votingSections = [
         id: 'sat-lunch-debortoli',
         title: 'De Bortoli -- Locale restaurant',
         description: 'Full restaurant experience on the estate. Better for a proper lunch than a tasting crawl.',
-        cost: 'Restaurant pricing',
-        timeConstraint: 'Booking required for groups',
+        cost: null,
+        timeConstraint: null,
         link: 'https://www.debortoli.com.au/visit-us/restaurants/locale-restaurant-yarra-valley',
         thumbnail: thumb('https://www.debortoli.com.au/visit-us/restaurants/locale-restaurant-yarra-valley'),
       },
@@ -199,8 +199,8 @@ export const votingSections = [
   {
     key: 'saturdayDrinks',
     day: 'Saturday',
-    title: 'Saturday afternoon drinks',
-    subtitle: 'Afternoon drinks are happening. The only vote is where.',
+    title: 'Saturday arvo',
+    subtitle: 'Afternoon options -- not all of them are drinking, but some of them are. Distillery tour, brewery, more tastings, or just heading back to the house earlier. Pick what fits the day.',
     icon: 'liquor',
     options: [
       {
@@ -263,7 +263,7 @@ export const votingSections = [
     key: 'saturdayNight',
     day: 'Saturday',
     title: 'Saturday night',
-    subtitle: 'The back nine. Dinner. Chaos. Some regrets.',
+    subtitle: "The back nine. Dinner at the house, keep the night going. We've got a good spot -- may as well use it properly.",
     icon: 'local_bar',
     options: [
       {
@@ -391,17 +391,17 @@ export const itineraryTimeline = [
   {
     day: 'Friday',
     entries: [
-      { time: 'From 3pm', title: 'Arrive + settle in', note: 'Airbnb opens. Find your room. First drink happens. Timeline from here is flexible.', status: 'set' },
-      { time: 'Evening', title: 'Friday dinner', note: 'TBC based on votes. Either way, someone will be late.', status: 'pending' }
+      { time: 'From 3pm', title: 'Arrive + settle in', note: 'Airbnb is open. First drink is imminent. Everything else figures itself out.', status: 'set' },
+      { time: 'Evening', title: 'Friday dinner', note: 'TBC based on votes. Either way, someone will be late and that\'s on them.', status: 'pending' }
     ]
   },
   {
     day: 'Saturday',
     entries: [
-      { time: 'Morning', title: 'Morning activity', note: 'Activity TBC. Dress accordingly. Show up on time.', status: 'pending' },
-      { time: 'Lunch', title: 'Winery / lunch', note: 'Winery lunch TBC. Group booking needed once confirmed.', status: 'pending' },
-      { time: 'Afternoon', title: 'Afternoon drinks', note: 'Afternoon drinks TBC. Bring your liver.', status: 'pending' },
-      { time: 'Evening', title: 'Saturday dinner', note: 'Dinner TBC. Hopefully someone else is cooking.', status: 'pending' }
+      { time: 'Morning', title: 'Morning activity', note: 'TBC. Dress for it. Show up.', status: 'pending' },
+      { time: 'Lunch', title: 'Winery lunch', note: 'TBC. Somewhere with good wine and enough food to absorb Saturday morning.', status: 'pending' },
+      { time: 'Afternoon', title: 'Afternoon plans', note: 'TBC. See the vote page. Try to keep it together.', status: 'pending' },
+      { time: 'Evening', title: 'Saturday dinner', note: 'TBC. The house is good. We\'re staying in it.', status: 'pending' }
     ]
   },
   {
@@ -413,9 +413,11 @@ export const itineraryTimeline = [
 ];
 
 export const essentialsChecklist = [
-  'Warm layers -- Yarra Valley in June is not a vibe without them',
+  'Warm layers. Yarra Valley in June will humble you.',
   'Phone charger and a portable one because you will forget',
+  "Sleeping bag if you want your own warmth situation. The alternative is a group cuddle and that's your call.",
   'Electrolytes. Trust.',
-  'Something to contribute to the house -- snacks, drinks, whatever',
-  'Low expectations for sleep, high expectations for everything else'
+  'Something to contribute to the house. Snacks, drinks, whatever.',
+  'Low expectations for sleep, high expectations for everything else.',
+  'Someone please remember to bring the groom.'
 ];

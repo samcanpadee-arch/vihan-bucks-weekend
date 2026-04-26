@@ -132,7 +132,7 @@ export default function HomePage() {
             <p className="micro-copy">Sam built this instead of using a group chat like a normal person.</p>
             <div className="hero-gallery">
               <img
-                src="https://raw.githubusercontent.com/samcanpadee-arch/vihan-bucks-weekend/refs/heads/main/vihan-therewillbeblood.webp"
+                src="https://raw.githubusercontent.com/samcanpadee-arch/vihan-bucks-weekend/refs/heads/main/assets/images/vihan-therewillbeblood.webp"
                 alt="Vihan bucks weekend hero"
               />
             </div>
@@ -170,7 +170,7 @@ export default function HomePage() {
                       <input
                         value={form.hardConstraints}
                         onChange={(e) => setForm((prev) => ({ ...prev, hardConstraints: e.target.value }))}
-                        placeholder="Allergies, bad ideas, activity suggestions, standing grievances"
+                        placeholder="e.g. bad back, arrives at midnight, will cry at clay shooting"
                         disabled={disableInputs}
                       />
                     </label>
@@ -183,13 +183,6 @@ export default function HomePage() {
                     {index === 0 || votingSections[index - 1].day !== section.day ? (
                       <div className="day-divider" aria-hidden="true">
                         <h3>{section.day}</h3>
-                        <p>
-                          {section.day === 'Friday'
-                            ? 'People are coming from work. Manage expectations. Bring snacks.'
-                            : section.day === 'Saturday'
-                              ? "The reason we're all here. Don't blow it before midday."
-                              : 'Soft landing. Leave with your dignity mostly intact.'}
-                        </p>
                       </div>
                     ) : null}
 
