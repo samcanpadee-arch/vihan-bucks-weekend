@@ -4,15 +4,15 @@ const thumb = (url) =>
 export const accommodation = {
   label: 'Base camp',
   status: 'Locked in ✓',
-  name: 'Yarra Glen Airbnb Estate',
+  name: 'The Meadow -- Yarra Valley Large Entertainer with Spa & Sauna',
   dates: 'June 26 – June 28, 2026',
-  address: 'TBC once shared',
+  address: '13 Symonds Street, Yarra Glen 3775',
   description: "Booked. Everyone ends up here. That's all you need to know for now.",
-  linkLabel: 'See the place',
-  link: 'https://www.airbnb.com.au/rooms/1561866387856977252?source_impression_id=p3_1776992856_P3BRBi61hmW3JbmH',
+  linkLabel: 'Booking.com listing',
+  link: 'https://www.booking.com/hotel/au/the-meadow-yarra-valley-large-entertainer-with-spa-sauna.en-gb.html',
   image:
-    'https://lh3.googleusercontent.com/aida-public/AB6AXuAWOjNCqmZTNLeJ1zl8g2cfwyETsA6rEuKHYT5V2QxA8iX7lmvfZqPNFKMN47SIq9akWxiYWs00tt7C_aWSZxIc3rzgDOP3d8eeJDozHxu5d7MRplHkwSp1Y2QYRmouj3g6BCWjsLjRPmOrqnQ1KCo9awWFQ1cX2IvhN5zzAxYIoT502d-AQH4jrcy9uoGiPjC1Tkh5XiQQ5nMO2osRohSDpZmw8rf8foV410LqiQCg2h2cg3PZh3Cq57G1gO5m9P3N1QPk41oDnoM',
-  imageAlt: 'Luxury countryside Airbnb house in Yarra Valley at sunset'
+    'https://cf.bstatic.com/xdata/images/hotel/max1024x768/782549036.jpg?k=0478c1a20b9fb8d48eb0011566224c9141316799b9b008e43557b7c0b4585f1e&o=',
+  imageAlt: 'The Meadow in Yarra Glen'
 };
 
 export const votingSections = [
@@ -30,7 +30,7 @@ export const votingSections = [
         cost: 'Shared grocery cost',
         timeConstraint: null,
         link: null,
-        thumbnail: null,
+        thumbnail: 'https://tse1.explicit.bing.net/th/id/OIP.t74QJoWjW0wTkYj5tETpEQHaEy?rs=1&pid=ImgDetMain&o=7&rm=3',
       },
       {
         id: 'fri-bbq',
@@ -39,7 +39,7 @@ export const votingSections = [
         cost: 'Shared grocery cost',
         timeConstraint: null,
         link: null,
-        thumbnail: null,
+        thumbnail: 'https://tse3.mm.bing.net/th/id/OIP.e9erSNNQrd1vykMyz-igRwHaE8?rs=1&pid=ImgDetMain&o=7&rm=3',
       },
       {
         id: 'fri-takeaway',
@@ -48,7 +48,7 @@ export const votingSections = [
         cost: 'Pay individually',
         timeConstraint: null,
         link: null,
-        thumbnail: null,
+        thumbnail: 'https://static.vecteezy.com/system/resources/previews/060/562/387/non_2x/delicious-asian-takeout-meal-noodles-salad-crispy-chicken-in-boxes-soft-light-blurred-background-free-photo.jpg',
       },
     ],
   },
@@ -75,7 +75,7 @@ export const votingSections = [
         cost: '$14-$29 pp depending on activity',
         timeConstraint: null,
         link: 'https://www.maroondahgolfpark.com.au/',
-        thumbnail: thumb('https://www.maroondahgolfpark.com.au/'),
+        thumbnail: 'https://images.squarespace-cdn.com/content/v1/658e5e5805acd37df4c4cf0a/b309544e-05d2-4f79-9c17-7f6249ce895c/YARRARANGESTOURISM1.jpeg?format=1000w',
       },
       {
         id: 'sat-am-chill',
@@ -84,7 +84,7 @@ export const votingSections = [
         cost: 'Free',
         timeConstraint: null,
         link: null,
-        thumbnail: null,
+        thumbnail: 'https://tse3.mm.bing.net/th/id/OIP.2LYjVcmAzMwNUCZfAMJlfAHaEk?rs=1&pid=ImgDetMain&o=7&rm=3',
       },
       {
         id: 'sat-am-walk',
@@ -106,12 +106,12 @@ export const votingSections = [
       },
       {
         id: 'sat-am-tennis',
-        title: 'Tennis at the Airbnb / local court',
+        title: 'Yarra Glen Tennis Club',
         description: 'There are courts nearby. You need to bring your own racquets and balls -- this does not appear by magic.',
         cost: 'Free or minimal court fee',
         timeConstraint: 'BYO gear -- racquets and balls',
-        link: null,
-        thumbnail: null,
+        link: 'https://play.tennis.com.au/yarraglentennisclub',
+        thumbnail: 'https://play.tennis.com.au/Library/yarraglentennisclub?command=Proxy&type=Images&currentFolder=%2f&fileName=Court+Hire+Photo.jpg&thumbnail=Court+Hire+Photo__427x320.jpg&cache=31536000',
       },
     ],
   },
@@ -129,7 +129,7 @@ export const votingSections = [
         cost: '~$15-$35 pp tastings',
         timeConstraint: null,
         link: 'https://www.yering.com/visit-us/cellar-door/',
-        thumbnail: thumb('https://www.yering.com/visit-us/cellar-door/'),
+        thumbnail: 'https://www.yering.com/wp-content/uploads/960x800-50-50-Content-Tasting-Bar.jpg.webp',
       },
       {
         id: 'sat-lunch-rochford',
@@ -138,7 +138,7 @@ export const votingSections = [
         cost: '~$15-$25 pp tastings',
         timeConstraint: null,
         link: 'https://rochfordwines.com.au/yarra-valley-cellar-door',
-        thumbnail: thumb('https://rochfordwines.com.au/yarra-valley-cellar-door'),
+        thumbnail: 'https://rochfordwines.com.au/img/cellar-door-1.jpg',
       },
       {
         id: 'sat-lunch-chandon',
@@ -147,7 +147,7 @@ export const votingSections = [
         cost: '~$22 pp tasting',
         timeConstraint: 'Bookings recommended',
         link: 'https://www.chandon.com.au/Experiences',
-        thumbnail: thumb('https://www.chandon.com.au/Experiences'),
+        thumbnail: 'https://www.chandon.com.au/assets/images/contentblock/photos/750x500TastingBar.png',
       },
       {
         id: 'sat-lunch-oakridge',
@@ -183,7 +183,7 @@ export const votingSections = [
         cost: '~$50 pp',
         timeConstraint: 'Hourly sessions -- needs to be booked in advance',
         link: 'https://fourpillarsgin.com/pages/visit-our-distillery',
-        thumbnail: thumb('https://fourpillarsgin.com/pages/visit-our-distillery'),
+        thumbnail: 'https://fourpillarsgin.com/cdn/shop/files/FPGSignage_hdavison_3275_10a1d187-784a-459c-a07c-b44023634e5f.webp?v=1703199456&width=750',
       },
       {
         id: 'sat-arvo-watts',
@@ -201,7 +201,7 @@ export const votingSections = [
         cost: 'Depends on venue',
         timeConstraint: null,
         link: null,
-        thumbnail: null,
+        thumbnail: 'https://rochfordwines.com.au/img/winemaking-the-fruit.jpg',
       },
       {
         id: 'sat-arvo-donna-buang',
@@ -246,7 +246,7 @@ export const votingSections = [
         cost: 'Pay individually',
         timeConstraint: null,
         link: 'https://yarravalleygrand.com.au/',
-        thumbnail: thumb('https://yarravalleygrand.com.au/'),
+        thumbnail: 'https://yarravalleygrand.com.au/wp-content/uploads/2024/11/Yarra-Valley-Grand-Hotel-HT-12th-March_GRIFFIN-SIMM_Finals_111-1-1290x570.jpg',
       },
       {
         id: 'sat-night-bbq',
@@ -304,12 +304,12 @@ export const votingSections = [
       },
       {
         id: 'sun-tennis',
-        title: 'Tennis at the Airbnb / local court',
+        title: 'Yarra Glen Tennis Club',
         description: 'BYO racquets and balls. Not provided. This is a very specific reminder.',
         cost: 'Free or minimal court fee',
         timeConstraint: 'BYO gear -- racquets and balls',
-        link: null,
-        thumbnail: null,
+        link: 'https://play.tennis.com.au/yarraglentennisclub',
+        thumbnail: 'https://play.tennis.com.au/Library/yarraglentennisclub?command=Proxy&type=Images&currentFolder=%2f&fileName=Court+Hire+Photo.jpg&thumbnail=Court+Hire+Photo__427x320.jpg&cache=31536000',
       },
       {
         id: 'sun-healesville',
@@ -327,7 +327,7 @@ export const votingSections = [
         cost: 'Free',
         timeConstraint: null,
         link: null,
-        thumbnail: null,
+        thumbnail: 'https://i.imgflip.com/6l39ya.jpg',
       },
     ],
   },

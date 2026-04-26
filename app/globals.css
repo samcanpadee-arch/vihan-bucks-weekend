@@ -602,15 +602,13 @@ th {
 }
 
 .hero-gallery {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.6rem;
+  display: block;
   margin-top: 0.3rem;
 }
 
 .hero-gallery img {
   width: 100%;
-  height: 130px;
+  height: 260px;
   object-fit: cover;
   border-radius: 0.6rem;
   border: 1px solid #e5d9cf;
@@ -674,20 +672,8 @@ th {
 
 
 @media (max-width: 700px) {
-  .hero-gallery {
-    grid-template-columns: none;
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 0.5rem;
-    padding-bottom: 0.3rem;
-  }
-
   .hero-gallery img {
-    flex: 0 0 75vw;
-    height: 140px;
-    scroll-snap-align: start;
+    height: 180px;
   }
 }
 
