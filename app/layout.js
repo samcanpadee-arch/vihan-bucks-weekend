@@ -16,13 +16,25 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata = {
-  title: "Vihan's Yarra Valley Bucks Weekend",
-  description: 'Vote on the plan. 26-28 June 2026, Yarra Glen.'
+  title: 'Operation Yarra',
+  description:
+    'Vote on activities, check the itinerary, track group expenses. Built because the group chat is not a project management tool.',
+  openGraph: {
+    title: 'Operation Yarra',
+    description: 'A very serious planning website for a deeply unserious weekend.',
+    url: 'https://vihan-bucks-weekend.vercel.app',
+    images: [
+      {
+        url: 'https://raw.githubusercontent.com/samcanpadee-arch/vihan-bucks-weekend/refs/heads/main/assets/images/vihan-therewillbeblood.webp'
+      }
+    ]
+  }
 };
 
 export const viewport = {
   width: 'device-width',
-  initialScale: 1
+  initialScale: 1,
+  themeColor: '#2d4a35'
 };
 
 export default function RootLayout({ children }) {
