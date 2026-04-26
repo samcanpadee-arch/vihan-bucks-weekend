@@ -13,16 +13,12 @@
   --shadow: 0 18px 40px rgba(30, 27, 24, 0.08);
 }
 
-html,
-body {
-  overflow-x: hidden;
-}
-
 * {
   box-sizing: border-box;
 }
 
 body {
+  overflow-x: clip;
   margin: 0;
   background: var(--surface);
   color: var(--text);
@@ -127,7 +123,8 @@ p {
 }
 
 .accommodation-card {
-  padding: 1.25rem;
+  --card-padding: 1.25rem;
+  padding: var(--card-padding);
   margin-top: 1.25rem;
 }
 
@@ -344,7 +341,7 @@ textarea {
 }
 
 .table-card {
-  overflow-x: auto;
+  overflow: auto;
 }
 
 table {
@@ -433,7 +430,8 @@ th {
 
   .main-nav nav {
     width: 100%;
-    overflow-x: auto;
+    overflow: auto;
+    overflow-y: hidden;
     white-space: nowrap;
     padding-bottom: 0.2rem;
   }
@@ -583,7 +581,7 @@ th {
 }
 
 .accommodation-image-wrap {
-  margin: -1.25rem -1.25rem 1rem;
+  margin: calc(-1 * var(--card-padding)) calc(-1 * var(--card-padding)) 1rem;
   height: 220px;
   overflow: hidden;
   border-radius: 0.75rem 0.75rem 0 0;
@@ -605,8 +603,12 @@ th {
     height: auto;
   }
 
+  .accommodation-card {
+    --card-padding: 1rem;
+  }
+
   .accommodation-image-wrap {
-    margin: -1rem -1rem 1rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -934,6 +936,9 @@ main.page-shell > .vote-section {
   display: flex;
   align-items: center;
   gap: 0.35rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .essentials-card .material-symbols-outlined {
@@ -1243,6 +1248,7 @@ main.page-shell > .vote-section {
   align-items: flex-start;
   border-top: 1px solid #eee3db;
   padding-top: 0.7rem;
+  min-width: 0;
 }
 
 .expense-list li > div:first-child,
@@ -1251,9 +1257,29 @@ main.page-shell > .vote-section {
   max-width: 100%;
 }
 
+.layout-grid > *,
+.content-col > *,
+.itinerary-top-grid > *,
+.expenses-layout > * {
+  min-width: 0;
+}
+
+.expense-list p,
+.expense-list small {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 .expense-list small {
   color: var(--text-soft);
+}
+
+.settlement-list li,
+.group-note-item,
+.other-suggestion-item,
+.votes-in-pill {
   overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 @media (max-width: 900px) {
