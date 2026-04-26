@@ -14,6 +14,7 @@ function AdminPageContent() {
   const [results, setResults] = useState(null);
   const [config, setConfig] = useState({ votingLocked: false, finalResults: null });
   const [finalSelections, setFinalSelections] = useState({});
+  const [adminMessage, setAdminMessage] = useState('');
 
   const adminHeaders = useMemo(() => ({ 'x-admin-secret': providedSecret || '' }), [providedSecret]);
 
@@ -54,13 +55,16 @@ function AdminPageContent() {
   }
 
   const deleteVote = async (name) => {
-    await fetch(`/api/admin/vote?name=${encodeURIComponent(name)}`, { method: 'DELETE', headers: adminHeaders });
+    const normalizedName = name.trim().toLowerCase();
+    await fetch(`/api/admin/vote?name=${encodeURIComponent(normalizedName)}`, { method: 'DELETE', headers: adminHeaders });
     await loadResults();
+    setAdminMessage(`Deleted ${name}.`);
   };
 
   const clearAllVotes = async () => {
     await fetch('/api/admin/vote?all=true', { method: 'DELETE', headers: adminHeaders });
     await loadResults();
+    setAdminMessage('Cleared all votes.');
   };
 
   const toggleVotingLock = async () => {
@@ -75,11 +79,19 @@ function AdminPageContent() {
   const saveFinalResults = async () => {
     await fetch('/api/admin/finalise', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...adminHeaders },
-      body: JSON.stringify({ finalResults: finalSelections })
+      headers: { 'Content-Type': 'application/json', ...adminHeaders }
     });
     await loadConfig();
     await loadResults();
+    setAdminMessage('Saved final results snapshot.');
+  };
+
+  const clearSavedResults = async () => {
+    await fetch('/api/admin/finalise', {
+      method: 'DELETE',
+      headers: adminHeaders
+    });
+    setAdminMessage('Cleared saved results snapshot.');
   };
 
   const optionTitle = (sectionKey, optionId) => {
@@ -157,9 +169,15 @@ function AdminPageContent() {
             </label>
           ))}
         </div>
-        <button type="button" className="manage-add-btn" onClick={saveFinalResults}>
-          Save final results
-        </button>
+        <div className="split-toggle">
+          <button type="button" className="manage-add-btn" onClick={saveFinalResults}>
+            Save final results
+          </button>
+          <button type="button" className="pill" onClick={clearSavedResults}>
+            Clear saved results
+          </button>
+        </div>
+        {adminMessage ? <p className="field-note">{adminMessage}</p> : null}
       </section>
     </main>
   );

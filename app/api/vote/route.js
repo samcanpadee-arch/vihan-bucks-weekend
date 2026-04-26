@@ -48,6 +48,7 @@ export async function POST(request) {
     }
 
     await redis.set(key, JSON.stringify(vote));
+    await redis.sAdd('voter-names', normalizedName);
     await redis.sAdd('voters', key);
 
     return NextResponse.json({ success: true });

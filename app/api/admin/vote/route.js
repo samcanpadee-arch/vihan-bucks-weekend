@@ -18,12 +18,14 @@ export async function DELETE(request) {
     const redis = await getRedis();
 
     if (deleteAll) {
-      const keys = await redis.keys('vote:*');
-      if (keys.length) {
-        await redis.del(keys);
-      }
+      const names = await redis.sMembers('voter-names');
+      const voteKeys = names?.length
+        ? names.map((name) => `vote:${String(name).trim().toLowerCase()}`)
+        : await redis.keys('vote:*');
+      if (voteKeys.length) await redis.del(voteKeys);
+      await redis.del('voter-names');
       await redis.del('voters');
-      return NextResponse.json({ success: true, deletedAll: true, deletedCount: keys.length });
+      return NextResponse.json({ success: true, deletedAll: true, deletedCount: voteKeys.length });
     }
 
     const name = searchParams.get('name')?.trim();
@@ -31,11 +33,13 @@ export async function DELETE(request) {
       return NextResponse.json({ error: 'Missing name' }, { status: 400 });
     }
 
-    const key = `vote:${name.toLowerCase()}`;
+    const normalizedName = name.toLowerCase();
+    const key = `vote:${normalizedName}`;
     await redis.del(key);
+    await redis.sRem('voter-names', normalizedName);
     await redis.sRem('voters', key);
 
-    return NextResponse.json({ success: true, deleted: key });
+    return NextResponse.json({ success: true, deleted: key, removedName: normalizedName });
   } catch (error) {
     console.error('Admin vote delete error:', error);
     return NextResponse.json({ error: 'Failed to delete vote(s)' }, { status: 500 });
