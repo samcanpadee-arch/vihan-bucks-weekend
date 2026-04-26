@@ -230,7 +230,7 @@ export default function HomePage() {
 
               {status === 'success' && !isEditing ? (
                 <section className="inline-success">
-                  <h3>Das, you&apos;re locked in.</h3>
+                  <h3>{form.name}, you&apos;re locked in.</h3>
                   <p>Votes saved. Vihan doesn&apos;t know it yet but his weekend is being democratically decided right now.</p>
                   <button
                     type="button"

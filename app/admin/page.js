@@ -79,7 +79,8 @@ function AdminPageContent() {
   const saveFinalResults = async () => {
     await fetch('/api/admin/finalise', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...adminHeaders }
+      headers: { 'Content-Type': 'application/json', ...adminHeaders },
+      body: JSON.stringify({ finalSelections })
     });
     await loadConfig();
     await loadResults();
