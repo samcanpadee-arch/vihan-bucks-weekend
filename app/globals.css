@@ -231,6 +231,7 @@ p {
 label {
   display: grid;
   gap: 0.35rem;
+  min-width: 0;
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -239,6 +240,9 @@ label {
 input,
 select,
 textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   border: 1px solid #bfb4ad;
   background: #fff;
   border-radius: 0.35rem;
