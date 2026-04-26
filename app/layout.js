@@ -20,6 +20,11 @@ export const metadata = {
   description: 'Vote on the plan. 26-28 June 2026, Yarra Glen.'
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${notoSerif.variable} ${plusJakarta.variable}`}>
