@@ -132,7 +132,7 @@ export default function HomePage() {
             <p className="micro-copy">Sam built this instead of using a group chat like a normal person.</p>
             <div className="hero-gallery">
               <img
-                src="https://raw.githubusercontent.com/samcanpadee-arch/vihan-bucks-weekend/refs/heads/main/vihan-therewillbeblood.webp"
+                src="https://raw.githubusercontent.com/samcanpadee-arch/vihan-bucks-weekend/refs/heads/main/assets/images/vihan-therewillbeblood.webp"
                 alt="Vihan bucks weekend hero"
               />
             </div>
@@ -183,8 +183,6 @@ export default function HomePage() {
                     {index === 0 || votingSections[index - 1].day !== section.day ? (
                       <div className="day-divider" aria-hidden="true">
                         <h3>{section.day}</h3>
-                        {section.day === 'Saturday' ? <p>The reason we&apos;re all here. Don&apos;t blow it before midday.</p> : null}
-                        {section.day === 'Sunday' ? <p>Soft landing. Leave with your dignity mostly intact.</p> : null}
                       </div>
                     ) : null}
 

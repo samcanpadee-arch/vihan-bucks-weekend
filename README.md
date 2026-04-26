@@ -12,6 +12,15 @@ It now includes:
 
 ---
 
+## Project structure (cleaned)
+
+- `app/` – Next.js App Router pages, API routes, components, and site data
+- `assets/images/` – image assets used by the site
+- `docs/guides/` – longer planning/design/ops guide documents
+- `README.md` – quick start + system overview
+
+---
+
 ## What the app does
 
 ### Public pages
@@ -151,4 +160,3 @@ If you use Upstash/managed Redis, use the provider’s connection URL as `REDIS_
 - Admin secret is a shared-token pattern (lightweight, not full auth).
 - `/api/item` is a placeholder mock route.
 - Results are refresh-based (no realtime subscriptions/websockets).
-
