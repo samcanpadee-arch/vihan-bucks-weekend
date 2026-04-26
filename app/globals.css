@@ -114,6 +114,53 @@ p {
   gap: 0.8rem;
 }
 
+.how-it-works {
+  margin: 1.5rem 0 1.25rem;
+  padding: 1.35rem 0;
+  border-top: 1px solid #ddd2cb;
+  border-bottom: 1px solid #ddd2cb;
+}
+
+.how-it-works-grid {
+  margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.how-step {
+  display: grid;
+  gap: 0.45rem;
+  align-content: start;
+}
+
+.how-step-icon {
+  font-size: 1.15rem;
+  color: var(--text-soft);
+}
+
+.how-step-number {
+  font-family: var(--font-serif), 'Noto Serif', serif;
+  color: var(--text-soft);
+  font-size: 2.5rem;
+  line-height: 1;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.how-step h3 {
+  font-family: var(--font-sans), 'Plus Jakarta Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.how-step p {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
 
 .section-label {
   text-transform: uppercase;
@@ -453,6 +500,20 @@ th {
 
   .options-grid {
     grid-template-columns: 1fr;
+  }
+
+  .how-it-works {
+    margin: 1.2rem 0 1rem;
+    padding: 1.1rem 0;
+  }
+
+  .how-it-works-grid {
+    grid-template-columns: 1fr;
+    gap: 1.3rem;
+  }
+
+  .how-step-number {
+    font-size: 2rem;
   }
 
   .submit-btn {

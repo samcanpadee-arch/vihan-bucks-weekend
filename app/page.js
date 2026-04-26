@@ -27,6 +27,27 @@ const initialForm = {
   sundayRecoveryOther: ''
 };
 
+const howItWorksSteps = [
+  {
+    number: '01',
+    icon: 'how_to_vote',
+    heading: 'Vote on the plan',
+    body: "Pick your preferences for each part of the weekend. Friday night, Saturday activities, the winery situation. All of it. Takes about two minutes if you're decisive. Longer if you're not."
+  },
+  {
+    number: '02',
+    icon: 'check_circle',
+    heading: 'Submit once',
+    body: 'Hit the button at the bottom. Your vote is saved. You can come back and change it if you have a crisis of confidence, which is expected.'
+  },
+  {
+    number: '03',
+    icon: 'event_note',
+    heading: 'Check the itinerary page',
+    body: "Once the plan is locked in, the itinerary page becomes the one link for the whole weekend. Timings, addresses, what to bring, who owes who. Bookmark it. Or just ask someone in the group chat and waste everyone's time."
+  }
+];
+
 export default function HomePage() {
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState('idle');
@@ -170,6 +191,20 @@ export default function HomePage() {
                 src="https://raw.githubusercontent.com/samcanpadee-arch/vihan-bucks-weekend/refs/heads/main/assets/images/vihan-therewillbeblood.webp"
                 alt="Vihan bucks weekend hero"
               />
+            </div>
+          </section>
+
+          <section className="how-it-works" aria-label="How this works">
+            <p className="section-label">HOW THIS WORKS</p>
+            <div className="how-it-works-grid">
+              {howItWorksSteps.map((step) => (
+                <article key={step.number} className="how-step">
+                  <span className="material-symbols-outlined how-step-icon">{step.icon}</span>
+                  <p className="how-step-number">{step.number}</p>
+                  <h3>{step.heading}</h3>
+                  <p>{step.body}</p>
+                </article>
+              ))}
             </div>
           </section>
 
