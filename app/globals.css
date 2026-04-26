@@ -17,6 +17,11 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   background: var(--surface);
@@ -661,6 +666,10 @@ th {
   .hero-gallery img {
     height: auto;
   }
+
+  .accommodation-image-wrap {
+    margin: -1rem -1rem 1rem;
+  }
 }
 
 /* Consistent chip/bubble alignment */
@@ -984,6 +993,11 @@ main.page-shell > .vote-section {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;
   gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.itinerary-top-grid .accommodation-card {
+  margin-top: 0;
 }
 
 .essentials-card {
@@ -1038,6 +1052,11 @@ main.page-shell > .vote-section {
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 0.75rem;
+}
+
+.name-section,
+.vote-section {
+  scroll-margin-top: 5rem;
 }
 
 .name-section .field-grid {
@@ -1232,6 +1251,28 @@ main.page-shell > .vote-section {
   border-top: 1px solid var(--border);
 }
 
+.name-manager-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-soft);
+  font-size: 0.8rem;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.name-manager-toggle:hover {
+  color: var(--text);
+}
+
+.name-manager-open {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--surface-soft, #f5f2ee);
+  border-radius: 8px;
+}
+
 .expense-form-label {
   margin-bottom: 0.2rem;
 }
@@ -1419,6 +1460,36 @@ textarea:disabled,
   padding: 1rem;
 }
 
+.voter-roll {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.voter-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.voter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--surface-soft, #f5f2ee);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem 0.25rem 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.voter-chip .material-symbols-outlined {
+  font-size: 1rem;
+  color: var(--primary);
+}
+
 .leaderboard-list {
   display: grid;
   gap: 0.9rem;
@@ -1451,17 +1522,6 @@ textarea:disabled,
 
 .leaderboard-row small {
   color: var(--text-soft);
-}
-
-.final-chip {
-  margin-left: 0.45rem;
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #fff;
-  background: var(--primary);
-  border-radius: 999px;
-  padding: 0.1rem 0.45rem;
 }
 
 .leaderboard-bar-track {

@@ -56,15 +56,22 @@ function AdminPageContent() {
 
   const deleteVote = async (name) => {
     const normalizedName = name.trim().toLowerCase();
-    await fetch(`/api/admin/vote?name=${encodeURIComponent(normalizedName)}`, { method: 'DELETE', headers: adminHeaders });
-    await loadResults();
-    setAdminMessage(`Deleted ${name}.`);
+    const res = await fetch(`/api/admin/vote?name=${encodeURIComponent(normalizedName)}`, { method: 'DELETE', headers: adminHeaders });
+    if (!res.ok) {
+      setAdminMessage(`Failed to delete ${name}.`);
+      return;
+    }
+    window.location.reload();
   };
 
   const clearAllVotes = async () => {
-    await fetch('/api/admin/vote?all=true', { method: 'DELETE', headers: adminHeaders });
-    await loadResults();
-    setAdminMessage('Cleared all votes.');
+    if (!window.confirm('Delete every single vote? This cannot be undone.')) return;
+    const res = await fetch('/api/admin/vote?all=true', { method: 'DELETE', headers: adminHeaders });
+    if (!res.ok) {
+      setAdminMessage('Failed to clear votes.');
+      return;
+    }
+    window.location.reload();
   };
 
   const toggleVotingLock = async () => {
@@ -79,7 +86,8 @@ function AdminPageContent() {
   const saveFinalResults = async () => {
     await fetch('/api/admin/finalise', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...adminHeaders }
+      headers: { 'Content-Type': 'application/json', ...adminHeaders },
+      body: JSON.stringify({ finalSelections })
     });
     await loadConfig();
     await loadResults();

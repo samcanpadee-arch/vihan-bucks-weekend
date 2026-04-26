@@ -51,7 +51,7 @@ export default function HomePage() {
     const sectionId = key === 'name' ? 'vote-form' : `section-${key}`;
     const el = document.getElementById(sectionId);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   };
 
@@ -148,6 +148,8 @@ export default function HomePage() {
           ) : (
             <form id="vote" onSubmit={handleSubmit} className="vote-form">
               <div className={`vote-form-content ${disableInputs ? 'is-locked' : ''}`}>
+                {error ? <p className="error-message">{error}</p> : null}
+
                 <section className="name-section" id="vote-form">
                   <SectionHeader
                     title="Who are you?"
@@ -219,8 +221,6 @@ export default function HomePage() {
                     </section>
                   </div>
                 ))}
-
-                {error ? <p className="error-message">{error}</p> : null}
               </div>
 
               <button type="submit" className="submit-btn" disabled={status === 'loading' || disableInputs}>
@@ -230,7 +230,7 @@ export default function HomePage() {
 
               {status === 'success' && !isEditing ? (
                 <section className="inline-success">
-                  <h3>Das, you&apos;re locked in.</h3>
+                  <h3>{form.name}, you&apos;re locked in.</h3>
                   <p>Votes saved. Vihan doesn&apos;t know it yet but his weekend is being democratically decided right now.</p>
                   <button
                     type="button"

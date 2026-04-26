@@ -11,7 +11,7 @@ const tallyCategories = [
 ];
 
 function isAuthorized(request) {
-  const adminSecret = process.env.ADMIN_SECRET;
+  const adminSecret = process.env.NEXT_PUBLIC_ADMIN_SECRET;
   const provided = request.headers.get('x-admin-secret');
   return Boolean(adminSecret) && provided === adminSecret;
 }
@@ -22,6 +22,9 @@ export async function POST(request) {
   }
 
   try {
+    const body = await request.json().catch(() => ({}));
+    const finalSelections = body?.finalSelections || null;
+
     const redis = await getRedis();
     const keys = await redis.keys('vote:*');
     const rawVotes = await Promise.all(
@@ -61,6 +64,11 @@ export async function POST(request) {
     };
 
     await redis.set('final-results', JSON.stringify(snapshot));
+
+    if (finalSelections && typeof finalSelections === 'object') {
+      await redis.set('config:finalResults', JSON.stringify(finalSelections));
+    }
+
     return NextResponse.json({ success: true, savedAt: snapshot.savedAt });
   } catch (error) {
     console.error('Admin finalise save error:', error);
@@ -76,6 +84,7 @@ export async function DELETE(request) {
   try {
     const redis = await getRedis();
     await redis.del('final-results');
+    await redis.del('config:finalResults');
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Admin finalise clear error:', error);
