@@ -27,7 +27,7 @@ export default function ProgressCard({ form, votingSections = [], submitAttempte
 
     if (selectedId === 'other') {
       const otherValue = form[`${key}Other`] || '';
-      return trimLabel(otherValue || 'Something else');
+      return trimLabel(otherValue) || 'Something else';
     }
 
     const section = votingSections.find((item) => item.key === key);

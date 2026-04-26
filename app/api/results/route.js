@@ -61,14 +61,12 @@ export async function GET() {
         const choice = vote?.[category];
         if (choice) {
           tally[category][choice] = (tally[category][choice] || 0) + 1;
+        }
 
-          if (choice === 'other') {
-            const customText = vote?.[`${category}Other`]?.trim();
-            const name = vote?.name?.trim();
-            if (name && customText) {
-              otherSuggestions[category].push({ name, text: customText });
-            }
-          }
+        const customText = vote?.[`${category}Other`]?.trim();
+        const name = vote?.name?.trim();
+        if (choice === 'other' && name && customText) {
+          otherSuggestions[category].push({ name, text: customText });
         }
       }
     }

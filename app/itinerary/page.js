@@ -263,15 +263,18 @@ export default function ItineraryPage() {
         <SectionHeader title="How the votes are looking" label="Live" icon="leaderboard" subtitle="Updated every time someone submits. Refresh for latest." />
         <div className="leaderboard-list">
           {votingSections.map((section) => {
-            const sortedEntries = Object.entries(results?.tally?.[section.key] || {}).sort((a, b) => b[1] - a[1]);
+            const sortedEntries = Object.entries(results?.tally?.[section.key] || {})
+              .filter(([optionId]) => optionId !== 'other')
+              .sort((a, b) => b[1] - a[1]);
             const totalVotes = sortedEntries.reduce((sum, [, count]) => sum + count, 0);
             const sectionSuggestions = results?.otherSuggestions?.[section.key] || [];
 
             return (
               <article key={section.key} className="leaderboard-category">
                 <p className="section-label">{section.title}</p>
-                {totalVotes ? (
+                {totalVotes || sectionSuggestions.length ? (
                   <>
+                    {totalVotes ? (
                     <div className="leaderboard-options">
                       {sortedEntries.map(([optionId, count], index) => {
                         const optionLabel = section.options.find((option) => option.id === optionId)?.title || optionId;
@@ -297,9 +300,12 @@ export default function ItineraryPage() {
                         );
                       })}
                     </div>
+                    ) : (
+                      <p className="result-empty">No standard option votes yet.</p>
+                    )}
                     {sectionSuggestions.length ? (
                       <div className="other-suggestions-list">
-                        <p className="section-label">Other suggestions</p>
+                        <p className="section-label">💡 Suggested by the group</p>
                         {sectionSuggestions.map((suggestion, index) => (
                           <p key={`${suggestion.name}-${suggestion.text}-${index}`} className="other-suggestion-item">
                             {suggestion.name}: "{suggestion.text}"
