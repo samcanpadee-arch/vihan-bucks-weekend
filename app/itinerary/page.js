@@ -362,7 +362,7 @@ export default function ItineraryPage() {
         />
         <div className="group-notes-list">
           <article className="group-note-item">
-            <strong>House booking:</strong> <span>Confirmed — The Meadow, Yarra Glen.</span>
+            <strong>House booking:</strong> <span>Confirmed: The Meadow, Yarra Glen.</span>
           </article>
           <article className="group-note-item">
             <strong>Saturday lunch/winery booking:</strong> <span>Pending votes.</span>

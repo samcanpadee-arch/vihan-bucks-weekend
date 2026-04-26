@@ -149,7 +149,7 @@ function AdminPageContent() {
       <section className="vote-section standings-card">
         <h2>Lock voting</h2>
         <button type="button" className="manage-add-btn" onClick={toggleVotingLock}>
-          {config.votingLocked ? 'Voting is locked -- click to reopen' : 'Voting is open -- click to lock'}
+          {config.votingLocked ? 'Voting is locked. Click to reopen.' : 'Voting is open. Click to lock.'}
         </button>
       </section>
 
