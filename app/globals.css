@@ -604,14 +604,19 @@ th {
 .hero-gallery {
   display: block;
   margin-top: 0.3rem;
+  background: #fffdf7;
+  border: 1px solid #e5d9cf;
+  border-radius: 0.6rem;
 }
 
 .hero-gallery img {
   width: 100%;
-  height: 260px;
-  object-fit: cover;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
   border-radius: 0.6rem;
-  border: 1px solid #e5d9cf;
+  border: 0;
+  display: block;
 }
 
 .accommodation-image-wrap {
@@ -652,28 +657,9 @@ th {
   border: 1px solid #314e3b;
 }
 
-.profile-row {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  margin-bottom: 0.8rem;
-}
-
-.profile-avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.45);
-}
-
-
-
-
-
 @media (max-width: 700px) {
   .hero-gallery img {
-    height: 180px;
+    height: auto;
   }
 }
 
