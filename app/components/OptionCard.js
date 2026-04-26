@@ -22,12 +22,21 @@ export default function OptionCard({ option, isSelected, onSelect, disabled }) {
         </div>
       ) : null}
 
+      {option.thumbnail ? (
+        <div className="option-thumb">
+          <img src={option.thumbnail} alt="" loading="lazy" />
+        </div>
+      ) : null}
+
       <div className="option-copy">
         <h3>{option.title}</h3>
         <p>{option.description}</p>
       </div>
 
-      {option.cost ? <p className="option-cost-chip">{option.cost}</p> : null}
+      <div className="option-chip-row">
+        {option.timeConstraint ? <span className="chip chip-time">{option.timeConstraint}</span> : null}
+        {option.cost ? <span className="option-cost-chip">{option.cost}</span> : null}
+      </div>
 
       {option.link ? (
         <a
@@ -40,7 +49,6 @@ export default function OptionCard({ option, isSelected, onSelect, disabled }) {
           View details <span className="material-symbols-outlined">open_in_new</span>
         </a>
       ) : null}
-
     </div>
   );
 }
