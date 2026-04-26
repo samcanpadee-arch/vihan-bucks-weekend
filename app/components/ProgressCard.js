@@ -11,14 +11,36 @@ const sectionOrder = [
 const avatar =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuD3f4LbRPoFAx-yQgAMfeIZ3wIR5tR_OXhMsZwg0Jvl78UjKv5_U9TZ02NpoeLC-CWrmmugsyfb8cbOdLPkVYZbOvTNO10m0r6AZJoKgXbJ-_oBpdwquAbV3n9gQSoWAYbUSewRs3VMLfZTbISLmaT5nlUiPNQuckylv47jpJUNllNmPiGOiQeEHWJ_wzo1i1UOTQzkBh9YTzPd6ab8QABjaKxup2UZYcrEVvncsOEmAM0CBi5LLRstQFYwuRaZnIoFuiPOTnTKwSE';
 
-export default function ProgressCard({ form, submitAttempted, requiredKeys = [], onJumpToSection }) {
+export default function ProgressCard({ form, votingSections = [], submitAttempted, requiredKeys = [], onJumpToSection }) {
   const missingSet = new Set(requiredKeys.filter((key) => !form[key]));
+  const trimLabel = (text = '') => {
+    const clean = text.trim();
+    if (!clean) return '';
+    return clean.length > 20 ? `${clean.slice(0, 20)}…` : clean;
+  };
+
+  const getSelectionLabel = (key) => {
+    if (key === 'name') return trimLabel(form.name || '');
+
+    const selectedId = form[key];
+    if (!selectedId) return '';
+
+    if (selectedId === 'other') {
+      const otherValue = form[`${key}Other`] || '';
+      return trimLabel(otherValue || 'Something else');
+    }
+
+    const section = votingSections.find((item) => item.key === key);
+    const optionTitle = section?.options?.find((option) => option.id === selectedId)?.title || selectedId;
+    return trimLabel(optionTitle);
+  };
 
   const checks = sectionOrder.map(([key, label, icon]) => ({
     key,
     label,
     icon,
     done: Boolean(form[key]),
+    selectionLabel: getSelectionLabel(key),
     isMissing: submitAttempted && missingSet.has(key)
   }));
 
@@ -28,7 +50,7 @@ export default function ProgressCard({ form, submitAttempted, requiredKeys = [],
         <div className="profile-row">
           <img src={avatar} alt="Vihan" className="profile-avatar" />
           <div>
-            <h3>The scheme so far</h3>
+            <h3>Your lineup</h3>
           </div>
         </div>
 
@@ -51,16 +73,13 @@ export default function ProgressCard({ form, submitAttempted, requiredKeys = [],
                 <span className="material-symbols-outlined">{item.icon}</span>
                 {item.label}
               </span>
-              <strong>
+              <span className={`progress-selection ${item.done ? 'is-done' : 'is-empty'}`}>
                 <span className="material-symbols-outlined">{item.done ? 'check_circle' : 'remove'}</span>
-              </strong>
+                <small>{item.done ? item.selectionLabel : 'not picked yet'}</small>
+              </span>
             </li>
           ))}
         </ul>
-
-        <button type="button" className="progress-submit-btn" onClick={() => onJumpToSection?.('name')}>
-          Lock it in
-        </button>
       </aside>
 
       <aside className="cheeky-tooltip">

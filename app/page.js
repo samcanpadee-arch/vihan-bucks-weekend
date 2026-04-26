@@ -251,6 +251,7 @@ export default function HomePage() {
         <div className="sticky-col">
           <ProgressCard
             form={form}
+            votingSections={votingSections}
             submitAttempted={submitAttempted}
             requiredKeys={requiredKeys}
             onJumpToSection={jumpToSection}
