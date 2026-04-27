@@ -1,9 +1,16 @@
 # Vihan’s Yarra Valley Bucks Weekend
 
-A Next.js App Router web app for planning and running the weekend in one link.
+A Next.js App Router web app for planning and running a shared trip in one link.
 
-It now includes:
-- Public voting flow for all major itinerary decisions
+Originally built for a bucks weekend, this project can also be reused for:
+- Family holidays
+- Friends’ group trips
+- Team offsites
+- Birthday weekends
+- Any event where people need to vote, coordinate a plan, and split costs
+
+It currently includes:
+- Public voting flow for major itinerary decisions
 - Live-ish results + suggestions aggregation
 - Itinerary page with packing list and running plan
 - Shared expense tracker + settlement helper
@@ -12,16 +19,14 @@ It now includes:
 
 ---
 
-## Project structure (cleaned)
+## Project structure
 
 - `app/` – Next.js App Router pages, API routes, components, and site data
-- `assets/images/` – image assets used by the site
-- `docs/guides/` – longer planning/design/ops guide documents
-- `README.md` – quick start + system overview
+- `README.md` – quick start + customization guide
 
 ---
 
-## What the app does
+## Core functionality
 
 ### Public pages
 - `/` – Voting page
@@ -29,7 +34,7 @@ It now includes:
   - Vote across Friday/Saturday/Sunday sections
   - Supports “other” free-text suggestions per section
   - Shows progress + validation before submit
-- `/itinerary` – Weekend hub
+- `/itinerary` – Trip hub
   - Accommodation + checklist
   - Timeline view
   - Vote leaderboard and suggestions
@@ -43,6 +48,56 @@ It now includes:
   - Save/clear final results selections
 
 > Admin access is guarded by `NEXT_PUBLIC_ADMIN_SECRET` and request headers on admin API calls.
+
+---
+
+## Reusing this app for holidays (or other trips)
+
+You can repurpose this without changing the overall architecture.
+
+### 1) Update content and branding
+Edit `app/siteData.js` to replace bucks-specific text with your own event details:
+- Event name and description
+- Destination/location details
+- Day sections and activity options
+- Packing checklist
+- Notes and labels
+
+This is the main file for converting the app from a bucks weekend to a general holiday/trip planner.
+
+### 2) Adjust voting categories/options
+If your trip doesn’t follow Friday/Saturday/Sunday structure, change the day/section labels and options in `app/siteData.js`.
+
+Examples:
+- Replace days with `Day 1`, `Day 2`, `Day 3`
+- Use categories like `Transport`, `Accommodation`, `Activities`, `Meals`
+
+### 3) Update itinerary flow
+Use `app/siteData.js` and itinerary rendering in `app/page.js` (and itinerary page files under `app/`) to:
+- Change timeline blocks
+- Add/remove checklist sections
+- Tailor guidance text for your group (family trip vs friend trip)
+
+### 4) Keep or change expense logic
+The expense tracker is generic and already works for most group trips. You can customize labels/UI text, but settlement logic can remain unchanged.
+
+### 5) Set your own admin secret + Redis
+For your own deployment, set:
+- `REDIS_URL`
+- `NEXT_PUBLIC_ADMIN_SECRET`
+
+Anyone with the admin secret can manage votes and final selections, so use a strong random value.
+
+---
+
+## What someone would need to change (quick checklist)
+
+Minimum required changes to launch for another use case:
+- [ ] Replace trip/event content in `app/siteData.js`
+- [ ] Update page titles/metadata in `app/layout.js`
+- [ ] (Optional) Tweak UI copy in `app/page.js`
+- [ ] Set `.env.local` with your own `REDIS_URL` and `NEXT_PUBLIC_ADMIN_SECRET`
+- [ ] Deploy (Vercel or other Node host)
 
 ---
 
