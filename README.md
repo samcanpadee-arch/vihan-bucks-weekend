@@ -1,4 +1,4 @@
-# Vihan’s Yarra Valley Bucks Weekend
+# Shared Trip Planner (Next.js + Redis)
 
 A Next.js App Router web app for planning and running a shared trip in one link.
 
