@@ -8,8 +8,65 @@ import SectionHeader from '../components/SectionHeader';
 import TopNav from '../components/TopNav';
 import Footer from '../components/Footer';
 
+function ConfirmedPlanCards({ activities }) {
+  const days = [...new Set(activities.map((activity) => activity.day))];
+
+  return (
+    <div className="confirmed-plan-list">
+      {days.map((day) => (
+        <div key={day} className="confirmed-day-group">
+          <div className="confirmed-day-header">
+            <span className="confirmed-day-label">{day}</span>
+          </div>
+          {activities
+            .filter((activity) => activity.day === day)
+            .map((activity) => (
+              <article key={activity.sectionKey} className="confirmed-activity-card">
+                <div className="confirmed-activity-image">
+                  {activity.option.thumbnail ? (
+                    <img src={activity.option.thumbnail} alt={activity.option.title} />
+                  ) : (
+                    <div className="confirmed-activity-icon-placeholder">
+                      <span className="material-symbols-outlined">{activity.icon}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="confirmed-activity-content">
+                  <p className="section-label">{activity.sectionTitle}</p>
+                  <h3>{activity.option.title}</h3>
+                  <p>{activity.option.description}</p>
+                  <div className="booking-note">
+                    <span className="material-symbols-outlined">calendar_month</span>
+                    <p>
+                      {activity.option.bookingNote
+                        ? activity.option.bookingNote
+                        : 'Booking details to be confirmed.'}
+                    </p>
+                  </div>
+                  {activity.option.link ? (
+                    <a
+                      href={activity.option.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="option-link"
+                    >
+                      More info{' '}
+                      <span className="material-symbols-outlined">open_in_new</span>
+                    </a>
+                  ) : null}
+                </div>
+              </article>
+            ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function ItineraryPage() {
   const [results, setResults] = useState(null);
+  const [confirmedActivities, setConfirmedActivities] = useState([]);
+  const [votesExpanded, setVotesExpanded] = useState(false);
   const [expenses, setExpenses] = useState([]);
   const [customNames, setCustomNames] = useState([]);
   const [groupNameInput, setGroupNameInput] = useState('');
@@ -107,6 +164,38 @@ export default function ItineraryPage() {
       }
     };
 
+    const loadConfig = async () => {
+      try {
+        const response = await fetch('/api/admin/config', { cache: 'no-store' });
+        if (!response.ok) return;
+        const configData = await response.json();
+
+        if (configData.finalResults) {
+          const resolved = votingSections
+            .map((section) => {
+              const selectedId = configData.finalResults[section.key];
+              if (!selectedId) return null;
+
+              const option = section.options.find((opt) => opt.id === selectedId);
+              if (!option) return null;
+
+              return {
+                sectionKey: section.key,
+                sectionTitle: section.title,
+                day: section.day,
+                icon: section.icon,
+                option
+              };
+            })
+            .filter(Boolean);
+
+          setConfirmedActivities(resolved);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     const loadExpenses = async () => {
       setExpensesLoading(true);
       try {
@@ -123,6 +212,7 @@ export default function ItineraryPage() {
     };
 
     loadResults();
+    loadConfig();
     loadExpenses();
   }, []);
 
@@ -259,9 +349,43 @@ export default function ItineraryPage() {
         </aside>
       </section>
 
+      {confirmedActivities.length > 0 ? (
+        <section className="vote-section confirmed-plan-section">
+          <SectionHeader
+            title="The plan"
+            label="Confirmed"
+            icon="event_available"
+            subtitle="Voting is closed. This is what we're doing."
+          />
+          <ConfirmedPlanCards activities={confirmedActivities} />
+        </section>
+      ) : (
+        <section className="vote-section">
+          <SectionHeader title="Weekend timeline" label="Timeline" icon="schedule" />
+          <ItineraryTimeline timeline={itineraryTimeline} />
+        </section>
+      )}
+
       <section className="vote-section standings-card">
-        <SectionHeader title="How the votes are looking" label="Live" icon="leaderboard" subtitle="Not live-live. Hit refresh to see the latest. Yes, you have to do it manually. It&apos;s a bucks trip not a Bloomberg terminal." />
-        {results?.voterNames?.length ? (
+        <button
+          type="button"
+          className="collapsible-toggle"
+          onClick={() => setVotesExpanded((prev) => !prev)}
+          aria-expanded={votesExpanded}
+        >
+          <SectionHeader
+            title="How the votes looked"
+            label="Closed"
+            icon="leaderboard"
+            subtitle="Voting is done. This is the full breakdown."
+          />
+          <span className="material-symbols-outlined collapsible-chevron">
+            {votesExpanded ? 'expand_less' : 'expand_more'}
+          </span>
+        </button>
+        {votesExpanded ? (
+          <div className="collapsible-body">
+            {results?.voterNames?.length ? (
           <div className="voter-roll">
             <p className="section-label">Voted</p>
             <div className="voter-chip-grid">
@@ -274,8 +398,8 @@ export default function ItineraryPage() {
             </div>
           </div>
         ) : null}
-        <div className="leaderboard-list">
-          {votingSections.map((section) => {
+            <div className="leaderboard-list">
+              {votingSections.map((section) => {
             const sortedEntries = Object.entries(results?.tally?.[section.key] || {})
               .filter(([optionId]) => optionId !== 'other')
               .sort((a, b) => b[1] - a[1]);
@@ -332,7 +456,9 @@ export default function ItineraryPage() {
               </article>
             );
           })}
-        </div>
+            </div>
+          </div>
+        ) : null}
       </section>
 
       {results?.groupNotes?.length ? (
@@ -347,11 +473,6 @@ export default function ItineraryPage() {
           </div>
         </section>
       ) : null}
-
-      <section className="vote-section">
-        <SectionHeader title="Weekend timeline" label="Timeline" icon="schedule" />
-        <ItineraryTimeline timeline={itineraryTimeline} />
-      </section>
 
       <section className="vote-section expenses-card">
         <SectionHeader
