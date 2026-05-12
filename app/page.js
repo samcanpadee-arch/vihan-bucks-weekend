@@ -218,8 +218,16 @@ export default function HomePage() {
 
           {votingLocked ? (
             <section className="vote-form">
-              <p>Voting is closed. Check the itinerary for the final plan.</p>
-              <Link href="/itinerary">Go to itinerary</Link>
+              <div className="voting-closed-banner">
+                <span className="material-symbols-outlined">lock</span>
+                <div>
+                  <p className="section-label">Voting closed</p>
+                  <p>The plan is locked in. Check the itinerary for what we're actually doing.</p>
+                  <Link href="/itinerary" className="submit-btn" style={{ display: 'inline-flex', marginTop: '0.75rem' }}>
+                    View the itinerary
+                  </Link>
+                </div>
+              </div>
             </section>
           ) : (
             <form id="vote" onSubmit={handleSubmit} className="vote-form">
