@@ -14,6 +14,8 @@ const AIRBNB_IMAGE = accommodation.image;
 
 const confirmedActivityOverrides = {
   fridayNight: {
+    title: 'Pizza Oven Night',
+    time: 'From 7:00pm',
     cost: null,
     bookingNote: ''
   },
@@ -25,7 +27,17 @@ const confirmedActivityOverrides = {
     cost: null,
     bookingNote: ''
   },
+  saturdayLunch: {
+    time: '1pm',
+    bookingNote: 'Booking details to be confirmed.'
+  },
+  saturdayDrinks: {
+    time: '3pm',
+    cost: null,
+    bookingNote: 'Booking details to be confirmed.'
+  },
   saturdayNight: {
+    title: 'BBQ at The Meadow',
     time: 'From 7:00pm',
     cost: null,
     bookingNote: ''
@@ -48,7 +60,7 @@ const fixedPlanCards = {
       sectionTitle: 'Friday arrival',
       title: 'The Meadow',
       time: 'From 3:00pm',
-      description: "Keys in hand, bags on the floor, weekend officially started. Everyone's coming from different directions so just get there when you get there, find a room, and claim your spot on the couch.",
+      description: "New from the team behind Bella’s Cottage Yarra Valley, The Meadow is a six-bedroom group retreat overlooking the rolling fields of Moo Moo Lookout. Fireplaces, spa, sauna, games room, indoor and outdoor firepits, big shared dining spaces and room for up to 17 — a very solid winter base for wineries, long lunches and making the most of the weekend.",
       address: AIRBNB_ADDRESS,
       mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
       externalLinkLabel: 'View on Airbnb',
