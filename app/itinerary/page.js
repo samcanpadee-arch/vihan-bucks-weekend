@@ -36,7 +36,7 @@ const confirmedActivityOverrides = {
   },
   saturdayDrinks: {
     time: '3pm',
-    description: "Local craft brewery in Healesville. Booked out for the group so there's actually somewhere to sit. Good beer, relaxed vibe, no agenda beyond that.",
+    description: "Local craft brewery in Healesville. We'll aim for enough space for the group to sit together. Good beer, relaxed vibe, no agenda beyond that.",
     cost: null,
     bookingNote: ''
   },
@@ -48,6 +48,7 @@ const confirmedActivityOverrides = {
     bookingNote: ''
   },
   sundayRecovery: {
+    time: '10:30am',
     description: "Walk around, eat chocolate, make questionable decisions at the fudge counter. Genuinely one of the better ways to end a weekend away.",
     cost: null
   }
@@ -95,7 +96,7 @@ const fixedPlanCards = {
       id: 'sunday-airbnb-brekkie',
       sectionTitle: 'Sunday morning',
       title: 'The Meadow - Morning',
-      time: "Whenever you're up",
+      time: 'Check-out by 10:00am',
       description: "Slower morning. Make coffee, eat whatever's left, sit by the fire if it's still going. No rush.",
       address: AIRBNB_ADDRESS,
       mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
