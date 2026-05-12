@@ -1828,8 +1828,9 @@ textarea:disabled,
 
 .confirmed-day-header {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid var(--border);
 }
@@ -1841,6 +1842,108 @@ textarea:disabled,
   color: var(--primary);
   text-transform: uppercase;
   letter-spacing: 0.06em;
+}
+
+.confirmed-day-date {
+  color: var(--text-soft);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+
+.confirmed-plan-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.confirmed-card-kicker,
+.confirmed-card-footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.time-chip,
+.cost-chip {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 0.25rem 0.55rem;
+  background: #f5ece7;
+  color: var(--primary);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.cost-chip {
+  color: #25643b;
+  background: #e4f1e7;
+}
+
+.address-link {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+  width: fit-content;
+  color: var(--text-soft);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.address-link:hover {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 0.16rem;
+}
+
+.address-link .material-symbols-outlined {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.travel-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0;
+  color: var(--text-soft);
+  font-size: 0.75rem;
+}
+
+.travel-connector .dotted-line {
+  width: 1px;
+  height: 20px;
+  border-left: 2px dashed var(--border);
+}
+
+.travel-connector .travel-icon {
+  font-size: 0.9rem;
+  line-height: 1;
+  opacity: 0.75;
+}
+
+.travel-connector .travel-label {
+  font-size: 0.72rem;
+  color: var(--text-soft);
+  letter-spacing: 0.02em;
+}
+
+.travel-connector .travel-note {
+  color: var(--text-soft);
+  font-size: 0.72rem;
+  font-style: italic;
+  font-weight: 400;
+  opacity: 0.82;
+}
+
+.travel-connector.is-final {
+  padding-bottom: 0;
 }
 
 .confirmed-activity-card {
