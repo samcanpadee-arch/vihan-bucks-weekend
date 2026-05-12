@@ -8,64 +8,250 @@ import SectionHeader from '../components/SectionHeader';
 import TopNav from '../components/TopNav';
 import Footer from '../components/Footer';
 
+const AIRBNB_ADDRESS = '13 Symonds Street, Yarra Glen VIC 3775';
+const AIRBNB_LINK = 'https://www.airbnb.com.au/rooms/1561866387856977252?source_impression_id=p3_1776992856_P3BRBi61hmW3JbmH';
+
+const confirmedActivityOverrides = {
+  saturdayMorning: {
+    time: '10:00am',
+    address: 'Badger Weir Road, Badger Creek VIC 3777',
+    mapsLink: 'https://maps.google.com/?q=Badger+Weir+Road+Badger+Creek+VIC+3777',
+    externalLinkLabel: 'Parks Victoria'
+  }
+};
+
+const fixedPlanCards = {
+  Friday: [
+    {
+      id: 'friday-airbnb-check-in',
+      sectionTitle: 'Friday arrival',
+      title: 'Airbnb Check-In',
+      time: 'From 3:00pm',
+      description: 'Keys collected, bags dropped, the weekend begins. Multiple vehicles arriving from different places -- no fixed schedule, just get there.',
+      address: AIRBNB_ADDRESS,
+      mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
+      externalLinkLabel: 'View on Airbnb',
+      link: AIRBNB_LINK,
+      icon: 'house'
+    }
+  ],
+  Saturday: [
+    {
+      id: 'saturday-airbnb-brekkie',
+      sectionTitle: 'Saturday morning',
+      title: 'Airbnb -- Brekkie & Coffee',
+      time: '8:30 -- 9:30am',
+      description: 'Coffee, something to eat, and pretending to be a morning person. No agenda.',
+      address: AIRBNB_ADDRESS,
+      mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
+      externalLinkLabel: 'View on Airbnb',
+      link: AIRBNB_LINK,
+      icon: 'coffee'
+    }
+  ],
+  Sunday: [
+    {
+      id: 'sunday-airbnb-brekkie',
+      sectionTitle: 'Sunday morning',
+      title: 'Airbnb -- Brekkie & Coffee',
+      time: '9:30 -- 10:30am',
+      description: "Slower morning. Coffee, leftovers, whatever's left in the fridge. No rush.",
+      address: AIRBNB_ADDRESS,
+      mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
+      externalLinkLabel: 'View on Airbnb',
+      link: AIRBNB_LINK,
+      icon: 'coffee'
+    }
+  ]
+};
+
+const defaultFinalSelections = {
+  fridayNight: 'fri-pizza',
+  saturdayMorning: 'sat-am-walk',
+  saturdayLunch: 'sat-lunch-rochford',
+  saturdayDrinks: 'sat-arvo-watts',
+  saturdayNight: 'sat-night-bbq',
+  sundayRecovery: 'sun-chocolaterie'
+};
+
+function buildConfirmedActivities(finalResults = {}) {
+  return votingSections
+    .map((section) => {
+      const selectedId = defaultFinalSelections[section.key] || finalResults[section.key];
+      if (!selectedId) return null;
+
+      const baseOption = section.options.find((opt) => opt.id === selectedId);
+      if (!baseOption) return null;
+
+      const option = section.key === 'saturdayMorning'
+        ? {
+            ...baseOption,
+            title: 'Badger Weir Picnic Area',
+            description: 'A short rainforest walk through fern gullies and eucalypt forest. Easy terrain, genuinely impressive, takes about an hour. Good way to shake off the previous night.',
+            cost: 'Free',
+            link: 'https://www.parks.vic.gov.au/places-to-see/parks/yarra-ranges-national-park',
+            bookingNote: ''
+          }
+        : baseOption;
+
+      return {
+        sectionKey: section.key,
+        sectionTitle: section.title,
+        day: section.day,
+        icon: section.icon,
+        option
+      };
+    })
+    .filter(Boolean);
+}
+
+const travelConnectors = {
+  Saturday: {
+    'saturday-airbnb-brekkie::saturdayMorning': { labels: ['~25-30 min drive'] },
+    'saturdayMorning::saturdayLunch': {
+      labels: ['~25-30 min drive', '~10-15 min drive'],
+      note: 'Back to Airbnb to freshen up'
+    },
+    'saturdayLunch::saturdayDrinks': { labels: ['~20-25 min drive'] },
+    'saturdayDrinks::saturdayNight': { labels: ['~20-25 min drive'] }
+  },
+  Sunday: {
+    'sunday-airbnb-brekkie::sundayRecovery': { labels: ['~5-10 min drive'] }
+  }
+};
+
+function TravelConnector({ connector }) {
+  return (
+    <div className={`travel-connector ${connector.note ? 'two-part' : ''}`} aria-label="Travel time">
+      <div className="dotted-line" />
+      <span className="travel-icon" aria-hidden="true">🚗</span>
+      <span className="travel-label">{connector.labels[0]}</span>
+      {connector.note ? (
+        <>
+          <div className="dotted-line" />
+          <span className="travel-note">{connector.note}</span>
+          <div className="dotted-line" />
+          <span className="travel-icon" aria-hidden="true">🚗</span>
+          <span className="travel-label">{connector.labels[1]}</span>
+        </>
+      ) : null}
+      <div className="dotted-line" />
+    </div>
+  );
+}
+
+function ItineraryCard({ item }) {
+  return (
+    <article className="confirmed-activity-card">
+      <div className="confirmed-activity-image">
+        {item.thumbnail ? (
+          <img src={item.thumbnail} alt={item.title} />
+        ) : (
+          <div className="confirmed-activity-icon-placeholder">
+            <span className="material-symbols-outlined">{item.icon}</span>
+          </div>
+        )}
+      </div>
+      <div className="confirmed-activity-content">
+        <div className="confirmed-card-kicker">
+          <p className="section-label">{item.sectionTitle}</p>
+          {item.time ? <span className="time-chip">{item.time}</span> : null}
+        </div>
+        <h3>{item.title}</h3>
+        <p>{item.description}</p>
+        {item.address ? (
+          <a
+            href={item.mapsLink || `https://maps.google.com/?q=${encodeURIComponent(item.address)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="address-link"
+          >
+            <span className="material-symbols-outlined">location_on</span>
+            {item.address}
+          </a>
+        ) : null}
+        {item.bookingNote ? (
+          <div className="booking-note">
+            <span className="material-symbols-outlined">calendar_month</span>
+            <p>{item.bookingNote}</p>
+          </div>
+        ) : null}
+        <div className="confirmed-card-footer">
+          {item.cost ? <span className="cost-chip">{item.cost}</span> : null}
+          {item.link ? (
+            <a
+              href={item.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="option-link"
+            >
+              {item.externalLinkLabel || 'More info'}{' '}
+              <span className="material-symbols-outlined">open_in_new</span>
+            </a>
+          ) : null}
+        </div>
+      </div>
+    </article>
+  );
+}
+
 function ConfirmedPlanCards({ activities }) {
-  const days = [...new Set(activities.map((activity) => activity.day))];
+  const dynamicCards = activities.map((activity) => {
+    const overrides = confirmedActivityOverrides[activity.sectionKey] || {};
+
+    return {
+      id: activity.sectionKey,
+      sectionTitle: activity.sectionTitle,
+      day: activity.day,
+      title: activity.option.title,
+      description: activity.option.description,
+      cost: activity.option.cost,
+      bookingNote: activity.option.bookingNote || 'Booking details to be confirmed.',
+      link: activity.option.link,
+      thumbnail: activity.option.thumbnail,
+      icon: activity.icon,
+      ...overrides
+    };
+  });
+
+  const days = ['Friday', 'Saturday', 'Sunday'];
 
   return (
     <div className="confirmed-plan-list">
-      {days.map((day) => (
-        <div key={day} className="confirmed-day-group">
-          <div className="confirmed-day-header">
-            <span className="confirmed-day-label">{day}</span>
+      {days.map((day) => {
+        const dayCards = [
+          ...(fixedPlanCards[day] || []),
+          ...dynamicCards.filter((activity) => activity.day === day)
+        ];
+
+        if (!dayCards.length) return null;
+
+        return (
+          <div key={day} className="confirmed-day-group">
+            <div className="confirmed-day-header">
+              <span className="confirmed-day-label">{day}</span>
+            </div>
+            {dayCards.map((item, index) => {
+              const next = dayCards[index + 1];
+              const connector = next ? travelConnectors[day]?.[`${item.id}::${next.id}`] : null;
+
+              return (
+                <div key={item.id} className="confirmed-plan-item">
+                  <ItineraryCard item={item} />
+                  {connector ? <TravelConnector connector={connector} /> : null}
+                </div>
+              );
+            })}
           </div>
-          {activities
-            .filter((activity) => activity.day === day)
-            .map((activity) => (
-              <article key={activity.sectionKey} className="confirmed-activity-card">
-                <div className="confirmed-activity-image">
-                  {activity.option.thumbnail ? (
-                    <img src={activity.option.thumbnail} alt={activity.option.title} />
-                  ) : (
-                    <div className="confirmed-activity-icon-placeholder">
-                      <span className="material-symbols-outlined">{activity.icon}</span>
-                    </div>
-                  )}
-                </div>
-                <div className="confirmed-activity-content">
-                  <p className="section-label">{activity.sectionTitle}</p>
-                  <h3>{activity.option.title}</h3>
-                  <p>{activity.option.description}</p>
-                  <div className="booking-note">
-                    <span className="material-symbols-outlined">calendar_month</span>
-                    <p>
-                      {activity.option.bookingNote
-                        ? activity.option.bookingNote
-                        : 'Booking details to be confirmed.'}
-                    </p>
-                  </div>
-                  {activity.option.link ? (
-                    <a
-                      href={activity.option.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="option-link"
-                    >
-                      More info{' '}
-                      <span className="material-symbols-outlined">open_in_new</span>
-                    </a>
-                  ) : null}
-                </div>
-              </article>
-            ))}
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
 
 export default function ItineraryPage() {
   const [results, setResults] = useState(null);
-  const [confirmedActivities, setConfirmedActivities] = useState([]);
+  const [confirmedActivities, setConfirmedActivities] = useState(() => buildConfirmedActivities());
   const [votesExpanded, setVotesExpanded] = useState(false);
   const [expenses, setExpenses] = useState([]);
   const [customNames, setCustomNames] = useState([]);
@@ -170,27 +356,7 @@ export default function ItineraryPage() {
         if (!response.ok) return;
         const configData = await response.json();
 
-        if (configData.finalResults) {
-          const resolved = votingSections
-            .map((section) => {
-              const selectedId = configData.finalResults[section.key];
-              if (!selectedId) return null;
-
-              const option = section.options.find((opt) => opt.id === selectedId);
-              if (!option) return null;
-
-              return {
-                sectionKey: section.key,
-                sectionTitle: section.title,
-                day: section.day,
-                icon: section.icon,
-                option
-              };
-            })
-            .filter(Boolean);
-
-          setConfirmedActivities(resolved);
-        }
+        setConfirmedActivities(buildConfirmedActivities(configData.finalResults || {}));
       } catch (error) {
         console.error(error);
       }
