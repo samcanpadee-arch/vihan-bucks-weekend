@@ -16,11 +16,13 @@ const confirmedActivityOverrides = {
   fridayNight: {
     title: 'Pizza Oven Night',
     time: 'From 7:00pm',
+    description: "Sam's bringing his portable pizza oven. He'll sort the dough, run the process, and turn out genuinely good pizzas without making it a whole personality. Help is welcome if you want in. Standing around with a beer doing fake supervision is also fine.",
     cost: null,
     bookingNote: ''
   },
   saturdayMorning: {
     time: '10:00am',
+    description: 'A proper rainforest walk through fern gullies and tall eucalypts. Takes about an hour, easy underfoot, and genuinely looks like a nature documentary. Good reset after Friday night.',
     address: 'Badger Weir Road, Badger Creek VIC 3777',
     mapsLink: 'https://maps.google.com/?q=Badger+Weir+Road+Badger+Creek+VIC+3777',
     externalLinkLabel: 'Parks Victoria',
@@ -29,20 +31,24 @@ const confirmedActivityOverrides = {
   },
   saturdayLunch: {
     time: '1pm',
-    bookingNote: 'Booking details to be confirmed.'
+    description: "Cellar door tasting followed by a proper sit-down lunch with meadow views and live music on weekends. It's a winery lunch, so yes it's a bit fancy, and yes that's the point.",
+    bookingNote: ''
   },
   saturdayDrinks: {
     time: '3pm',
+    description: "Local craft brewery in Healesville. Booked out for the group so there's actually somewhere to sit. Good beer, relaxed vibe, no agenda beyond that.",
     cost: null,
-    bookingNote: 'Booking details to be confirmed.'
+    bookingNote: ''
   },
   saturdayNight: {
     title: 'BBQ at The Meadow',
     time: 'From 7:00pm',
+    description: 'Back at base. Fire up the BBQ, grill things, eat things, sit outside if the weather holds. No logistics, no bookings, no one in charge.',
     cost: null,
     bookingNote: ''
   },
   sundayRecovery: {
+    description: "Walk around, eat chocolate, make questionable decisions at the fudge counter. Genuinely one of the better ways to end a weekend away.",
     cost: null
   }
 };
@@ -60,7 +66,7 @@ const fixedPlanCards = {
       sectionTitle: 'Friday arrival',
       title: 'The Meadow',
       time: 'From 3:00pm',
-      description: "New from the team behind Bella’s Cottage Yarra Valley, The Meadow is a six-bedroom group retreat overlooking the rolling fields of Moo Moo Lookout. Fireplaces, spa, sauna, games room, indoor and outdoor firepits, big shared dining spaces and room for up to 17 — a very solid winter base for wineries, long lunches and making the most of the weekend.",
+      description: "Six bedrooms, a spa, a sauna, a barrel sauna, a fire pit, a pool table, a wood heater, and views over rolling fields with actual cows. From the team behind Bella's Cottage. This is not a standard Airbnb. Pick a room, get in the spa, and try not to feel smug about it.",
       address: AIRBNB_ADDRESS,
       mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
       externalLinkLabel: 'View on Airbnb',
@@ -75,7 +81,7 @@ const fixedPlanCards = {
       sectionTitle: 'Saturday morning',
       title: 'The Meadow - Morning',
       time: "Whenever you're up",
-      description: 'Coffee, something to eat, and a slow start. No fixed time, no agenda. The walk comes later.',
+      description: 'Coffee, something to eat, and absolutely no pressure to be functional. Use the time.',
       address: AIRBNB_ADDRESS,
       mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
       externalLinkLabel: 'View on Airbnb',
@@ -90,7 +96,7 @@ const fixedPlanCards = {
       sectionTitle: 'Sunday morning',
       title: 'The Meadow - Morning',
       time: "Whenever you're up",
-      description: 'Slower morning. Coffee, leftovers, the fridge situation. No rush, no plans yet.',
+      description: "Slower morning. Make coffee, eat whatever's left, sit by the fire if it's still going. No rush.",
       address: AIRBNB_ADDRESS,
       mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
       externalLinkLabel: 'View on Airbnb',
@@ -123,7 +129,7 @@ function buildConfirmedActivities(finalResults = {}) {
         ? {
             ...baseOption,
             title: 'Badger Weir Picnic Area',
-            description: 'A short rainforest walk through fern gullies and eucalypt forest. Easy terrain, genuinely impressive, takes about an hour. Good way to shake off the previous night.',
+            description: 'A proper rainforest walk through fern gullies and tall eucalypts. Takes about an hour, easy underfoot, and genuinely looks like a nature documentary. Good reset after Friday night.',
             cost: null,
             link: 'https://www.parks.vic.gov.au/places-to-see/parks/yarra-ranges-national-park',
             bookingNote: ''
@@ -148,8 +154,14 @@ const travelConnectors = {
       labels: ['~25-30 min drive', '~10-15 min drive'],
       note: 'Back to base to freshen up'
     },
-    'saturdayLunch::saturdayDrinks': { labels: ['~7 min drive'] },
-    'saturdayDrinks::saturdayNight': { labels: ['~15 min drive'] }
+    'saturdayLunch::saturdayDrinks': {
+      labels: ['~7 min drive'],
+      note: "Designated drivers needed, or we'll book a couple of maxi cabs."
+    },
+    'saturdayDrinks::saturdayNight': {
+      labels: ['~15 min drive'],
+      note: "Designated drivers needed, or we'll book a couple of maxi cabs."
+    }
   },
   Sunday: {
     'sunday-airbnb-brekkie::sundayRecovery': { labels: ['~5 min drive'] }
@@ -172,9 +184,13 @@ function TravelConnector({ connector }) {
         <>
           <div className="dotted-line" />
           <span className="travel-note">{connector.note}</span>
-          <div className="dotted-line" />
-          <span className="travel-icon" aria-hidden="true">🚗</span>
-          <span className="travel-label">{connector.labels[1]}</span>
+          {connector.labels?.[1] ? (
+            <>
+              <div className="dotted-line" />
+              <span className="travel-icon" aria-hidden="true">🚗</span>
+              <span className="travel-label">{connector.labels[1]}</span>
+            </>
+          ) : null}
         </>
       ) : null}
       {connector.isFinal ? null : <div className="dotted-line" />}
