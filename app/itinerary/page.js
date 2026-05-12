@@ -10,14 +10,35 @@ import Footer from '../components/Footer';
 
 const AIRBNB_ADDRESS = '13 Symonds Street, Yarra Glen VIC 3775';
 const AIRBNB_LINK = 'https://www.airbnb.com.au/rooms/1561866387856977252?source_impression_id=p3_1776992856_P3BRBi61hmW3JbmH';
+const AIRBNB_IMAGE = accommodation.image;
 
 const confirmedActivityOverrides = {
+  fridayNight: {
+    cost: null,
+    bookingNote: ''
+  },
   saturdayMorning: {
     time: '10:00am',
     address: 'Badger Weir Road, Badger Creek VIC 3777',
     mapsLink: 'https://maps.google.com/?q=Badger+Weir+Road+Badger+Creek+VIC+3777',
-    externalLinkLabel: 'Parks Victoria'
+    externalLinkLabel: 'Parks Victoria',
+    cost: null,
+    bookingNote: ''
+  },
+  saturdayNight: {
+    time: 'From 7:00pm',
+    cost: null,
+    bookingNote: ''
+  },
+  sundayRecovery: {
+    cost: null
   }
+};
+
+const dayDates = {
+  Friday: '26 June',
+  Saturday: '27 June',
+  Sunday: '28 June'
 };
 
 const fixedPlanCards = {
@@ -25,13 +46,14 @@ const fixedPlanCards = {
     {
       id: 'friday-airbnb-check-in',
       sectionTitle: 'Friday arrival',
-      title: 'Airbnb Check-In',
+      title: 'The Meadow',
       time: 'From 3:00pm',
-      description: 'Keys collected, bags dropped, the weekend begins. Multiple vehicles arriving from different places -- no fixed schedule, just get there.',
+      description: "Keys in hand, bags on the floor, weekend officially started. Everyone's coming from different directions so just get there when you get there, find a room, and claim your spot on the couch.",
       address: AIRBNB_ADDRESS,
       mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
       externalLinkLabel: 'View on Airbnb',
       link: AIRBNB_LINK,
+      thumbnail: AIRBNB_IMAGE,
       icon: 'house'
     }
   ],
@@ -39,13 +61,14 @@ const fixedPlanCards = {
     {
       id: 'saturday-airbnb-brekkie',
       sectionTitle: 'Saturday morning',
-      title: 'Airbnb -- Brekkie & Coffee',
-      time: '8:30 -- 9:30am',
-      description: 'Coffee, something to eat, and pretending to be a morning person. No agenda.',
+      title: 'The Meadow - Morning',
+      time: "Whenever you're up",
+      description: 'Coffee, something to eat, and a slow start. No fixed time, no agenda. The walk comes later.',
       address: AIRBNB_ADDRESS,
       mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
       externalLinkLabel: 'View on Airbnb',
       link: AIRBNB_LINK,
+      thumbnail: AIRBNB_IMAGE,
       icon: 'coffee'
     }
   ],
@@ -53,13 +76,14 @@ const fixedPlanCards = {
     {
       id: 'sunday-airbnb-brekkie',
       sectionTitle: 'Sunday morning',
-      title: 'Airbnb -- Brekkie & Coffee',
-      time: '9:30 -- 10:30am',
-      description: "Slower morning. Coffee, leftovers, whatever's left in the fridge. No rush.",
+      title: 'The Meadow - Morning',
+      time: "Whenever you're up",
+      description: 'Slower morning. Coffee, leftovers, the fridge situation. No rush, no plans yet.',
       address: AIRBNB_ADDRESS,
       mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
       externalLinkLabel: 'View on Airbnb',
       link: AIRBNB_LINK,
+      thumbnail: AIRBNB_IMAGE,
       icon: 'coffee'
     }
   ]
@@ -88,7 +112,7 @@ function buildConfirmedActivities(finalResults = {}) {
             ...baseOption,
             title: 'Badger Weir Picnic Area',
             description: 'A short rainforest walk through fern gullies and eucalypt forest. Easy terrain, genuinely impressive, takes about an hour. Good way to shake off the previous night.',
-            cost: 'Free',
+            cost: null,
             link: 'https://www.parks.vic.gov.au/places-to-see/parks/yarra-ranges-national-park',
             bookingNote: ''
           }
@@ -110,22 +134,28 @@ const travelConnectors = {
     'saturday-airbnb-brekkie::saturdayMorning': { labels: ['~25-30 min drive'] },
     'saturdayMorning::saturdayLunch': {
       labels: ['~25-30 min drive', '~10-15 min drive'],
-      note: 'Back to Airbnb to freshen up'
+      note: 'Back to base to freshen up'
     },
-    'saturdayLunch::saturdayDrinks': { labels: ['~20-25 min drive'] },
-    'saturdayDrinks::saturdayNight': { labels: ['~20-25 min drive'] }
+    'saturdayLunch::saturdayDrinks': { labels: ['~7 min drive'] },
+    'saturdayDrinks::saturdayNight': { labels: ['~15 min drive'] }
   },
   Sunday: {
-    'sunday-airbnb-brekkie::sundayRecovery': { labels: ['~5-10 min drive'] }
+    'sunday-airbnb-brekkie::sundayRecovery': { labels: ['~5 min drive'] }
   }
 };
 
+const finalTravelConnectors = {
+  Sunday: { label: 'Drive back to Melbourne', showIcon: false, isFinal: true }
+};
+
 function TravelConnector({ connector }) {
+  const primaryLabel = connector.label || connector.labels?.[0];
+
   return (
-    <div className={`travel-connector ${connector.note ? 'two-part' : ''}`} aria-label="Travel time">
+    <div className={`travel-connector ${connector.note ? 'two-part' : ''} ${connector.isFinal ? 'is-final' : ''}`} aria-label="Travel time">
       <div className="dotted-line" />
-      <span className="travel-icon" aria-hidden="true">🚗</span>
-      <span className="travel-label">{connector.labels[0]}</span>
+      {connector.showIcon === false ? null : <span className="travel-icon" aria-hidden="true">🚗</span>}
+      <span className="travel-label">{primaryLabel}</span>
       {connector.note ? (
         <>
           <div className="dotted-line" />
@@ -135,7 +165,7 @@ function TravelConnector({ connector }) {
           <span className="travel-label">{connector.labels[1]}</span>
         </>
       ) : null}
-      <div className="dotted-line" />
+      {connector.isFinal ? null : <div className="dotted-line" />}
     </div>
   );
 }
@@ -206,7 +236,7 @@ function ConfirmedPlanCards({ activities }) {
       title: activity.option.title,
       description: activity.option.description,
       cost: activity.option.cost,
-      bookingNote: activity.option.bookingNote || 'Booking details to be confirmed.',
+      bookingNote: activity.option.bookingNote,
       link: activity.option.link,
       thumbnail: activity.option.thumbnail,
       icon: activity.icon,
@@ -230,10 +260,13 @@ function ConfirmedPlanCards({ activities }) {
           <div key={day} className="confirmed-day-group">
             <div className="confirmed-day-header">
               <span className="confirmed-day-label">{day}</span>
+              <span className="confirmed-day-date">{dayDates[day]}</span>
             </div>
             {dayCards.map((item, index) => {
               const next = dayCards[index + 1];
-              const connector = next ? travelConnectors[day]?.[`${item.id}::${next.id}`] : null;
+              const connector = next
+                ? travelConnectors[day]?.[`${item.id}::${next.id}`]
+                : finalTravelConnectors[day];
 
               return (
                 <div key={item.id} className="confirmed-plan-item">
@@ -491,10 +524,9 @@ export default function ItineraryPage() {
       <TopNav activeHref="/itinerary" />
 
       <section className="hero-block muted-bg">
-        <p className="section-label">Work in progress</p>
         <h2>The weekend, in one place.</h2>
         <p>
-          Once the votes are in, this becomes the one link for the whole weekend. Bookmark it. Stop scrolling through the chat.
+          Everything you need for the Yarra Valley trip. Bookmark it, share it, stop scrolling through the chat looking for the address.
         </p>
       </section>
 
