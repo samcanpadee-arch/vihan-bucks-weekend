@@ -35,9 +35,13 @@ function ConfirmedPlanCards({ activities }) {
                   <p className="section-label">{activity.sectionTitle}</p>
                   <h3>{activity.option.title}</h3>
                   <p>{activity.option.description}</p>
-                  <div className="chip-row">
-                    {activity.option.cost ? <span className="chip chip-cost">{activity.option.cost}</span> : null}
-                    {activity.option.timeConstraint ? <span className="chip chip-time">{activity.option.timeConstraint}</span> : null}
+                  <div className="booking-note">
+                    <span className="material-symbols-outlined">calendar_month</span>
+                    <p>
+                      {activity.option.bookingNote
+                        ? activity.option.bookingNote
+                        : 'Booking details to be confirmed.'}
+                    </p>
                   </div>
                   {activity.option.link ? (
                     <a
@@ -62,6 +66,7 @@ function ConfirmedPlanCards({ activities }) {
 export default function ItineraryPage() {
   const [results, setResults] = useState(null);
   const [confirmedActivities, setConfirmedActivities] = useState([]);
+  const [votesExpanded, setVotesExpanded] = useState(false);
   const [expenses, setExpenses] = useState([]);
   const [customNames, setCustomNames] = useState([]);
   const [groupNameInput, setGroupNameInput] = useState('');
@@ -344,9 +349,43 @@ export default function ItineraryPage() {
         </aside>
       </section>
 
+      {confirmedActivities.length > 0 ? (
+        <section className="vote-section confirmed-plan-section">
+          <SectionHeader
+            title="The plan"
+            label="Confirmed"
+            icon="event_available"
+            subtitle="Voting is closed. This is what we're doing."
+          />
+          <ConfirmedPlanCards activities={confirmedActivities} />
+        </section>
+      ) : (
+        <section className="vote-section">
+          <SectionHeader title="Weekend timeline" label="Timeline" icon="schedule" />
+          <ItineraryTimeline timeline={itineraryTimeline} />
+        </section>
+      )}
+
       <section className="vote-section standings-card">
-        <SectionHeader title="How the votes are looking" label="Live" icon="leaderboard" subtitle="Not live-live. Hit refresh to see the latest. Yes, you have to do it manually. It&apos;s a bucks trip not a Bloomberg terminal." />
-        {results?.voterNames?.length ? (
+        <button
+          type="button"
+          className="collapsible-toggle"
+          onClick={() => setVotesExpanded((prev) => !prev)}
+          aria-expanded={votesExpanded}
+        >
+          <SectionHeader
+            title="How the votes looked"
+            label="Closed"
+            icon="leaderboard"
+            subtitle="Voting is done. This is the full breakdown."
+          />
+          <span className="material-symbols-outlined collapsible-chevron">
+            {votesExpanded ? 'expand_less' : 'expand_more'}
+          </span>
+        </button>
+        {votesExpanded ? (
+          <div className="collapsible-body">
+            {results?.voterNames?.length ? (
           <div className="voter-roll">
             <p className="section-label">Voted</p>
             <div className="voter-chip-grid">
@@ -359,8 +398,8 @@ export default function ItineraryPage() {
             </div>
           </div>
         ) : null}
-        <div className="leaderboard-list">
-          {votingSections.map((section) => {
+            <div className="leaderboard-list">
+              {votingSections.map((section) => {
             const sortedEntries = Object.entries(results?.tally?.[section.key] || {})
               .filter(([optionId]) => optionId !== 'other')
               .sort((a, b) => b[1] - a[1]);
@@ -417,7 +456,9 @@ export default function ItineraryPage() {
               </article>
             );
           })}
-        </div>
+            </div>
+          </div>
+        ) : null}
       </section>
 
       {results?.groupNotes?.length ? (
@@ -432,23 +473,6 @@ export default function ItineraryPage() {
           </div>
         </section>
       ) : null}
-
-      {confirmedActivities.length > 0 ? (
-        <section className="vote-section confirmed-plan-section">
-          <SectionHeader
-            title="The plan"
-            label="Confirmed"
-            icon="event_available"
-            subtitle="Voting is closed. This is what we're doing."
-          />
-          <ConfirmedPlanCards activities={confirmedActivities} />
-        </section>
-      ) : (
-        <section className="vote-section">
-          <SectionHeader title="Weekend timeline" label="Timeline" icon="schedule" />
-          <ItineraryTimeline timeline={itineraryTimeline} />
-        </section>
-      )}
 
       <section className="vote-section expenses-card">
         <SectionHeader

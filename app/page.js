@@ -222,7 +222,7 @@ export default function HomePage() {
                 <span className="material-symbols-outlined">lock</span>
                 <div>
                   <p className="section-label">Voting closed</p>
-                  <p>The plan is locked in. Check the itinerary for what we're actually doing.</p>
+                  <p>The debates are over. The spreadsheet has spoken. Check the itinerary for the plan.</p>
                   <Link href="/itinerary" className="submit-btn" style={{ display: 'inline-flex', marginTop: '0.75rem' }}>
                     View the itinerary
                   </Link>

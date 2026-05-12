@@ -30,7 +30,8 @@ export const votingSections = [
         cost: 'Shared grocery cost',
         timeConstraint: null,
         link: null,
-        thumbnail: null,
+        thumbnail: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/782549036.jpg?k=0478c1a20b9fb8d48eb0011566224c9141316799b9b008e43557b7c0b4585f1e&o=',
+        bookingNote: '',
       },
       {
         id: 'fri-bbq',
@@ -39,7 +40,8 @@ export const votingSections = [
         cost: 'Shared grocery cost',
         timeConstraint: null,
         link: null,
-        thumbnail: null,
+        thumbnail: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/782549036.jpg?k=0478c1a20b9fb8d48eb0011566224c9141316799b9b008e43557b7c0b4585f1e&o=',
+        bookingNote: '',
       },
       {
         id: 'fri-takeaway',
@@ -49,6 +51,7 @@ export const votingSections = [
         timeConstraint: null,
         link: null,
         thumbnail: null,
+        bookingNote: '',
       },
       {
         id: 'other',
@@ -58,6 +61,7 @@ export const votingSections = [
         timeConstraint: null,
         link: null,
         thumbnail: null,
+        bookingNote: '',
       },
     ],
   },
@@ -76,6 +80,7 @@ export const votingSections = [
         timeConstraint: 'Arrive 8:45am sharp. No exceptions.',
         link: 'https://www.melbournegunclub.com/come-and-try/',
         thumbnail: thumb('https://www.melbournegunclub.com/come-and-try/'),
+        bookingNote: '',
       },
       {
         id: 'sat-am-minigolf',
@@ -85,6 +90,7 @@ export const votingSections = [
         timeConstraint: null,
         link: 'https://www.maroondahgolfpark.com.au/',
         thumbnail: 'https://images.squarespace-cdn.com/content/v1/658e5e5805acd37df4c4cf0a/b309544e-05d2-4f79-9c17-7f6249ce895c/YARRARANGESTOURISM1.jpeg?format=1000w',
+        bookingNote: '',
       },
       {
         id: 'sat-am-chill',
@@ -94,6 +100,7 @@ export const votingSections = [
         timeConstraint: null,
         link: null,
         thumbnail: null,
+        bookingNote: '',
       },
       {
         id: 'sat-am-walk',
@@ -103,6 +110,7 @@ export const votingSections = [
         timeConstraint: null,
         link: 'https://www.parks.vic.gov.au/places-to-see/sites/badger-weir-picnic-area',
         thumbnail: thumb('https://www.parks.vic.gov.au/places-to-see/sites/badger-weir-picnic-area'),
+        bookingNote: '',
       },
       {
         id: 'sat-am-donna-buang',
@@ -112,6 +120,7 @@ export const votingSections = [
         timeConstraint: null,
         link: 'https://www.parks.vic.gov.au/places-to-see/parks/yarra-ranges-national-park',
         thumbnail: thumb('https://www.parks.vic.gov.au/places-to-see/parks/yarra-ranges-national-park'),
+        bookingNote: '',
       },
       {
         id: 'sat-am-tennis',
@@ -121,6 +130,7 @@ export const votingSections = [
         timeConstraint: 'BYO gear: racquets and balls.',
         link: 'https://play.tennis.com.au/yarraglentennisclub',
         thumbnail: 'https://play.tennis.com.au/Library/yarraglentennisclub?command=Proxy&type=Images&currentFolder=%2f&fileName=Court+Hire+Photo.jpg&thumbnail=Court+Hire+Photo__427x320.jpg&cache=31536000',
+        bookingNote: '',
       },
       {
         id: 'other',
@@ -130,6 +140,7 @@ export const votingSections = [
         timeConstraint: null,
         link: null,
         thumbnail: null,
+        bookingNote: '',
       },
     ],
   },
@@ -148,6 +159,7 @@ export const votingSections = [
         timeConstraint: null,
         link: 'https://www.yering.com/visit-us/cellar-door/',
         thumbnail: 'https://www.yering.com/wp-content/uploads/960x800-50-50-Content-Tasting-Bar.jpg.webp',
+        bookingNote: '',
       },
       {
         id: 'sat-lunch-rochford',
@@ -157,6 +169,7 @@ export const votingSections = [
         timeConstraint: null,
         link: 'https://rochfordwines.com.au/yarra-valley-cellar-door',
         thumbnail: 'https://rochfordwines.com.au/img/cellar-door-1.jpg',
+        bookingNote: '',
       },
       {
         id: 'sat-lunch-chandon',
@@ -166,6 +179,7 @@ export const votingSections = [
         timeConstraint: null,
         link: 'https://www.chandon.com.au/Experiences',
         thumbnail: 'https://www.chandon.com.au/assets/images/contentblock/photos/750x500TastingBar.png',
+        bookingNote: '',
       },
       {
         id: 'sat-lunch-oakridge',
@@ -175,6 +189,7 @@ export const votingSections = [
         timeConstraint: null,
         link: 'https://oakridgewines.com.au/cellar-door/',
         thumbnail: thumb('https://oakridgewines.com.au/cellar-door/'),
+        bookingNote: '',
       },
       {
         id: 'sat-lunch-debortoli',
@@ -184,6 +199,7 @@ export const votingSections = [
         timeConstraint: null,
         link: 'https://www.debortoli.com.au/visit-us/restaurants/locale-restaurant-yarra-valley',
         thumbnail: thumb('https://www.debortoli.com.au/visit-us/restaurants/locale-restaurant-yarra-valley'),
+        bookingNote: '',
       },
       {
         id: 'other',
@@ -193,6 +209,7 @@ export const votingSections = [
         timeConstraint: null,
         link: null,
         thumbnail: null,
+        bookingNote: '',
       },
     ],
   },
@@ -211,6 +228,7 @@ export const votingSections = [
         timeConstraint: 'Hourly sessions. Needs to be booked in advance.',
         link: 'https://fourpillarsgin.com/pages/visit-our-distillery',
         thumbnail: 'https://fourpillarsgin.com/cdn/shop/files/FPGSignage_hdavison_3275_10a1d187-784a-459c-a07c-b44023634e5f.webp?v=1703199456&width=750',
+        bookingNote: '',
       },
       {
         id: 'sat-arvo-watts',
@@ -220,6 +238,7 @@ export const votingSections = [
         timeConstraint: null,
         link: 'https://wattsriverbrewing.com.au/',
         thumbnail: thumb('https://wattsriverbrewing.com.au/'),
+        bookingNote: '',
       },
       {
         id: 'sat-arvo-winery',
@@ -229,6 +248,7 @@ export const votingSections = [
         timeConstraint: null,
         link: null,
         thumbnail: 'https://rochfordwines.com.au/img/winemaking-the-fruit.jpg',
+        bookingNote: '',
       },
       {
         id: 'sat-arvo-donna-buang',
@@ -238,6 +258,7 @@ export const votingSections = [
         timeConstraint: null,
         link: 'https://www.parks.vic.gov.au/places-to-see/parks/yarra-ranges-national-park',
         thumbnail: thumb('https://www.parks.vic.gov.au/places-to-see/parks/yarra-ranges-national-park'),
+        bookingNote: '',
       },
       {
         id: 'sat-arvo-minigolf',
@@ -247,6 +268,7 @@ export const votingSections = [
         timeConstraint: null,
         link: 'https://www.maroondahgolfpark.com.au/',
         thumbnail: thumb('https://www.maroondahgolfpark.com.au/'),
+        bookingNote: '',
       },
       {
         id: 'other',
@@ -256,6 +278,7 @@ export const votingSections = [
         timeConstraint: null,
         link: null,
         thumbnail: null,
+        bookingNote: '',
       },
     ],
   },
@@ -273,7 +296,8 @@ export const votingSections = [
         cost: 'Shared grocery cost',
         timeConstraint: null,
         link: null,
-        thumbnail: null,
+        thumbnail: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/782549036.jpg?k=0478c1a20b9fb8d48eb0011566224c9141316799b9b008e43557b7c0b4585f1e&o=',
+        bookingNote: '',
       },
       {
         id: 'sat-night-pub',
@@ -283,6 +307,7 @@ export const votingSections = [
         timeConstraint: null,
         link: 'https://yarravalleygrand.com.au/',
         thumbnail: 'https://yarravalleygrand.com.au/wp-content/uploads/2024/11/Yarra-Valley-Grand-Hotel-HT-12th-March_GRIFFIN-SIMM_Finals_111-1-1290x570.jpg',
+        bookingNote: '',
       },
       {
         id: 'sat-night-bbq',
@@ -291,7 +316,8 @@ export const votingSections = [
         cost: 'Shared grocery cost',
         timeConstraint: null,
         link: null,
-        thumbnail: null,
+        thumbnail: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/782549036.jpg?k=0478c1a20b9fb8d48eb0011566224c9141316799b9b008e43557b7c0b4585f1e&o=',
+        bookingNote: '',
       },
       {
         id: 'sat-night-takeaway',
@@ -301,6 +327,7 @@ export const votingSections = [
         timeConstraint: null,
         link: null,
         thumbnail: null,
+        bookingNote: '',
       },
       {
         id: 'other',
@@ -310,6 +337,7 @@ export const votingSections = [
         timeConstraint: null,
         link: null,
         thumbnail: null,
+        bookingNote: '',
       },
     ],
   },
@@ -328,6 +356,7 @@ export const votingSections = [
         timeConstraint: null,
         link: 'https://www.yvci.com.au/',
         thumbnail: thumb('https://www.yvci.com.au/'),
+        bookingNote: '',
       },
       {
         id: 'sun-donna-buang',
@@ -337,6 +366,7 @@ export const votingSections = [
         timeConstraint: null,
         link: 'https://www.parks.vic.gov.au/places-to-see/parks/yarra-ranges-national-park',
         thumbnail: thumb('https://www.parks.vic.gov.au/places-to-see/parks/yarra-ranges-national-park'),
+        bookingNote: '',
       },
       {
         id: 'sun-minigolf',
@@ -346,6 +376,7 @@ export const votingSections = [
         timeConstraint: null,
         link: 'https://www.maroondahgolfpark.com.au/',
         thumbnail: thumb('https://www.maroondahgolfpark.com.au/'),
+        bookingNote: '',
       },
       {
         id: 'sun-tennis',
@@ -355,6 +386,7 @@ export const votingSections = [
         timeConstraint: 'BYO gear: racquets and balls.',
         link: 'https://play.tennis.com.au/yarraglentennisclub',
         thumbnail: 'https://play.tennis.com.au/Library/yarraglentennisclub?command=Proxy&type=Images&currentFolder=%2f&fileName=Court+Hire+Photo.jpg&thumbnail=Court+Hire+Photo__427x320.jpg&cache=31536000',
+        bookingNote: '',
       },
       {
         id: 'sun-healesville',
@@ -364,6 +396,7 @@ export const votingSections = [
         timeConstraint: 'Opens 9am, allow 2-3 hours',
         link: 'https://www.zoo.org.au/healesville/',
         thumbnail: thumb('https://www.zoo.org.au/healesville/'),
+        bookingNote: '',
       },
       {
         id: 'sun-leave-early',
@@ -373,6 +406,7 @@ export const votingSections = [
         timeConstraint: null,
         link: null,
         thumbnail: null,
+        bookingNote: '',
       },
       {
         id: 'other',
@@ -382,6 +416,7 @@ export const votingSections = [
         timeConstraint: null,
         link: null,
         thumbnail: null,
+        bookingNote: '',
       },
     ],
   },
