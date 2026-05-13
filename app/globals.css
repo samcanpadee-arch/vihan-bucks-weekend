@@ -1866,7 +1866,8 @@ textarea:disabled,
 }
 
 .time-chip,
-.cost-chip {
+.cost-chip,
+.booking-chip {
   display: inline-flex;
   align-items: center;
   width: fit-content;
@@ -1882,6 +1883,11 @@ textarea:disabled,
 .cost-chip {
   color: #25643b;
   background: #e4f1e7;
+}
+
+.booking-chip {
+  color: #25643b;
+  background: var(--green-confirmed);
 }
 
 .address-link {
