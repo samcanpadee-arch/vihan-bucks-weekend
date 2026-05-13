@@ -1940,12 +1940,19 @@ textarea:disabled,
   letter-spacing: 0.02em;
 }
 
-.travel-connector .travel-note {
+.travel-connector .travel-note,
+.travel-connector .travel-subtitle {
   color: var(--text-soft);
   font-size: 0.72rem;
   font-style: italic;
   font-weight: 400;
   opacity: 0.82;
+}
+
+.travel-connector .travel-subtitle {
+  max-width: 32rem;
+  text-align: center;
+  line-height: 1.4;
 }
 
 .travel-connector.is-final {

@@ -172,7 +172,12 @@ const travelConnectors = {
 };
 
 const finalTravelConnectors = {
-  Sunday: { label: 'Drive back to Melbourne', showIcon: false, isFinal: true }
+  Sunday: {
+    label: "That's a wrap",
+    subtitle: 'Grab food on the way, squeeze in one more stop, or hit the road back to Melbourne.',
+    showIcon: false,
+    isFinal: true
+  }
 };
 
 function TravelConnector({ connector }) {
@@ -183,6 +188,7 @@ function TravelConnector({ connector }) {
       <div className="dotted-line" />
       {connector.showIcon === false ? null : <span className="travel-icon" aria-hidden="true">🚗</span>}
       <span className="travel-label">{primaryLabel}</span>
+      {connector.subtitle ? <span className="travel-subtitle">{connector.subtitle}</span> : null}
       {connector.note ? (
         <>
           <div className="dotted-line" />
