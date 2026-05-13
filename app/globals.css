@@ -1866,7 +1866,8 @@ textarea:disabled,
 }
 
 .time-chip,
-.cost-chip {
+.cost-chip,
+.booking-chip {
   display: inline-flex;
   align-items: center;
   width: fit-content;
@@ -1882,6 +1883,11 @@ textarea:disabled,
 .cost-chip {
   color: #25643b;
   background: #e4f1e7;
+}
+
+.booking-chip {
+  color: #25643b;
+  background: var(--green-confirmed);
 }
 
 .address-link {
@@ -1934,12 +1940,19 @@ textarea:disabled,
   letter-spacing: 0.02em;
 }
 
-.travel-connector .travel-note {
+.travel-connector .travel-note,
+.travel-connector .travel-subtitle {
   color: var(--text-soft);
   font-size: 0.72rem;
   font-style: italic;
   font-weight: 400;
   opacity: 0.82;
+}
+
+.travel-connector .travel-subtitle {
+  max-width: 32rem;
+  text-align: center;
+  line-height: 1.4;
 }
 
 .travel-connector.is-final {

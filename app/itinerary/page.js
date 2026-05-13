@@ -49,8 +49,10 @@ const confirmedActivityOverrides = {
   },
   sundayRecovery: {
     time: '10:30am',
-    description: "Walk around, eat chocolate, make questionable decisions at the fudge counter. Genuinely one of the better ways to end a weekend away.",
-    cost: null
+    description: 'Taste your way through 12 handmade chocolates, then get hands-on making your own Rocky Road and Hot Chocolate Whisk. 30 minutes, fully booked, deposit paid.',
+    cost: null,
+    bookingTag: 'Confirmed booking',
+    bookingNote: ''
   }
 };
 
@@ -170,7 +172,12 @@ const travelConnectors = {
 };
 
 const finalTravelConnectors = {
-  Sunday: { label: 'Drive back to Melbourne', showIcon: false, isFinal: true }
+  Sunday: {
+    label: "That's a wrap",
+    subtitle: 'Grab food on the way, squeeze in one more stop, or hit the road back to Melbourne.',
+    showIcon: false,
+    isFinal: true
+  }
 };
 
 function TravelConnector({ connector }) {
@@ -181,6 +188,7 @@ function TravelConnector({ connector }) {
       <div className="dotted-line" />
       {connector.showIcon === false ? null : <span className="travel-icon" aria-hidden="true">🚗</span>}
       <span className="travel-label">{primaryLabel}</span>
+      {connector.subtitle ? <span className="travel-subtitle">{connector.subtitle}</span> : null}
       {connector.note ? (
         <>
           <div className="dotted-line" />
@@ -237,6 +245,7 @@ function ItineraryCard({ item }) {
         ) : null}
         <div className="confirmed-card-footer">
           {item.cost ? <span className="cost-chip">{item.cost}</span> : null}
+          {item.bookingTag ? <span className="booking-chip">{item.bookingTag}</span> : null}
           {item.link ? (
             <a
               href={item.link}
@@ -266,6 +275,7 @@ function ConfirmedPlanCards({ activities }) {
       description: activity.option.description,
       cost: activity.option.cost,
       bookingNote: activity.option.bookingNote,
+      bookingTag: activity.option.bookingTag,
       link: activity.option.link,
       thumbnail: activity.option.thumbnail,
       icon: activity.icon,
