@@ -1981,7 +1981,9 @@ textarea:disabled,
 
 .confirmed-activity-image {
   width: 220px;
-  min-height: 180px;
+  height: 180px;
+  max-height: 180px;
+  align-self: start;
   flex-shrink: 0;
   overflow: hidden;
   background: var(--muted-bg, #f5f3ee);

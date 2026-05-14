@@ -1,6 +1,13 @@
 const thumb = (url) =>
   `https://api.microlink.io/?url=${encodeURIComponent(url)}&embed=image.url`;
 
+export const meadowImages = {
+  exterior: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-1561866387856977252/original/5925bab6-887c-418b-a182-cd1e5951d8a1.jpeg?im_w=720',
+  livingRoom: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-1561866387856977252/original/1a1edee0-012e-4a3f-8f87-66c1448849fa.jpeg?im_w=720',
+  alfresco: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-1561866387856977252/original/7657df82-b6e8-47ec-97f7-33590360cbea.jpeg?im_w=720',
+  sauna: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-1561866387856977252/original/f4521565-aabd-457a-81e7-5193e85cf354.jpeg?im_w=720'
+};
+
 export const accommodation = {
   label: 'Base camp',
   status: 'Locked in ✓',
@@ -10,8 +17,7 @@ export const accommodation = {
   description: 'Spa, sauna, big kitchen, good lawn. This is going to be a good one. 13 Symonds Street, Yarra Glen. Save it. Show up.',
   linkLabel: 'Booking.com listing',
   link: 'https://www.booking.com/hotel/au/the-meadow-yarra-valley-large-entertainer-with-spa-sauna.en-gb.html',
-  image:
-    'https://cf.bstatic.com/xdata/images/hotel/max1024x768/782549036.jpg?k=0478c1a20b9fb8d48eb0011566224c9141316799b9b008e43557b7c0b4585f1e&o=',
+  image: meadowImages.exterior,
   imageAlt: 'The Meadow in Yarra Glen'
 };
 
@@ -30,7 +36,7 @@ export const votingSections = [
         cost: 'Shared grocery cost',
         timeConstraint: null,
         link: null,
-        thumbnail: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/782549036.jpg?k=0478c1a20b9fb8d48eb0011566224c9141316799b9b008e43557b7c0b4585f1e&o=',
+        thumbnail: meadowImages.livingRoom,
         bookingNote: '',
       },
       {
@@ -40,7 +46,7 @@ export const votingSections = [
         cost: 'Shared grocery cost',
         timeConstraint: null,
         link: null,
-        thumbnail: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/782549036.jpg?k=0478c1a20b9fb8d48eb0011566224c9141316799b9b008e43557b7c0b4585f1e&o=',
+        thumbnail: meadowImages.alfresco,
         bookingNote: '',
       },
       {
@@ -301,7 +307,7 @@ export const votingSections = [
         cost: 'Shared grocery cost',
         timeConstraint: null,
         link: null,
-        thumbnail: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/782549036.jpg?k=0478c1a20b9fb8d48eb0011566224c9141316799b9b008e43557b7c0b4585f1e&o=',
+        thumbnail: meadowImages.livingRoom,
         bookingNote: '',
       },
       {
@@ -321,7 +327,7 @@ export const votingSections = [
         cost: 'Shared grocery cost',
         timeConstraint: null,
         link: null,
-        thumbnail: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/782549036.jpg?k=0478c1a20b9fb8d48eb0011566224c9141316799b9b008e43557b7c0b4585f1e&o=',
+        thumbnail: meadowImages.alfresco,
         bookingNote: '',
       },
       {

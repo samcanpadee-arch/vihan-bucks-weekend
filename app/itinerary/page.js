@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { accommodation, essentialsChecklist, itineraryTimeline, votingSections } from '../siteData';
+import { accommodation, essentialsChecklist, itineraryTimeline, meadowImages, votingSections } from '../siteData';
 import AccommodationCard from '../components/AccommodationCard';
 import ItineraryTimeline from '../components/ItineraryTimeline';
 import SectionHeader from '../components/SectionHeader';
@@ -17,6 +17,7 @@ const confirmedActivityOverrides = {
     title: 'Pizza Oven Night',
     time: 'From 7:00pm',
     description: "Sam's bringing his portable pizza oven. He'll sort the dough, run the process, and turn out genuinely good pizzas without making it a whole personality. Help is welcome if you want in. Standing around with a beer doing fake supervision is also fine.",
+    thumbnail: meadowImages.livingRoom,
     cost: null,
     bookingNote: ''
   },
@@ -51,6 +52,7 @@ const confirmedActivityOverrides = {
     title: 'BBQ at The Meadow',
     time: 'From 7:00pm',
     description: 'Back at base. Fire up the BBQ, grill things, eat things, sit outside if the weather holds. No logistics, no bookings, no one in charge.',
+    thumbnail: meadowImages.alfresco,
     cost: null,
     bookingNote: ''
   },
@@ -96,7 +98,7 @@ const fixedPlanCards = {
       mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
       externalLinkLabel: 'View details',
       link: AIRBNB_LINK,
-      thumbnail: AIRBNB_IMAGE,
+      thumbnail: meadowImages.sauna,
       icon: 'coffee'
     }
   ],
@@ -111,7 +113,7 @@ const fixedPlanCards = {
       mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
       externalLinkLabel: 'View details',
       link: AIRBNB_LINK,
-      thumbnail: AIRBNB_IMAGE,
+      thumbnail: meadowImages.livingRoom,
       icon: 'coffee'
     }
   ]
