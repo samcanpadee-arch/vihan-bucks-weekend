@@ -162,9 +162,12 @@ function buildConfirmedActivities(finalResults = {}) {
 const travelConnectors = {
   Saturday: {
     'saturday-airbnb-brekkie::saturdayMorning': { labels: ['~25-30 min drive'] },
-    'saturdayMorning::saturdayLunch': { labels: ['~10 min drive'] },
+    'saturdayMorning::saturdayLunch': {
+      labels: ['~25-30 min drive', '~7 min drive'],
+      note: 'Back to base to freshen up'
+    },
     'saturdayLunch::saturdayDrinks': {
-      labels: ['~7 min drive'],
+      labels: ['~20 min drive'],
       note: "Designated drivers needed, or we'll book a couple of maxi cabs."
     },
     'saturdayDrinks::saturdayNight': {
