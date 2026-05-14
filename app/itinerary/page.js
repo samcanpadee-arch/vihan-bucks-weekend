@@ -32,7 +32,7 @@ const confirmedActivityOverrides = {
   },
   saturdayLunch: {
     time: '1:00pm',
-    description: "Fergusson has been growing grapes in the Yarra Valley since 1968 and the cellar door reflects it. We're starting with a guided tasting through their range at $10 each, then heading into the restaurant for lunch. Floor to ceiling windows overlooking the vines, seasonal menu made in house, Italian techniques with local produce. Long table, good wine, no rush. Booked and confirmed",
+    description: "Fergusson has been growing grapes in the Yarra Valley since 1968 and the cellar door reflects it. We're starting with a guided tasting through their range at $10 each, then heading into the restaurant for lunch. Floor to ceiling windows overlooking the vines, seasonal menu made in house, Italian techniques with local produce. Long table, good wine, no rush.",
     address: '82 Wills Road, Dixons Creek VIC 3775',
     mapsLink: 'https://maps.google.com/?q=82+Wills+Road+Dixons+Creek+VIC+3775',
     externalLinks: [

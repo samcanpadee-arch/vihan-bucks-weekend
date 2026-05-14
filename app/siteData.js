@@ -170,7 +170,7 @@ export const votingSections = [
       {
         id: 'sat-lunch-fergusson',
         title: 'Fergusson Winery',
-        description: "Fergusson has been growing grapes in the Yarra Valley since 1968 and the cellar door reflects it. We're starting with a guided tasting through their range at $10 each, then heading into the restaurant for lunch. Floor to ceiling windows overlooking the vines, seasonal menu made in house, Italian techniques with local produce. Long table, good wine, no rush. Booked and confirmed",
+        description: "Fergusson has been growing grapes in the Yarra Valley since 1968 and the cellar door reflects it. We're starting with a guided tasting through their range at $10 each, then heading into the restaurant for lunch. Floor to ceiling windows overlooking the vines, seasonal menu made in house, Italian techniques with local produce. Long table, good wine, no rush.",
         cost: null,
         timeConstraint: null,
         link: 'https://fergussonwinery.com.au/cellar-door/',
