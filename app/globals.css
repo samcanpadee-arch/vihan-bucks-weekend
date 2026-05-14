@@ -1865,6 +1865,10 @@ textarea:disabled,
   gap: 0.5rem;
 }
 
+.confirmed-card-footer .option-link {
+  margin-top: 0;
+}
+
 .time-chip,
 .cost-chip,
 .booking-chip {

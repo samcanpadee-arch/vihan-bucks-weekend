@@ -25,7 +25,7 @@ const confirmedActivityOverrides = {
     description: 'A proper rainforest walk through fern gullies and tall eucalypts. Takes about an hour, easy underfoot, and genuinely looks like a nature documentary. Good reset after Friday night.',
     address: 'Badger Weir Road, Badger Creek VIC 3777',
     mapsLink: 'https://maps.google.com/?q=Badger+Weir+Road+Badger+Creek+VIC+3777',
-    externalLinkLabel: 'Parks Victoria',
+    externalLinkLabel: 'View details',
     cost: null,
     bookingNote: ''
   },
@@ -34,9 +34,8 @@ const confirmedActivityOverrides = {
     description: "One of the Yarra Valley's oldest family wineries, sitting on a hillside with views over the vines. We're starting with a guided tasting through five of their wines at $10 each for the tasting, then sitting down for lunch.",
     address: '82 Wills Road, Dixons Creek VIC 3775',
     mapsLink: 'https://maps.google.com/?q=82+Wills+Road+Dixons+Creek+VIC+3775',
-    externalLinkLabel: 'Fergusson Winery',
     externalLinks: [
-      { label: 'Fergusson Winery', url: 'https://fergussonwinery.com.au/cellar-door/' },
+      { label: 'View details', url: 'https://fergussonwinery.com.au/cellar-door/' },
       { label: 'View menu', url: 'https://fergussonwinery.com.au/a-la-carte-menu/' }
     ],
     bookingTag: 'Confirmed booking',
@@ -80,7 +79,7 @@ const fixedPlanCards = {
       description: "Six bedrooms, a spa, a sauna, a barrel sauna, a fire pit, a pool table, a wood heater, and views over rolling fields with actual cows. From the team behind Bella's Cottage. This is not a standard Airbnb. Pick a room, get in the spa, and try not to feel smug about it.",
       address: AIRBNB_ADDRESS,
       mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
-      externalLinkLabel: 'View on Airbnb',
+      externalLinkLabel: 'View details',
       link: AIRBNB_LINK,
       thumbnail: AIRBNB_IMAGE,
       icon: 'house'
@@ -95,7 +94,7 @@ const fixedPlanCards = {
       description: 'Coffee, something to eat, and absolutely no pressure to be functional. Use the time.',
       address: AIRBNB_ADDRESS,
       mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
-      externalLinkLabel: 'View on Airbnb',
+      externalLinkLabel: 'View details',
       link: AIRBNB_LINK,
       thumbnail: AIRBNB_IMAGE,
       icon: 'coffee'
@@ -110,7 +109,7 @@ const fixedPlanCards = {
       description: "Slower morning. Make coffee, eat whatever's left, sit by the fire if it's still going. No rush.",
       address: AIRBNB_ADDRESS,
       mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
-      externalLinkLabel: 'View on Airbnb',
+      externalLinkLabel: 'View details',
       link: AIRBNB_LINK,
       thumbnail: AIRBNB_IMAGE,
       icon: 'coffee'
@@ -251,7 +250,7 @@ function ItineraryCard({ item }) {
         <div className="confirmed-card-footer">
           {item.cost ? <span className="cost-chip">{item.cost}</span> : null}
           {item.bookingTag ? <span className="booking-chip">{item.bookingTag}</span> : null}
-          {(item.externalLinks || (item.link ? [{ label: item.externalLinkLabel || 'More info', url: item.link }] : [])).map((link) => (
+          {(item.externalLinks || (item.link ? [{ label: 'View details', url: item.link }] : [])).map((link) => (
             <a
               key={`${link.label}-${link.url}`}
               href={link.url}

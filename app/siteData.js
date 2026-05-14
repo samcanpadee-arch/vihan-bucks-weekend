@@ -165,12 +165,11 @@ export const votingSections = [
         id: 'sat-lunch-fergusson',
         title: 'Fergusson Winery',
         description: "One of the Yarra Valley's oldest family wineries, sitting on a hillside with views over the vines. We're starting with a guided tasting through five of their wines at $10 each for the tasting, then sitting down for lunch.",
-        cost: '$10 tasting',
+        cost: null,
         timeConstraint: null,
         link: 'https://fergussonwinery.com.au/cellar-door/',
-        externalLinkLabel: 'Fergusson Winery',
         externalLinks: [
-          { label: 'Fergusson Winery', url: 'https://fergussonwinery.com.au/cellar-door/' },
+          { label: 'View details', url: 'https://fergussonwinery.com.au/cellar-door/' },
           { label: 'View menu', url: 'https://fergussonwinery.com.au/a-la-carte-menu/' }
         ],
         thumbnail: 'https://fergussonwinery.com.au/wp-content/uploads/2024/07/Cellar-Door.jpeg',
