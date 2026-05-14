@@ -1981,9 +1981,7 @@ textarea:disabled,
 
 .confirmed-activity-image {
   width: 220px;
-  height: 180px;
-  max-height: 180px;
-  align-self: start;
+  min-height: 180px;
   flex-shrink: 0;
   overflow: hidden;
   background: var(--muted-bg, #f5f3ee);
@@ -2051,6 +2049,8 @@ textarea:disabled,
 .collapsible-toggle {
   width: 100%;
   display: flex;
+  color: inherit;
+  font: inherit;
   align-items: flex-start;
   justify-content: space-between;
   background: none;
