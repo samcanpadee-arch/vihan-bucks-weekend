@@ -95,10 +95,18 @@ function AdminPageContent() {
   };
 
   const clearSavedResults = async () => {
-    await fetch('/api/admin/finalise', {
+    const response = await fetch('/api/admin/finalise', {
       method: 'DELETE',
       headers: adminHeaders
     });
+
+    if (!response.ok) {
+      setAdminMessage('Failed to clear saved results snapshot.');
+      return;
+    }
+
+    await loadConfig();
+    await loadResults();
     setAdminMessage('Cleared saved results snapshot.');
   };
 

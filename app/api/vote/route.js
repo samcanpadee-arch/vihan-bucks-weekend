@@ -13,15 +13,16 @@ const requiredFields = [
 
 export async function POST(request) {
   try {
-    const body = await request.json();
+    const body = await request.json().catch(() => ({}));
 
-    const hasMissingRequired = requiredFields.some((field) => !body[field]);
+    const name = String(body?.name || '').trim();
+    const hasMissingRequired = requiredFields.some((field) => !String(body?.[field] || '').trim());
     if (hasMissingRequired) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     const vote = {
-      name: body.name,
+      name,
       hardConstraints: body.hardConstraints || '',
       fridayNight: body.fridayNight,
       fridayNightOther: body.fridayNightOther || '',
@@ -38,7 +39,7 @@ export async function POST(request) {
       submittedAt: new Date().toISOString()
     };
 
-    const normalizedName = body.name.trim().toLowerCase();
+    const normalizedName = name.toLowerCase();
     const key = `vote:${normalizedName}`;
 
     const redis = await getRedis();
