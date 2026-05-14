@@ -1,6 +1,13 @@
 const thumb = (url) =>
   `https://api.microlink.io/?url=${encodeURIComponent(url)}&embed=image.url`;
 
+export const meadowImages = {
+  exterior: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-1561866387856977252/original/5925bab6-887c-418b-a182-cd1e5951d8a1.jpeg?im_w=720',
+  livingRoom: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-1561866387856977252/original/1a1edee0-012e-4a3f-8f87-66c1448849fa.jpeg?im_w=720',
+  alfresco: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-1561866387856977252/original/7657df82-b6e8-47ec-97f7-33590360cbea.jpeg?im_w=720',
+  sauna: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-1561866387856977252/original/f4521565-aabd-457a-81e7-5193e85cf354.jpeg?im_w=720'
+};
+
 export const accommodation = {
   label: 'Base camp',
   status: 'Locked in ✓',
@@ -10,8 +17,7 @@ export const accommodation = {
   description: 'Spa, sauna, big kitchen, good lawn. This is going to be a good one. 13 Symonds Street, Yarra Glen. Save it. Show up.',
   linkLabel: 'Booking.com listing',
   link: 'https://www.booking.com/hotel/au/the-meadow-yarra-valley-large-entertainer-with-spa-sauna.en-gb.html',
-  image:
-    'https://cf.bstatic.com/xdata/images/hotel/max1024x768/782549036.jpg?k=0478c1a20b9fb8d48eb0011566224c9141316799b9b008e43557b7c0b4585f1e&o=',
+  image: meadowImages.exterior,
   imageAlt: 'The Meadow in Yarra Glen'
 };
 
@@ -30,7 +36,7 @@ export const votingSections = [
         cost: 'Shared grocery cost',
         timeConstraint: null,
         link: null,
-        thumbnail: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/782549036.jpg?k=0478c1a20b9fb8d48eb0011566224c9141316799b9b008e43557b7c0b4585f1e&o=',
+        thumbnail: meadowImages.livingRoom,
         bookingNote: '',
       },
       {
@@ -40,7 +46,7 @@ export const votingSections = [
         cost: 'Shared grocery cost',
         timeConstraint: null,
         link: null,
-        thumbnail: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/782549036.jpg?k=0478c1a20b9fb8d48eb0011566224c9141316799b9b008e43557b7c0b4585f1e&o=',
+        thumbnail: meadowImages.alfresco,
         bookingNote: '',
       },
       {
@@ -162,13 +168,18 @@ export const votingSections = [
         bookingNote: '',
       },
       {
-        id: 'sat-lunch-rochford',
-        title: 'Rochford Wines',
-        description: 'Large cellar door with outdoor seating. Good food, live music on weekends.',
+        id: 'sat-lunch-fergusson',
+        title: 'Fergusson Winery',
+        description: "One of the Yarra Valley's oldest family wineries, sitting on a hillside with views over the vines. We're starting with a guided tasting through five of their wines at $10 each for the tasting, then sitting down for lunch.",
         cost: null,
         timeConstraint: null,
-        link: 'https://rochfordwines.com.au/yarra-valley-cellar-door',
-        thumbnail: 'https://rochfordwines.com.au/img/cellar-door-1.jpg',
+        link: 'https://fergussonwinery.com.au/cellar-door/',
+        externalLinks: [
+          { label: 'View details', url: 'https://fergussonwinery.com.au/cellar-door/' },
+          { label: 'View menu', url: 'https://fergussonwinery.com.au/a-la-carte-menu/' }
+        ],
+        thumbnail: 'https://fergussonwinery.com.au/wp-content/uploads/2024/07/Cellar-Door.jpeg',
+        bookingTag: 'Confirmed booking',
         bookingNote: '',
       },
       {
@@ -296,7 +307,7 @@ export const votingSections = [
         cost: 'Shared grocery cost',
         timeConstraint: null,
         link: null,
-        thumbnail: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/782549036.jpg?k=0478c1a20b9fb8d48eb0011566224c9141316799b9b008e43557b7c0b4585f1e&o=',
+        thumbnail: meadowImages.livingRoom,
         bookingNote: '',
       },
       {
@@ -316,7 +327,7 @@ export const votingSections = [
         cost: 'Shared grocery cost',
         timeConstraint: null,
         link: null,
-        thumbnail: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/782549036.jpg?k=0478c1a20b9fb8d48eb0011566224c9141316799b9b008e43557b7c0b4585f1e&o=',
+        thumbnail: meadowImages.alfresco,
         bookingNote: '',
       },
       {
@@ -351,8 +362,8 @@ export const votingSections = [
       {
         id: 'sun-chocolaterie',
         title: 'Yarra Valley Chocolaterie',
-        description: 'Free entry, optional tasting. Good hangover food decision.',
-        cost: 'Free entry, ~$4 tasting',
+        description: 'Taste your way through 12 handmade chocolates, then get hands-on making your own Rocky Road and Hot Chocolate Whisk. $24 each, 30 minutes, deposit paid.',
+        cost: '$24 each',
         timeConstraint: null,
         link: 'https://www.yvci.com.au/',
         thumbnail: thumb('https://www.yvci.com.au/'),

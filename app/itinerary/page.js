@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { accommodation, essentialsChecklist, itineraryTimeline, votingSections } from '../siteData';
+import { accommodation, essentialsChecklist, itineraryTimeline, meadowImages, votingSections } from '../siteData';
 import AccommodationCard from '../components/AccommodationCard';
 import ItineraryTimeline from '../components/ItineraryTimeline';
 import SectionHeader from '../components/SectionHeader';
@@ -17,6 +17,7 @@ const confirmedActivityOverrides = {
     title: 'Pizza Oven Night',
     time: 'From 7:00pm',
     description: "Sam's bringing his portable pizza oven. He'll sort the dough, run the process, and turn out genuinely good pizzas without making it a whole personality. Help is welcome if you want in. Standing around with a beer doing fake supervision is also fine.",
+    thumbnail: meadowImages.livingRoom,
     cost: null,
     bookingNote: ''
   },
@@ -25,13 +26,20 @@ const confirmedActivityOverrides = {
     description: 'A proper rainforest walk through fern gullies and tall eucalypts. Takes about an hour, easy underfoot, and genuinely looks like a nature documentary. Good reset after Friday night.',
     address: 'Badger Weir Road, Badger Creek VIC 3777',
     mapsLink: 'https://maps.google.com/?q=Badger+Weir+Road+Badger+Creek+VIC+3777',
-    externalLinkLabel: 'Parks Victoria',
+    externalLinkLabel: 'View details',
     cost: null,
     bookingNote: ''
   },
   saturdayLunch: {
-    time: '1pm',
-    description: "Cellar door tasting followed by a proper sit-down lunch with meadow views and live music on weekends. It's a winery lunch, so yes it's a bit fancy, and yes that's the point.",
+    time: '1:00pm',
+    description: "One of the Yarra Valley's oldest family wineries, sitting on a hillside with views over the vines. We're starting with a guided tasting through five of their wines at $10 each for the tasting, then sitting down for lunch.",
+    address: '82 Wills Road, Dixons Creek VIC 3775',
+    mapsLink: 'https://maps.google.com/?q=82+Wills+Road+Dixons+Creek+VIC+3775',
+    externalLinks: [
+      { label: 'View details', url: 'https://fergussonwinery.com.au/cellar-door/' },
+      { label: 'View menu', url: 'https://fergussonwinery.com.au/a-la-carte-menu/' }
+    ],
+    bookingTag: 'Confirmed booking',
     bookingNote: ''
   },
   saturdayDrinks: {
@@ -44,12 +52,13 @@ const confirmedActivityOverrides = {
     title: 'BBQ at The Meadow',
     time: 'From 7:00pm',
     description: 'Back at base. Fire up the BBQ, grill things, eat things, sit outside if the weather holds. No logistics, no bookings, no one in charge.',
+    thumbnail: meadowImages.alfresco,
     cost: null,
     bookingNote: ''
   },
   sundayRecovery: {
     time: '10:30am',
-    description: 'Taste your way through 12 handmade chocolates, then get hands-on making your own Rocky Road and Hot Chocolate Whisk. 30 minutes, fully booked, deposit paid.',
+    description: 'Taste your way through 12 handmade chocolates, then get hands-on making your own Rocky Road and Hot Chocolate Whisk. $24 each, 30 minutes, deposit paid.',
     cost: null,
     bookingTag: 'Confirmed booking',
     bookingNote: ''
@@ -72,7 +81,7 @@ const fixedPlanCards = {
       description: "Six bedrooms, a spa, a sauna, a barrel sauna, a fire pit, a pool table, a wood heater, and views over rolling fields with actual cows. From the team behind Bella's Cottage. This is not a standard Airbnb. Pick a room, get in the spa, and try not to feel smug about it.",
       address: AIRBNB_ADDRESS,
       mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
-      externalLinkLabel: 'View on Airbnb',
+      externalLinkLabel: 'View details',
       link: AIRBNB_LINK,
       thumbnail: AIRBNB_IMAGE,
       icon: 'house'
@@ -87,9 +96,9 @@ const fixedPlanCards = {
       description: 'Coffee, something to eat, and absolutely no pressure to be functional. Use the time.',
       address: AIRBNB_ADDRESS,
       mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
-      externalLinkLabel: 'View on Airbnb',
+      externalLinkLabel: 'View details',
       link: AIRBNB_LINK,
-      thumbnail: AIRBNB_IMAGE,
+      thumbnail: meadowImages.sauna,
       icon: 'coffee'
     }
   ],
@@ -102,9 +111,9 @@ const fixedPlanCards = {
       description: "Slower morning. Make coffee, eat whatever's left, sit by the fire if it's still going. No rush.",
       address: AIRBNB_ADDRESS,
       mapsLink: 'https://maps.google.com/?q=13+Symonds+Street+Yarra+Glen+VIC+3775',
-      externalLinkLabel: 'View on Airbnb',
+      externalLinkLabel: 'View details',
       link: AIRBNB_LINK,
-      thumbnail: AIRBNB_IMAGE,
+      thumbnail: meadowImages.livingRoom,
       icon: 'coffee'
     }
   ]
@@ -113,7 +122,7 @@ const fixedPlanCards = {
 const defaultFinalSelections = {
   fridayNight: 'fri-pizza',
   saturdayMorning: 'sat-am-walk',
-  saturdayLunch: 'sat-lunch-rochford',
+  saturdayLunch: 'sat-lunch-fergusson',
   saturdayDrinks: 'sat-arvo-watts',
   saturdayNight: 'sat-night-bbq',
   sundayRecovery: 'sun-chocolaterie'
@@ -154,11 +163,11 @@ const travelConnectors = {
   Saturday: {
     'saturday-airbnb-brekkie::saturdayMorning': { labels: ['~25-30 min drive'] },
     'saturdayMorning::saturdayLunch': {
-      labels: ['~25-30 min drive', '~10-15 min drive'],
+      labels: ['~25-30 min drive', '~7 min drive'],
       note: 'Back to base to freshen up'
     },
     'saturdayLunch::saturdayDrinks': {
-      labels: ['~7 min drive'],
+      labels: ['~20 min drive'],
       note: "Designated drivers needed, or we'll book a couple of maxi cabs."
     },
     'saturdayDrinks::saturdayNight': {
@@ -246,17 +255,18 @@ function ItineraryCard({ item }) {
         <div className="confirmed-card-footer">
           {item.cost ? <span className="cost-chip">{item.cost}</span> : null}
           {item.bookingTag ? <span className="booking-chip">{item.bookingTag}</span> : null}
-          {item.link ? (
+          {(item.externalLinks || (item.link ? [{ label: 'View details', url: item.link }] : [])).map((link) => (
             <a
-              href={item.link}
+              key={`${link.label}-${link.url}`}
+              href={link.url}
               target="_blank"
               rel="noopener noreferrer"
               className="option-link"
             >
-              {item.externalLinkLabel || 'More info'}{' '}
+              {link.label}{' '}
               <span className="material-symbols-outlined">open_in_new</span>
             </a>
-          ) : null}
+          ))}
         </div>
       </div>
     </article>
@@ -277,6 +287,8 @@ function ConfirmedPlanCards({ activities }) {
       bookingNote: activity.option.bookingNote,
       bookingTag: activity.option.bookingTag,
       link: activity.option.link,
+      externalLinkLabel: activity.option.externalLinkLabel,
+      externalLinks: activity.option.externalLinks,
       thumbnail: activity.option.thumbnail,
       icon: activity.icon,
       ...overrides

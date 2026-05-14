@@ -1865,6 +1865,10 @@ textarea:disabled,
   gap: 0.5rem;
 }
 
+.confirmed-card-footer .option-link {
+  margin-top: 0;
+}
+
 .time-chip,
 .cost-chip,
 .booking-chip {
@@ -2045,6 +2049,8 @@ textarea:disabled,
 .collapsible-toggle {
   width: 100%;
   display: flex;
+  color: inherit;
+  font: inherit;
   align-items: flex-start;
   justify-content: space-between;
   background: none;
