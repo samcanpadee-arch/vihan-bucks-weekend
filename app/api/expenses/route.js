@@ -54,7 +54,10 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Invalid expense payload' }, { status: 400 });
     }
 
-    const id = body.id?.trim() || `exp_${Date.now()}`;
+    const id = typeof body.id === 'string' && body.id.trim() ? body.id.trim() : `exp_${Date.now()}`;
+    const createdAt = typeof body.createdAt === 'string' && !Number.isNaN(Date.parse(body.createdAt))
+      ? body.createdAt
+      : new Date().toISOString();
     const expense = {
       id,
       description,
@@ -62,7 +65,7 @@ export async function POST(request) {
       paidBy,
       splitType,
       splitAmong: Array.from(new Set(splitAmong)),
-      createdAt: body.createdAt || new Date().toISOString()
+      createdAt
     };
 
     const redis = await getRedis();

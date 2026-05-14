@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { accommodation, essentialsChecklist, itineraryTimeline, meadowImages, votingSections } from '../siteData';
 import AccommodationCard from '../components/AccommodationCard';
 import ItineraryTimeline from '../components/ItineraryTimeline';
@@ -131,7 +131,10 @@ const defaultFinalSelections = {
 function buildConfirmedActivities(finalResults = {}) {
   return votingSections
     .map((section) => {
-      const selectedId = defaultFinalSelections[section.key] || finalResults[section.key];
+      const savedSelection = finalResults[section.key];
+      const selectedId = section.options.some((opt) => opt.id === savedSelection)
+        ? savedSelection
+        : defaultFinalSelections[section.key];
       if (!selectedId) return null;
 
       const baseOption = section.options.find((opt) => opt.id === selectedId);
@@ -353,13 +356,15 @@ export default function ItineraryPage() {
     splitType: 'equal'
   });
 
-  const participantNames = Array.from(
-    new Map(
-      [...(results?.voterNames || []), ...customNames, ...expenses.flatMap((expense) => [expense.paidBy, ...(expense.splitAmong || [])])]
-        .filter(Boolean)
-        .map((name) => [name.trim().toLowerCase(), name.trim()])
-    ).values()
-  );
+  const participantNames = useMemo(() => (
+    Array.from(
+      new Map(
+        [...(results?.voterNames || []), ...customNames, ...expenses.flatMap((expense) => [expense.paidBy, ...(expense.splitAmong || [])])]
+          .filter(Boolean)
+          .map((name) => [name.trim().toLowerCase(), name.trim()])
+      ).values()
+    )
+  ), [results?.voterNames, customNames, expenses]);
 
   const settlement = (() => {
     const ledger = {};
@@ -455,7 +460,7 @@ export default function ItineraryPage() {
         setExpenses(data.expenses || []);
       } catch (error) {
         console.error(error);
-        setExpenseError("Couldn't save that. Try again.");
+        setExpenseError("Couldn't load expenses. Refresh and try again.");
       } finally {
         setExpensesLoading(false);
       }
@@ -823,8 +828,9 @@ export default function ItineraryPage() {
             ) : expenses.length ? (
               <ul className="expense-list">
                 {expenses.map((expense) => {
-                  const isEveryone = expense.splitAmong.length === participantNames.length;
-                  const splitSummary = isEveryone ? 'Everyone' : `Split ${expense.splitAmong.length} ways`;
+                  const splitCount = expense.splitAmong?.length || 0;
+                  const isEveryone = splitCount > 0 && splitCount === participantNames.length;
+                  const splitSummary = isEveryone ? 'Everyone' : `Split ${splitCount} ways`;
 
                   return (
                     <li key={expense.id}>
