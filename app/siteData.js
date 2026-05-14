@@ -162,13 +162,19 @@ export const votingSections = [
         bookingNote: '',
       },
       {
-        id: 'sat-lunch-rochford',
-        title: 'Rochford Wines',
-        description: 'Large cellar door with outdoor seating. Good food, live music on weekends.',
-        cost: null,
+        id: 'sat-lunch-fergusson',
+        title: 'Fergusson Winery',
+        description: "One of the Yarra Valley's oldest family wineries, sitting on a hillside with views over the vines. We're starting with a guided tasting through five of their wines at $10 each for the tasting, then sitting down for lunch.",
+        cost: '$10 tasting',
         timeConstraint: null,
-        link: 'https://rochfordwines.com.au/yarra-valley-cellar-door',
-        thumbnail: 'https://rochfordwines.com.au/img/cellar-door-1.jpg',
+        link: 'https://fergussonwinery.com.au/cellar-door/',
+        externalLinkLabel: 'Fergusson Winery',
+        externalLinks: [
+          { label: 'Fergusson Winery', url: 'https://fergussonwinery.com.au/cellar-door/' },
+          { label: 'View menu', url: 'https://fergussonwinery.com.au/a-la-carte-menu/' }
+        ],
+        thumbnail: 'https://fergussonwinery.com.au/wp-content/uploads/2024/07/Cellar-Door.jpeg',
+        bookingTag: 'Confirmed booking',
         bookingNote: '',
       },
       {
@@ -351,8 +357,8 @@ export const votingSections = [
       {
         id: 'sun-chocolaterie',
         title: 'Yarra Valley Chocolaterie',
-        description: 'Free entry, optional tasting. Good hangover food decision.',
-        cost: 'Free entry, ~$4 tasting',
+        description: 'Taste your way through 12 handmade chocolates, then get hands-on making your own Rocky Road and Hot Chocolate Whisk. $24 each, 30 minutes, deposit paid.',
+        cost: '$24 each',
         timeConstraint: null,
         link: 'https://www.yvci.com.au/',
         thumbnail: thumb('https://www.yvci.com.au/'),

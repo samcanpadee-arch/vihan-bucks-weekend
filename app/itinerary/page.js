@@ -30,8 +30,16 @@ const confirmedActivityOverrides = {
     bookingNote: ''
   },
   saturdayLunch: {
-    time: '1pm',
-    description: "Cellar door tasting followed by a proper sit-down lunch with meadow views and live music on weekends. It's a winery lunch, so yes it's a bit fancy, and yes that's the point.",
+    time: '1:00pm',
+    description: "One of the Yarra Valley's oldest family wineries, sitting on a hillside with views over the vines. We're starting with a guided tasting through five of their wines at $10 each for the tasting, then sitting down for lunch.",
+    address: '82 Wills Road, Dixons Creek VIC 3775',
+    mapsLink: 'https://maps.google.com/?q=82+Wills+Road+Dixons+Creek+VIC+3775',
+    externalLinkLabel: 'Fergusson Winery',
+    externalLinks: [
+      { label: 'Fergusson Winery', url: 'https://fergussonwinery.com.au/cellar-door/' },
+      { label: 'View menu', url: 'https://fergussonwinery.com.au/a-la-carte-menu/' }
+    ],
+    bookingTag: 'Confirmed booking',
     bookingNote: ''
   },
   saturdayDrinks: {
@@ -49,7 +57,7 @@ const confirmedActivityOverrides = {
   },
   sundayRecovery: {
     time: '10:30am',
-    description: 'Taste your way through 12 handmade chocolates, then get hands-on making your own Rocky Road and Hot Chocolate Whisk. 30 minutes, fully booked, deposit paid.',
+    description: 'Taste your way through 12 handmade chocolates, then get hands-on making your own Rocky Road and Hot Chocolate Whisk. $24 each, 30 minutes, deposit paid.',
     cost: null,
     bookingTag: 'Confirmed booking',
     bookingNote: ''
@@ -113,7 +121,7 @@ const fixedPlanCards = {
 const defaultFinalSelections = {
   fridayNight: 'fri-pizza',
   saturdayMorning: 'sat-am-walk',
-  saturdayLunch: 'sat-lunch-rochford',
+  saturdayLunch: 'sat-lunch-fergusson',
   saturdayDrinks: 'sat-arvo-watts',
   saturdayNight: 'sat-night-bbq',
   sundayRecovery: 'sun-chocolaterie'
@@ -153,10 +161,7 @@ function buildConfirmedActivities(finalResults = {}) {
 const travelConnectors = {
   Saturday: {
     'saturday-airbnb-brekkie::saturdayMorning': { labels: ['~25-30 min drive'] },
-    'saturdayMorning::saturdayLunch': {
-      labels: ['~25-30 min drive', '~10-15 min drive'],
-      note: 'Back to base to freshen up'
-    },
+    'saturdayMorning::saturdayLunch': { labels: ['~10 min drive'] },
     'saturdayLunch::saturdayDrinks': {
       labels: ['~7 min drive'],
       note: "Designated drivers needed, or we'll book a couple of maxi cabs."
@@ -246,17 +251,18 @@ function ItineraryCard({ item }) {
         <div className="confirmed-card-footer">
           {item.cost ? <span className="cost-chip">{item.cost}</span> : null}
           {item.bookingTag ? <span className="booking-chip">{item.bookingTag}</span> : null}
-          {item.link ? (
+          {(item.externalLinks || (item.link ? [{ label: item.externalLinkLabel || 'More info', url: item.link }] : [])).map((link) => (
             <a
-              href={item.link}
+              key={`${link.label}-${link.url}`}
+              href={link.url}
               target="_blank"
               rel="noopener noreferrer"
               className="option-link"
             >
-              {item.externalLinkLabel || 'More info'}{' '}
+              {link.label}{' '}
               <span className="material-symbols-outlined">open_in_new</span>
             </a>
-          ) : null}
+          ))}
         </div>
       </div>
     </article>
@@ -277,6 +283,8 @@ function ConfirmedPlanCards({ activities }) {
       bookingNote: activity.option.bookingNote,
       bookingTag: activity.option.bookingTag,
       link: activity.option.link,
+      externalLinkLabel: activity.option.externalLinkLabel,
+      externalLinks: activity.option.externalLinks,
       thumbnail: activity.option.thumbnail,
       icon: activity.icon,
       ...overrides
