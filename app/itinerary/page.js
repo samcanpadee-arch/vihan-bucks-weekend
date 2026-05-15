@@ -43,9 +43,10 @@ const confirmedActivityOverrides = {
     bookingNote: ''
   },
   saturdayDrinks: {
-    time: '3pm',
-    description: "Local craft brewery in Healesville. We'll aim for enough space for the group to sit together. Good beer, relaxed vibe, no agenda beyond that.",
-    cost: null,
+    time: '3:30pm',
+    description: "Watts River is locked in for 3:30pm. They'll run us through a four-beer paddle of their core range — Blonde, River Sessions, IPA and Stout — with tasting notes and a proper intro from the brewery team. Easy Healesville stop, good beer, and just enough structure to count as a plan.",
+    cost: '$16 pp',
+    bookingTag: 'Confirmed booking',
     bookingNote: ''
   },
   saturdayNight: {
