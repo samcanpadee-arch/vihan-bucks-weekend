@@ -52,7 +52,7 @@ const confirmedActivityOverrides = {
   saturdayNight: {
     title: 'BBQ at The Meadow',
     time: 'From 7:00pm',
-    description: 'Back at base. Fire up the BBQ, grill things, eat things, sit outside if the weather holds. No logistics, no bookings, no one in charge.',
+    description: 'Dinner back at The Meadow. Fire up the BBQ, open the wines, crack the beers, and make use of everything the house has to offer. Sauna, pool table, fire, whatever the night turns into',
     thumbnail: meadowImages.alfresco,
     cost: null,
     bookingNote: ''
