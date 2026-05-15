@@ -17,7 +17,7 @@ export const accommodation = {
   description: 'Spa, sauna, big kitchen, good lawn. This is going to be a good one. 13 Symonds Street, Yarra Glen. Save it. Show up.',
   linkLabel: 'Booking.com listing',
   link: 'https://www.booking.com/hotel/au/the-meadow-yarra-valley-large-entertainer-with-spa-sauna.en-gb.html',
-  image: meadowImages.exterior,
+  image: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-1561866387856977252/original/7657df82-b6e8-47ec-97f7-33590360cbea.jpeg?im_w=720&im_q=medq',
   imageAlt: 'The Meadow in Yarra Glen'
 };
 
@@ -244,11 +244,12 @@ export const votingSections = [
       {
         id: 'sat-arvo-watts',
         title: 'Watts River Brewing',
-        description: 'Local craft brewery in Healesville. Walk in, order beers, sit outside. No structure required.',
-        cost: 'Pay as you go',
-        timeConstraint: null,
+        description: "Family-owned independent craft brewery in the heart of Healesville. We'll be doing a paddle of their four core beers, a Blonde, Session Pale, IPA and Stout, with tasting notes and a proper introduction from the brewery team. Good spot to sit back and work through it.",
+        cost: null,
+        timeConstraint: 'Booked for 3:30pm.',
         link: 'https://wattsriverbrewing.com.au/',
         thumbnail: thumb('https://wattsriverbrewing.com.au/'),
+        bookingTag: 'Confirmed booking',
         bookingNote: '',
       },
       {

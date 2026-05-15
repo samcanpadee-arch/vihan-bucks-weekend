@@ -43,15 +43,16 @@ const confirmedActivityOverrides = {
     bookingNote: ''
   },
   saturdayDrinks: {
-    time: '3pm',
-    description: "Local craft brewery in Healesville. We'll aim for enough space for the group to sit together. Good beer, relaxed vibe, no agenda beyond that.",
+    time: '3:30pm',
+    description: "Family-owned independent craft brewery in the heart of Healesville. We'll be doing a paddle of their four core beers, a Blonde, Session Pale, IPA and Stout, with tasting notes and a proper introduction from the brewery team. Good spot to sit back and work through it.",
     cost: null,
+    bookingTag: 'Confirmed booking',
     bookingNote: ''
   },
   saturdayNight: {
     title: 'BBQ at The Meadow',
     time: 'From 7:00pm',
-    description: 'Back at base. Fire up the BBQ, grill things, eat things, sit outside if the weather holds. No logistics, no bookings, no one in charge.',
+    description: 'Dinner back at The Meadow. Fire up the BBQ, open the wines, crack the beers, and make use of everything the house has to offer. Sauna, pool table, fire, whatever the night turns into',
     thumbnail: meadowImages.alfresco,
     cost: null,
     bookingNote: ''
