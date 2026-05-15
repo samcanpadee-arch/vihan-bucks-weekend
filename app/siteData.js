@@ -17,7 +17,7 @@ export const accommodation = {
   description: 'Spa, sauna, big kitchen, good lawn. This is going to be a good one. 13 Symonds Street, Yarra Glen. Save it. Show up.',
   linkLabel: 'Booking.com listing',
   link: 'https://www.booking.com/hotel/au/the-meadow-yarra-valley-large-entertainer-with-spa-sauna.en-gb.html',
-  image: meadowImages.exterior,
+  image: 'https://a0.muscache.com/im/pictures/prohost-api/Hosting-1561866387856977252/original/7657df82-b6e8-47ec-97f7-33590360cbea.jpeg?im_w=720&im_q=medq',
   imageAlt: 'The Meadow in Yarra Glen'
 };
 
