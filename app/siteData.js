@@ -244,8 +244,8 @@ export const votingSections = [
       {
         id: 'sat-arvo-watts',
         title: 'Watts River Brewing',
-        description: 'Local craft brewery in Healesville. For groups bigger than four, they do a $16 paddle of the four core beers — Blonde, River Sessions, IPA and Stout — with tasting notes and an intro from the brewery team.',
-        cost: '$16 pp',
+        description: "Family-owned independent craft brewery in the heart of Healesville. We'll be doing a paddle of their four core beers, a Blonde, Session Pale, IPA and Stout, with tasting notes and a proper introduction from the brewery team. Good spot to sit back and work through it.",
+        cost: null,
         timeConstraint: 'Booked for 3:30pm.',
         link: 'https://wattsriverbrewing.com.au/',
         thumbnail: thumb('https://wattsriverbrewing.com.au/'),

@@ -44,8 +44,8 @@ const confirmedActivityOverrides = {
   },
   saturdayDrinks: {
     time: '3:30pm',
-    description: "Watts River is locked in for 3:30pm. They'll run us through a four-beer paddle of their core range — Blonde, River Sessions, IPA and Stout — with tasting notes and a proper intro from the brewery team. Easy Healesville stop, good beer, and just enough structure to count as a plan.",
-    cost: '$16 pp',
+    description: "Family-owned independent craft brewery in the heart of Healesville. We'll be doing a paddle of their four core beers, a Blonde, Session Pale, IPA and Stout, with tasting notes and a proper introduction from the brewery team. Good spot to sit back and work through it.",
+    cost: null,
     bookingTag: 'Confirmed booking',
     bookingNote: ''
   },
